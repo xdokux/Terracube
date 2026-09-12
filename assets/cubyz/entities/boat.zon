@@ -1,0 +1,26 @@
+{
+    // Entity definition for boat
+    name = "Boat",
+    model = "cubyz:boat",
+    width = 0.9,
+    height = 0.6,
+    
+    // Physical properties
+    gravity = 9.81,
+    friction = 0.95,
+    drag = 0.1,
+    
+    // Buoyancy in water
+    buoyancy = 9.81,
+    waterSink = 0.3,
+    
+    // Movement
+    maxSpeed = 8.0,
+    acceleration = 15.0,
+    turnSpeed = 3.0,
+    
+    // Interaction
+    interactRange = 2.0,
+    canBeMounted = true,
+    ridersAllowed = 1,
+}
