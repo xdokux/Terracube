@@ -1,0 +1,42 @@
+screen.ATMOSPHERE=Atmosphere & Sky
+screen.LIGHTING=Lighting & GI
+screen.CAMERA=Cinematic Camera
+screen.WATER=Water
+
+option.SKY_DENSITY=Atmosphere Density
+option.HAZE_HUMIDITY=Humidity Haze
+option.CLOUDS_ENABLED=Volumetric Clouds
+option.CLOUD_COVERAGE=Cloud Coverage
+option.CLOUD_QUALITY=Cloud Quality
+value.CLOUD_QUALITY.0=Low
+value.CLOUD_QUALITY.1=High
+value.CLOUD_QUALITY.2=Ultra
+option.FOG_STORM_BOOST=Storm Fog Boost
+
+option.SUN_INTENSITY=Sun Intensity
+option.SSGI_ENABLED=Screen-Space GI
+option.GI_STRENGTH=GI Strength
+option.SSAO_STRENGTH=Ambient Occlusion
+option.CONTACT_SHADOWS=Contact Shadows
+option.LIGHTNING_FLASH=Lightning Flashes
+option.LABPBR=PBR Textures (labPBR)
+option.POM=Parallax (Height Maps)
+option.POM_DEPTH=Parallax Depth
+option.POM_SAMPLES=Parallax Quality
+option.POM_DISTANCE=Parallax Distance
+option.GI_SAMPLES=GI Samples
+option.GI_DISTANCE=GI Distance
+option.SHADOW_QUALITY=Shadow Softness
+value.SHADOW_QUALITY.1=High
+value.SHADOW_QUALITY.2=Ultra
+value.SHADOW_QUALITY.3=Cinematic
+
+option.EXPOSURE_BIAS=Exposure Bias
+option.AUTO_EXPOSURE=Eye Adaptation
+option.GLARE_STRENGTH=Lens Glare
+option.FILM_GRAIN=Film Grain
+option.CHROM_ABERRATION=Chromatic Aberration
+
+option.WATER_ABSORPTION=Water Absorption
+option.CAUSTICS_ENABLED=Water Caustics
+option.WATER_REFLECTIONS=Water Reflections

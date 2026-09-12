@@ -1,0 +1,4 @@
+option.ABOUT_ESSENTIALS=[ HOVER ME ]
+value.ABOUT_ESSENTIALS.1=Info
+
+option.ABOUT_ESSENTIALS.comment=A lightweight Minecraft shader with only essential VFX to simulate realistic effects such as shadows, sun rays, etc., to run on integrated GPUs.\n\nThere are lots of lightweight shaders, and they are said to preserve FPS well, but ESSENTIALS shader takes it to the BARE BONES next level with fake sunrays/moonrays, semi-realistic water, depth-based fogs, and much more.\n\nYeah, it's probably the worst shader you have come across, but it will surely do what it was made for.\n\nNOTE: There is no pack settings to change here since, everything is optimized as much as possible, so that you can just enable and play!

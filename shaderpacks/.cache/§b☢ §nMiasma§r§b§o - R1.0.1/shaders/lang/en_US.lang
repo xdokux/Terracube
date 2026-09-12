@@ -1,0 +1,55 @@
+#Settings
+option.BY=§6Hover over me
+option.BY.comment=§9Discord: §fhttps://discord.com/invite/65CkSpxrmm. §4YouTube: §fhttps://www.youtube.com/@lolip_p.
+value.BY.0=§fBy LoLip_p
+value.BY.1=§fBy LoLip_p
+
+screen.PP=Post Processing
+screen.LT=Lighting
+
+option.TYPE_AA=§6Types Anti-Aliasing
+option.TYPE_AA.comment=§2Fast Approximate Anti-Aliasing §f(§6FXAA§f). It works by analyzing pixels on the screen and applying a blur filter to reduce the appearance of these jagged edges without requiring significant computing power. §2Temporal anti-aliasing §f(§6TAA§f). Combines information from past frames and the current frame to remove jaggies in the current frame
+value.TYPE_AA.0=FXAA
+value.TYPE_AA.1=TAA
+
+#Motion Blur
+option.MOTION_BLUR=§6Motion Blur
+option.MOTION_BLUR.comment=Blur the image when rotating the camera (makes the gameplay more enjoyable and smooth). The higher the value, the greater the smoothness effect. It is recommended to leave it on and change only the §2Motion Blur Strength §f parameter, depending on your preferences.
+value.MOTION_BLUR.0=Off
+value.MOTION_BLUR.1=On
+option.MOTION_BLURRING_STRENGTH=Motion Blur Strength
+option.MOTION_BLURRING_STRENGTH.comment=Adjusts the blur strength. §4A high value may cause dizziness and motion sickness in some people.
+
+option.FOG=§6Fog
+value.FOG.0=Off
+value.FOG.1=On
+option.FOG_DISTANCE=Fog distance
+
+option.shadowDistance=Shadow Distance
+option.shadowDistance.comment=Adjusts shadow distance.
+
+value.shadowDistance.64.0=§a4 Chunks
+value.shadowDistance.80.0=§a5 Chunks
+value.shadowDistance.96.0=§a6 Chunks
+value.shadowDistance.112.0=§a7 Chunks
+value.shadowDistance.128.0=§a8 Chunks
+value.shadowDistance.160.0=§e10 Chunks
+value.shadowDistance.192.0=§e12 Chunks
+value.shadowDistance.224.0=§e14 Chunks
+value.shadowDistance.256.0=§c16 Chunks
+value.shadowDistance.320.0=§c20 Chunks
+value.shadowDistance.384.0=§4§l24 Chunks
+value.shadowDistance.512.0=§4§l32 Chunks
+value.shadowDistance.768.0=§4§k-§r§4§l§n§o48 Chunks§r§4§k-
+value.shadowDistance.1024.0=§4§k-§r§4§l§n§o64 Chunks§r§4§k-
+
+option.shadowMapResolution=Quality
+option.shadowMapResolution.comment=Adjusts shadowmap size. §e[*]§r Higher resolution gives sharper shadows, but reduces performance.
+value.shadowMapResolution.512=Very Low (512)
+value.shadowMapResolution.768=Low (768)
+value.shadowMapResolution.1024=Low Medium (1024)
+value.shadowMapResolution.1536=Medium (1536)
+value.shadowMapResolution.2048=Medium High (2048)
+value.shadowMapResolution.3072=High (3072)
+value.shadowMapResolution.4096=Very High (4096)
+value.shadowMapResolution.8192=Ultra High (8192)

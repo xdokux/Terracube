@@ -1,0 +1,246 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+/*
+    [Credits]:
+        sixthsurge - help with the blocklight falloff function (https://github.com/sixthsurge)
+        Zombye     - skylight falloff function (https://github.com/zombye)
+*/
+
+const float labPBRMetals = 229.5;
+
+const vec3 labPBRData0Range = vec3(1.0, 8191.0, 4095.0);
+
+struct Material {
+    vec3 albedo;
+    vec3 normal;
+
+    vec2 lightmap;
+
+    float F0;
+    float alpha;
+    float ao;
+    float emission;
+    float subsurface;
+
+    vec3 N;
+    vec3 K;
+
+    float parallaxSelfShadowing;
+
+    uint id;
+};
+
+const float airIOR  = 1.00029;
+const float waterF0 = 0.02;
+
+const mat2x3 hardcodedMetals[] = mat2x3[](
+    mat2x3(vec3(2.9114, 2.9497, 2.5845),    // Iron
+           vec3(3.0893, 2.9318, 2.7670)),
+    mat2x3(vec3(0.18299, 0.42108, 1.3734),  // Gold
+           vec3(3.4242, 2.3459, 1.7704)),
+    mat2x3(vec3(1.3456, 0.96521, 0.61722),  // Aluminum
+           vec3(7.4746, 6.3995, 5.3031)),
+    mat2x3(vec3(3.1071, 3.1812, 2.3230),    // Chrome
+           vec3(3.3314, 3.3291, 3.1350)),
+    mat2x3(vec3(0.27105, 0.67693, 1.3164),  // Copper
+           vec3(3.6092, 2.6248, 2.2921)),
+    mat2x3(vec3(1.9100, 1.8300, 1.4400),    // Lead
+           vec3(3.5100, 3.4000, 3.1800)),
+    mat2x3(vec3(2.3757, 2.0847, 1.8453),    // Platinum
+           vec3(4.2655, 3.7153, 3.1365)),
+    mat2x3(vec3(0.15943, 0.14512, 0.13547), // Silver
+           vec3(3.9291, 3.1900, 2.3808))
+);
+
+float f0ToIOR(float F0) {
+    F0 = sqrt(F0) * 0.99999;
+    return airIOR * ((1.0 + F0) / (1.0 - F0));
+}
+
+vec3 f0ToIOR(vec3 F0) {
+    F0 = sqrt(F0) * 0.99999;
+    return airIOR * ((1.0 + F0) / (1.0 - F0));
+}
+
+float iorToF0(float ior) {
+    float a = (ior - airIOR) / (ior + airIOR);
+    return a * a;
+}
+
+mat2x3 getHardcodedMetal(vec3 albedo, float F0) {
+    int metalID = int(F0 * 255.0 - labPBRMetals);
+    return metalID >= 0 && metalID < 8 ? hardcodedMetals[metalID] : mat2x3(f0ToIOR(albedo), vec3(0.0));
+}
+
+bool isWater(uint materialID) {
+    #if defined DISTANT_HORIZONS
+        return materialID == WATER_ID || materialID == DH_BLOCK_WATER;
+    #else
+        return materialID == WATER_ID;
+    #endif
+}
+
+uvec4 storeMaterial(
+    float F0,
+    float roughness,
+    float ao,
+    float emission,
+    float subsurface,
+
+    vec3 albedo,
+    vec2 encodedNormal,
+
+    vec2 lightmap,
+
+    float parallaxSelfShadowing,
+
+    uint id
+) {
+    vec3 labPBRData0 = vec3(parallaxSelfShadowing, saturate(lightmap));
+    vec4 labPBRData1 = vec4(ao, emission, F0, subsurface);
+    vec4 labPBRData2 = vec4(albedo, roughness * roughness);
+
+    uvec4 shiftedLabPbrData0 = uvec4(round(labPBRData0 * labPBRData0Range), id) << uvec4(0, 1, 14, 26);
+
+    uvec4 data;
+    data.x = shiftedLabPbrData0.x | shiftedLabPbrData0.y | shiftedLabPbrData0.z | shiftedLabPbrData0.w;
+    data.y = packUnorm4x8(labPBRData1);
+    data.z = packUnorm4x8(labPBRData2);
+    data.w = packUnorm2x16(encodedNormal);
+
+    return data;
+}
+
+Material getMaterial(vec2 coords) {
+    uvec4 dataTexture = texelFetch(GBUFFERS_DATA, ivec2(coords * viewSize), 0);
+
+    vec4 data0 = unpackUnorm4x8(dataTexture.y);
+    vec4 data1 = unpackUnorm4x8(dataTexture.z);
+
+    Material material;
+
+    material.alpha      = data1.w;
+    material.ao         = data0.x;
+    material.emission   = data0.y;
+    material.F0         = data0.z;
+    material.subsurface = data0.w;
+
+    #if MATERIAL_AO == 0
+        material.ao = 1.0;
+    #endif
+
+    material.albedo = data1.rgb;
+
+    #if TONEMAP == ACES
+        material.albedo = srgbToAP1Albedo(material.albedo);
+    #else
+        material.albedo = srgbToLinear(material.albedo);
+    #endif
+
+    if (material.F0 * maxFloat8 > labPBRMetals) {
+        mat2x3 hcm = getHardcodedMetal(material.albedo, material.F0);
+        material.N = hcm[0], material.K = hcm[1];
+    } else {
+        material.N = vec3(f0ToIOR(material.F0));
+        material.K = vec3(0.0);
+    }
+
+    material.parallaxSelfShadowing = float(dataTexture.x & 1u);
+
+    material.normal = mat3(gbufferModelView) * decodeUnitVector(unpackUnorm2x16(dataTexture.w));
+
+    material.id       = int(dataTexture.x >> 26u & 63u);
+    material.lightmap = vec2(dataTexture.x >> 1u & 8191u, dataTexture.x >> 14u & 4095u) * vec2(rcpMaxFloat13, rcpMaxFloat12);
+
+    return material;
+}
+
+vec3 unpackAlbedo(uint packedData) {
+    #if TONEMAP == ACES
+        return srgbToAP1Albedo(unpackUnorm4x8(packedData).rgb);
+    #else
+        return srgbToLinear(unpackUnorm4x8(packedData).rgb);
+    #endif
+}
+
+vec3 unpackNormal(uint packedData) {
+    return normalize(mat3(gbufferModelView) * decodeUnitVector(unpackUnorm2x16(packedData)));
+}
+
+float unpackF0(uint packedData) {
+    return unpackUnorm4x8(packedData).z;
+}
+
+float unpackAO(uint packedData) {
+    return unpackUnorm4x8(packedData).x;
+}
+
+float unpackAlpha(uint packedData) {
+    return unpackUnorm4x8(packedData).w;
+}
+
+float unpackEmission(uint packedData) {
+    return unpackUnorm4x8(packedData).y;
+}
+
+float unpackSubsurface(uint packedData) {
+    return unpackUnorm4x8(packedData).w;
+}
+
+float unpackParallaxSelfShadowing(uint packedData) {
+    return float(packedData & 1u);
+}
+
+vec2 unpackLightmap(uint packedData) {
+    return vec2(packedData >> 1u & 8191u, packedData >> 14u & 4095u) * vec2(rcpMaxFloat13, rcpMaxFloat12);
+}
+
+int unpackId(uint packedData) {
+    return int(packedData >> 26u & 63u);
+}
+
+vec3 getN(vec3 albedo, float F0) {
+    if (F0 * maxFloat8 > labPBRMetals) {
+        return getHardcodedMetal(albedo, F0)[0];
+    } else {
+        return vec3(f0ToIOR(F0));
+    }
+}
+
+vec3 getK(vec3 albedo, float F0) {
+    if (F0 * maxFloat8 > labPBRMetals) {
+        return getHardcodedMetal(albedo, F0)[1];
+    } else {
+        return vec3(0.0);
+    }
+}
+
+vec3 getBlockLightColor() {
+    return blackbody(BLOCKLIGHT_TEMPERATURE) * EMISSIVE_INTENSITY;
+}
+
+float getBlocklightFalloff(float lightmapX) {
+    return linearStep(0.00390625, 1.0, 1.0 / pow2(16.0 - 15.0 * lightmapX));
+}
+
+float getSkylightFalloff(float lightmapY) {
+    return lightmapY * exp(3.0 * (lightmapY - 1.0));
+}

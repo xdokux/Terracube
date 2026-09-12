@@ -1,0 +1,15 @@
+option.chromaticAbberation = Chromatic Abberation
+option.abberationAmount = Abberation Amount
+option.noiseToggle = Noise
+option.noiseSize = Noise Size
+option.vignetteAmount = Vignette Size
+option.vignette = Vignette
+option.fogToggle = Fog
+option.fogStrenth = Fog Strength
+option.oldFoliageGreen = Old Vibrant Green Foliage
+option.foliageGreenAmount = Foliage Green Strength
+option.noWaterTransparency = No Water Transparency
+option.waterBlueness = Water Blueness
+option.fogSkyOverlap = Fog Sky Overlap
+option.starBrightness = Star Brightness
+option.sunMoonBrightness = Sun and Moon Brightness

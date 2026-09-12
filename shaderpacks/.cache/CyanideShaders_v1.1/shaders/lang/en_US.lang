@@ -1,0 +1,68 @@
+
+screen.COLORS           = Colors
+screen.COLORS.comment   = Modify the colors of the shaderpack.  
+screen.LIGHTC           = Lighting
+screen.NETHER           = Nether
+screen.END              = End
+screen.POST             = Post-Processing
+screen.POST.comment     = Toggle Post-Processing effects, such as bloom.
+screen.ATMO             = Atmospherics
+screen.ATMO.comment     = Modify the atmospheric visuals of the shaderpack.
+
+option.INFO                     = Cyanide Shaders
+value.INFO.0                    = Release 1.1
+option.INFO.comment             = Credits - MLGImposter, Akashii, XorDev.
+
+option.SHADERSMOD               = Shadersmod
+option.SHADERSMOD.comment       = Select the shaders loader you're using. §9[§fi§9]§f Select Iris to fix the sky.
+value.SHADERSMOD.0              = Optifine
+value.SHADERSMOD.1              = Iris
+
+option.BLOOM                    = Bloom
+option.BLOOM.comment            = Creates a blur effect on bright surfaces. §9[§fi§9]§f Could affect performance.
+option.BLOOM_MULT               = Bloom Strength
+option.BLOOM_MULT.comment       = Modify the intensity of the blur effect.
+option.TONEMAPPING              = Tonemap Operator
+option.TONEMAPPING.comment      = Simulates HDR, and modifies colors. §9[§fi§9]§f Choose Uncharted 2 to make the game look like Minecraft Xbox 360 Edition.
+value.TONEMAPPING.0             = §cNone
+value.TONEMAPPING.1             = Filmic
+value.TONEMAPPING.2             = Uncharted 2
+value.TONEMAPPING.3             = ACES Approximated
+value.TONEMAPPING.4             = Reinhard
+
+option.RLRISE           = Sunrise §cRed §fAmount
+option.GLRISE           = Sunrise §aGreen §fAmount
+option.BLRISE           = Sunrise §bBlue §fAmount
+
+option.RLDAY            = Day §cRed §fAmount
+option.GLDAY            = Day §aGreen §fAmount
+option.BLDAY            = Day §bBlue §fAmount
+
+option.RLSET            = Sunset §cRed §fAmount
+option.GLSET            = Sunset §aGreen §fAmount
+option.BLSET            = Sunset §bBlue §fAmount
+
+option.RLNIGHT          = Night §cRed §fAmount
+option.GLNIGHT          = Night §aGreen §fAmount
+option.BLNIGHT          = Night §bBlue §fAmount
+
+option.NETHERR          = §cRed §fAmount
+option.NETHERG          = §aGreen §fAmount
+option.NETHERB          = §bBlue §fAmount
+
+option.ENDR             = §cRed §fAmount
+option.ENDG             = §aGreen §fAmount
+option.ENDB             = §bBlue §fAmount
+
+option.BSUNRISE         = Brightness
+option.BDAY             = Brightness
+option.BSUNSET          = Brightness
+option.BNIGHT           = Brightness
+
+option.FOG                  = Fog
+option.FOG.comment          = Generates fog which has the color synced with the time. §9[§fi§9]§f Requires Fog to be set to Fancy in Detail Settings
+option.FOG_DENSITY          = Density
+option.FOG_DENSITY.comment  = Modify the density of the fog. §9[§fi§9]§f Too high values may cause a few issues.
+option.FOG_DIST             = Distance
+option.FOG_DIST.comment     = Modify the distance from the fog. §9[§fi§9]§f The distance is also affected by the render distance.
+

@@ -1,0 +1,84 @@
+option.STEADFAST=Steadfast Shaders
+option.STEADFAST.comment=Made by coderbot16, the original developer of Iris. \
+	This is a closed alpha release - §c§lplease do not redistribute in public!
+value.STEADFAST.BY_CODERBOT=by coderbot16
+profile.MINISHITA_HIGH=§aMinishita (WIP)§r style - §b🔥 High§r
+profile.MINISHITA_HIGH=§aMinishita (WIP)§r style - §b🔥 High§r
+profile.MINISHITA_MEDIUM=§aMinishita (WIP)§r style - §a» Medium§r
+profile.MINISHITA_LOW=§aMinishita (WIP)§r style - §e↓ Low§r
+profile.MINISHITA_TOASTER=§aMinishita (WIP)§r style - §c▶ Toaster§r
+profile.PARAGON_HIGH=§a★ Paragon§r style - §b🔥 High§r
+profile.PARAGON_MEDIUM=§a★ Paragon§r style - §a» Medium§r
+profile.PARAGON_LOW=§a★ Paragon§r style - §e↓ Low§r
+profile.PARAGON_TOASTER=§a★ Paragon§r style - §c▶ Toaster§r
+profile.FANTASY_HIGH=§d🪄 Fantasy§r style - §b🔥 High§r
+profile.FANTASY_MEDIUM=§d🪄 Fantasy§r style - §a» Medium§r
+profile.FANTASY_LOW=§d🪄 Fantasy§r style - §e↓ Low§r
+profile.FANTASY_TOASTER=§d🪄 Fantasy§r style - §c▶ Toaster§r
+profile.SEMI_NATURAL_HIGH=§b🗻 Semi-Natural§r style - §b🔥 High§r
+profile.SEMI_NATURAL_MEDIUM=§b🗻 Semi-Natural§r style - §a» Medium§r
+profile.SEMI_NATURAL_LOW=§b🗻 Semi-Natural§r style - §e↓ Low§r
+profile.SEMI_NATURAL_TOASTER=§b🗻 Semi-Natural§r style - §c▶ Toaster§r
+profile.RETRO_MEDIUM=§6😎 Retro§r style - §a» Medium§r
+profile.RETRO_LOW=§6😎 Retro§r style - §e↓ Low§r
+profile.RETRO_TOASTER=§6😎 Retro§r style - §c▶ Toaster§r
+profile.comment=\
+	§a★ Paragon§r: The flagship style of Steadfast.. \
+	Colorful and pleasing, Paragon unifies the Semi-Natural (daytime) and \
+	Fantasy (nighttime) styles and is the very best that Steadfast has to \
+	offer.\n\n\
+	\
+	§d🪄 Fantasy§r: A warm style emphasizing blue and yellow.. \
+	Fantasy draws inspiration from the classic look of Chocapic13's shaders \
+	and edits like Sildur's shaders.\n\n\
+	\
+	§b⛰ Semi-Natural§r: A bright, realism-focused style.. \
+	Semi-Natural draws inspiration from the brighter, colder aesthetic of the \
+	SEUS v10.1 era, and approximates a more "natural" / "realistic" look.\n\n\
+	\
+	§6😎 Retro§r: A warm, cozy, and very lightweight style.. \
+	A throwback to 2012 shaders, Retro features weakened contrast between the \
+	sun and shadows, no directional shading from sunlight (like internal \
+	shaders), and the vanilla water texture.\n\n\
+	\
+	§b🔥 High§r / §a» Medium§r / §e↓ Low§r / §c▶ Toaster§r - Pre-tuned \
+	tradeoffs between quality and performance allowing you to adapt Steadfast \
+	to your device..
+
+screen.EFFECTS=Effects & post-processing
+screen.WATER=Water & stained glass
+screen.ATMOSPHERE_CLOUDS=Atmosphere & clouds
+screen.LIGHTING=Lighting & shadows
+screen.DEVELOPMENT=Development & debugging
+
+option.shadowDistance=Shadow Distance
+value.shadowDistance.32.0=Minimum (2 chunks)
+value.shadowDistance.48.0=Very Low (3 chunks)
+value.shadowDistance.64.0=Low (4 chunks)
+value.shadowDistance.80.0=Low (5 chunks)
+value.shadowDistance.96.0=Low (6 chunks)
+value.shadowDistance.112.0=Medium (7 chunks)
+value.shadowDistance.128.0=Medium (8 chunks)
+value.shadowDistance.144.0=Medium (9 chunks)
+value.shadowDistance.160.0=Normal (10 chunks)
+value.shadowDistance.192.0=High (12 chunks)
+value.shadowDistance.256.0=Extreme (16 chunks)
+option.shadowDistance.comment=The shadow render distance controls how far away \
+	terrain can potentially cast or receive real-time shadows.\n\n\
+	Terrain outside of this distance will cast and receive approximate, static \
+	shadows based on skylight.\n\n\
+	Lower distances mean that less terrain will be rendered, improving frame \
+	rates.\n\n\
+	The actual shadow render distance is capped by the View Distance setting \
+	in Video Settings..
+
+option.SURFACE_COLORS=Surface colors
+value.SURFACE_COLORS.STANDARD=Standard
+value.SURFACE_COLORS.NONE=None (whiteworld)
+value.SURFACE_COLORS.VERTEX_COLOR=Vertex color (foliage)
+option.SURFACE_COLORS.comment=When None, the object's base color is \
+	disregarded in favor of simply treating every surface as white. \
+	With vertex color, only the texture color is disregarded, so foliage \
+	remains green. \
+	Useful for debugging lighting. \
+	Alpha testing is still applied.

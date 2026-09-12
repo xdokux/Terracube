@@ -1,0 +1,55 @@
+Hello! If you want to edit this shader, you should read the license first. 
+
+This file contains information about how this shader is structured.
+
+The "program" subdirectory contains files that are shared across all 3 minecraft dimensions. 
+All the files in the world-1, world0 and world1 folders do is include their program/ counterpart.
+They also have a #define DIMENSION_whatever directive. This way, if you want something to happen in the overworld only, you can check if DIMENSION_OVERWORLD is defined. 
+
+Most of the lighting is done in gbuffers using the "/global/lighting" files. 
+Composite passes handle post-processing, sky rendering, fog and clouds. You can find information about what each pass does inside the file itself.
+
+Buffer usage:
+At the moment, Mellow uses 3 buffers. This will most likely change in the future.
+colortex0: main buffer
+colortex1: bloom
+colortex2: SMAA main
+colortex3: SMAA area
+gaux1: Reflections & TAA
+colortex5: SMAA search
+colortex6: DOF DATA
+
+
+
+I will leave the upper part of the file untouched;
+
+What was added by me:
+
+At the moment there are VHS effects : Jitter dropout scanlines etc;
+Anamorphic effect : It seperates color chanels;
+Modified the clouds: make them look like 2016 without killing your pc;
+Improved Godrays to make sunsets a remarkable Memory;
+Added A realistic moon;
+Improved end ambience;
+Improved LM flicker;
+Teaked the water adding soft Gerstner waves;
+Made celestials bigger;
+Improved weather ambience (made it gloomy as a Childhood rainy day);
+Shadows;
+Water reflections;
+Almost full childhood summer ambience;
+Full VHS Ambience;
+Voxelized Lights;
+Heat Shimmering;
+Volumetric fog and clouds;
+Water caustics;
+Underwater Refraction; 
+
+As for the buffer usage, I added these 2 buffers:
+
+colortex8: smoothess
+colortex9:normal
+colortex10: raw voxelized Lights
+colortex11 : smooth voxelized Lights
+colortex12: water mask (red channel)
+colortex7 is unused because I stopped using it and it is better to leave it like this.

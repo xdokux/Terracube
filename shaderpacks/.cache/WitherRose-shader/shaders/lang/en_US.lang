@@ -1,0 +1,24 @@
+option.COLORGRADING_EFFECT=Color Grading
+option.COLORGRADING_EFFECT.comment=(=^･ω･^=)
+value.COLORGRADING_EFFECT.0=WitherRose
+value.COLORGRADING_EFFECT.1=Retro
+value.COLORGRADING_EFFECT.2=Monochrome
+value.COLORGRADING_EFFECT.3=Colorful Retro
+value.COLORGRADING_EFFECT.4=TEST
+value.COLORGRADING_EFFECT.5=Original
+
+option.MOTIONBLUR=Motion Blur
+value.MOTIONBLUR.0=Off
+value.MOTIONBLUR.1=On
+
+option.PIXEL=Pixelation
+value.PIXEL.0=160*120
+value.PIXEL.1=320*240
+value.PIXEL.2=640*480
+value.PIXEL.3=1280*960
+value.PIXEL.4=Off
+
+option.CELSHADE=Cel Shading
+option.CELSHADE.comment=Not recommended to enable with Pixelation TuT
+value.CELSHADE.0=Off
+value.CELSHADE.1=On

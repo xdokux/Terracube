@@ -1,0 +1,54 @@
+# Shader options for Steadfast-0.8.0.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+profile = MINISHITA_TOASTER
+#
+# Available: MINISHITA_HIGH, MINISHITA_MEDIUM, MINISHITA_LOW, MINISHITA_TOASTER, PARAGON_HIGH, PARAGON_MEDIUM, PARAGON_LOW, PARAGON_TOASTER, FANTASY_HIGH, FANTASY_MEDIUM, FANTASY_LOW, FANTASY_TOASTER, SEMI_NATURAL_HIGH, SEMI_NATURAL_MEDIUM, SEMI_NATURAL_LOW, SEMI_NATURAL_TOASTER, RETRO_MEDIUM, RETRO_LOW, RETRO_TOASTER
+
+# ---- options ----
+STEADFAST = BY_CODERBOT        # one of: BY_CODERBOT
+GODRAYS = true        # true or false
+NIGHT_DESATURATION_EFFECT = false        # true or false
+# SATURATED_TONEMAP = false        # true or false
+# DAY_ATMOSPHERE = SEMI_NATURAL        # one of: FANTASY SEMI_NATURAL RETRO
+# NIGHT_ATMOSPHERE = FANTASY        # one of: FANTASY SEMI_NATURAL RETRO
+# HARDER_HORIZON_DAY = true        # true or false
+# HARDER_HORIZON_NIGHT = false        # true or false
+# BORDER_FOG = true        # true or false
+# ATMOSPHERE_FOG_STRENGTH_NOON = 0.5        # one of: 0.0 0.25 0.33 0.5 0.66 0.75 1.0
+# PLANAR_CLOUD_LAYERS = 0        # one of: 0 1 2 3 4
+# FANCY_TRANSLUCENTS = true        # true or false
+# VANILLA_ISH_WATER = false        # true or false
+# SCREENSPACE_REFLECTIONS = true        # true or false
+# SCREENSPACE_REFRACTION = true        # true or false
+# WATER_PARALLAX = true        # true or false
+# WATER_PARALLAX_DISTANCE = 48.0        # one of: 8.0 16.0 24.0 32.0 48.0 64.0
+# WATER_AA = BALANCED        # one of: OFF LOW BALANCED HIGH
+# NUM_CRESTS = 2        # one of: 0 1 2
+# NUM_RIPPLES = 4        # one of: 0 1 2 3 4
+# NUM_CAUSTICS = 6        # one of: 0 1 2 3 4 5 6
+# WATER_SURFACE = NOISE        # one of: BASIC NOISE
+# WATER_CAUSTICS = true        # true or false
+# WATER_CHARACTER = BALANCED        # one of: COLD BALANCED TROPICAL
+# DAY_SKY_LIGHTING = SEMI_NATURAL        # one of: FANTASY SEMI_NATURAL RETRO
+# NIGHT_SKY_LIGHTING = FANTASY        # one of: FANTASY SEMI_NATURAL RETRO
+# ORANGER_BLOCKLIGHT = true        # true or false
+# HELD_BLOCK_LIGHTING = true        # true or false
+# SHADOW_SOFTNESS = 0.5        # one of: 0.05 0.10 0.25 0.33 0.5 0.66
+# SOFTER_SHADOWS = true        # true or false
+# SHADOW_DISTORT_FACTOR = 0.20        # one of: 0.00 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0.16 0.17 0.18 0.19 0.20 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.30 0.31 0.32 0.33 0.34 0.35 0.36 0.37 0.38 0.39 0.40 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 0.50 0.51 0.52 0.53 0.54 0.55 0.56 0.57 0.58 0.59 0.60 0.61 0.62 0.63 0.64 0.65 0.66 0.67 0.68 0.69 0.70 0.71 0.72 0.73 0.74 0.75 0.76 0.77 0.78 0.79 0.80 0.81 0.82 0.83 0.84 0.85 0.86 0.87 0.88 0.89 0.90 0.91 0.92 0.93 0.94 0.95 0.96 0.97 0.98 0.99 1.00
+# shadowMapResolution = 1536        # one of: 1024 1536 2048 3072 4096
+# shadowDistance = 160        # range: 32 48 64 80 96 112 128 144 160 192 256
+# REAL_TIME_SHADOWS = true        # true or false
+# DIRECTIONAL_SKYLIGHT_SHADING = true        # true or false
+# DEBUG = DEBUG_NONE        # one of: DEBUG_NONE DEBUG_GODRAYS_NOISY DEBUG_GODRAYS_SMOOTH DEBUG_SKYLIGHT
+# FREEZE_ANIMATION_TIMER = false        # true or false
+# PREFER_FDM_GRADIENT = false        # true or false

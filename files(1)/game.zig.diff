@@ -1,0 +1,24 @@
+--- a/src/game.zig
++++ b/src/game.zig
+@@ -278,12 +278,21 @@
+ 	/// When true, your own player model is drawn standing at your real (frozen) position
+ 	/// while freecam is active, since it's normally hidden in first person.
+ 	pub var showPlayerModel: bool = true;
++	/// Where/which way the ghost player model stands, captured once at the moment freecam
++	/// activates. The local player isn't a normal networked entity (it doesn't need
++	/// network-interpolated position data for itself), so the ghost can't just read that —
++	/// it uses this frozen snapshot instead, and deliberately does not track your real
++	/// position afterward.
++	pub var ghostPos: Vec3d = .{0, 0, 0};
++	pub var ghostRot: f32 = 0;
+ 
+ 	pub fn toggle(_: main.Window.Key.Modifiers) void {
+ 		if (world == null) return;
+ 		enabled = !enabled;
+ 		if (enabled) {
+ 			pos = Player.getEyePosBlocking();
++			ghostPos = Player.super.pos;
++			ghostRot = camera.rotation[2];
+ 		}
+ 	}
+ 

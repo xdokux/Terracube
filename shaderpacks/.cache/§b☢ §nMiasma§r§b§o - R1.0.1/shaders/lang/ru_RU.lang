@@ -1,0 +1,55 @@
+#Settings
+option.BY=§6Наведи на меня
+option.BY.comment=§9Discord: §fhttps://discord.com/invite/65CkSpxrmm. §4YouTube: §fhttps://www.youtube.com/@lolip_p.
+value.BY.0=§fСделал LoLip_p
+value.BY.1=§fСделал LoLip_p
+
+screen.PP=Post Processing
+screen.LT=Освещение
+
+option.TYPE_AA=§6Типы Сглаживания
+option.TYPE_AA.comment=§2Fast Approximate Anti-Aliasing §f(§6FXAA§f). Он работает путем анализа пикселей на экране и применения фильтра размытия, чтобы уменьшить видимость этих неровных краев, не требуя значительных вычислительных мощностей. §2Temporal anti-aliasing §f(§6TAA§f). Объединяет информацию из прошлых кадров и текущего кадра для устранения неровностей в текущем кадре.
+value.TYPE_AA.0=FXAA
+value.TYPE_AA.1=TAA
+
+#Motion Blur
+option.MOTION_BLUR=§6Размытие в движении
+option.MOTION_BLUR.comment=Размытие изображения при повороте камеры (делает геймплей более приятным и гладким). Чем больше значение тем больше эффект плавности. Советуется оставлять включённым и менять только параметр §2Сила размытия §fв зависимости от ваших предпочтений.
+value.MOTION_BLUR.0=Выкл
+value.MOTION_BLUR.1=Вкл
+option.MOTION_BLURRING_STRENGTH=Сила размытия
+option.MOTION_BLURRING_STRENGTH.comment=Регулирует силу размытия. §4Высокое значение может вызвать у некоторых людей головокружение и укачивание.
+
+option.FOG=§6Туман
+value.FOG.0=Выкл
+value.FOG.1=Вкл
+option.FOG_DISTANCE=Дистанция тумана
+
+option.shadowDistance=Расстояние тени
+option.shadowDistance.comment=Регулирует расстояние тени.
+
+value.shadowDistance.64.0=§a4 Чанка
+value.shadowDistance.80.0=§a5 Чанков
+value.shadowDistance.96.0=§a6 Чанков
+value.shadowDistance.112.0=§a7 Чанков
+value.shadowDistance.128.0=§a8 Чанков
+value.shadowDistance.160.0=§e10 Чанков
+value.shadowDistance.192.0=§e12 Чанков
+value.shadowDistance.224.0=§e14 Чанков
+value.shadowDistance.256.0=§c16 Чанков
+value.shadowDistance.320.0=§c20 Чанков
+value.shadowDistance.384.0=§4§l24 Чанка
+value.shadowDistance.512.0=§4§l32 Чанка
+value.shadowDistance.768.0=§4§k-§r§4§l§n§o48 Чанков§r§4§k-
+value.shadowDistance.1024.0=§4§k-§r§4§l§n§o64 Чанка§r§4§k-
+
+option.shadowMapResolution=Качество
+option.shadowMapResolution.comment=Настраивает размер теневой карты. §e[*]§r Более высокое разрешение дает более четкие тени, но снижает производительность.
+value.shadowMapResolution.512=Очень низкое (512)
+value.shadowMapResolution.768=Низкое (768)
+value.shadowMapResolution.1024=Низко Среднее (1024)
+value.shadowMapResolution.1536=Среднее (1536)
+value.shadowMapResolution.2048=Средне Высокое (2048)
+value.shadowMapResolution.3072=Высокое (3072)
+value.shadowMapResolution.4096=Очень Высокое (4096)
+value.shadowMapResolution.8192=Сверхвысокое (8192)

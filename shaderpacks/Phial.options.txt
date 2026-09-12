@@ -1,0 +1,12 @@
+# Shader options for Phial.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+ditheringScale = 7        # one of: 1 2 3 4 5 6 7 8 9 10
+vignetteSize = 0.3        # one of: 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+pixelizationSize = 500.0        # one of: 30.0 40.0 50.0 60.0 70.0 80.0 90.0 100.0 150.0 200.0 250.0 300.0 350.0 400.0 450.0 500.0

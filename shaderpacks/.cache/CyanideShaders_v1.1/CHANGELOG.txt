@@ -1,0 +1,13 @@
+
+Cyanide Release 1.1
+
+- Cleaned a bit and removed unused code
+- Color changes and improvements
+- New options
+
+-------------------------------------------------------------------------------
+
+Cyanide Release 1.0
+
+- Added ACES Approximated and Reinhard tonemapping
+- Removed some useless features

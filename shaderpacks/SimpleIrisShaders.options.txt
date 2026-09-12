@@ -1,0 +1,22 @@
+# Shader options for SimpleIrisShaders.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+profile = igpu
+#
+# Available: igpu, normal
+
+# ---- options ----
+SHADOW_RES = 1024        # one of: 512 1024 2048
+SHADOW_DISTANCE = 64.0        # one of: 48.0 64.0 96.0 128.0 160.0
+PCF_TAPS = 4        # one of: 1 2 4
+GODRAYS = 1        # one of: 0 1
+GODRAY_STEPS = 6        # one of: 6 8 12 16 24
+TONEMAP_STRENGTH = 0.0        # one of: 0.0 0.25 0.5 0.75 0.85 1.0

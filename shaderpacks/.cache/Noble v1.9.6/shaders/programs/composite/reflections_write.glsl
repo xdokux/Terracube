@@ -1,0 +1,196 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#include "/settings.glsl"
+
+#if REFLECTIONS == 0
+
+    #include "/programs/discard.glsl"
+
+#else
+
+    #include "/include/taau_scale.glsl"
+
+    #include "/include/common.glsl"
+
+    #if defined STAGE_VERTEX
+
+        out vec2 textureCoords;
+        out vec2 vertexCoords;
+        
+        flat out vec3 directIlluminance;
+        flat out vec3 skyIlluminance;
+
+        void main() {
+            gl_Position    = vec4(gl_Vertex.xy * 2.0 - 1.0, 1.0, 1.0);
+            gl_Position.xy = gl_Position.xy * RENDER_SCALE + (RENDER_SCALE - 1.0) * gl_Position.w; + (RENDER_SCALE - 1.0);
+            textureCoords  = gl_Vertex.xy;
+            vertexCoords   = gl_Vertex.xy * RENDER_SCALE;
+
+            #if defined WORLD_OVERWORLD && (CLOUDS_LAYER0_ENABLED == 1 || CLOUDS_LAYER1_ENABLED == 1)
+
+                directIlluminance = decodeLog(texelFetch(IRRADIANCE_BUFFER, ivec2(0, 0), 0).rgb);
+                skyIlluminance    = texelFetch(IRRADIANCE_BUFFER, ivec2(0, 1), 0).rgb;
+
+            #endif
+        }
+
+    #elif defined STAGE_FRAGMENT
+
+        /* RENDERTARGETS: 2 */
+    
+        layout (location = 0) out vec4 reflections;
+
+        in vec2 textureCoords;
+        in vec2 vertexCoords;
+
+        flat in vec3 directIlluminance;
+        flat in vec3 skyIlluminance;
+
+        #include "/include/utility/rng.glsl"
+
+        #include "/include/atmospherics/atmosphere_header.glsl"
+        
+        #include "/include/utility/sampling.glsl"
+
+        #include "/include/material/brdf.glsl"
+
+        #include "/include/fragment/raytracer.glsl"
+        #include "/include/fragment/reflections.glsl"
+
+        void main() {
+            reflections = vec4(0.0);
+
+            #if DOWNSCALED_RENDERING == 1
+                vec2 fragCoords = gl_FragCoord.xy * texelSize;
+                if (!insideScreenBounds(fragCoords, RENDER_SCALE)) { return; }
+            #endif
+
+            bool  modFragment = false;
+            float depth       = texture(depthtex0, vertexCoords).r;
+
+            mat4 projection         = gbufferProjection;
+            mat4 projectionInverse  = gbufferProjectionInverse;
+            mat4 projectionPrevious = gbufferPreviousProjection;
+
+            float nearPlane = near;
+            float farPlane  = far;
+
+            #if defined CHUNK_LOADER_MOD_ENABLED
+
+                if (depth >= 1.0) {
+                    modFragment = true;
+                    
+                    #if defined VOXY
+                        depth = texture(modDepthTex0, textureCoords).r;
+                    #else
+                        depth = texture(modDepthTex0, vertexCoords).r;
+                    #endif
+                    
+                    projection         = modProjection;
+                    projectionInverse  = modProjectionInverse;
+                    projectionPrevious = modProjectionPrevious;
+
+                    nearPlane = modNearPlane;
+                    farPlane  = modFarPlane;
+                }
+                
+            #endif
+
+            if (depth == 1.0) { return; }
+
+            uvec4 dataTexture = texelFetch(GBUFFERS_DATA, ivec2(vertexCoords * viewSize), 0);
+
+            float F0    = unpackF0(dataTexture.y);
+            float alpha = unpackAlpha(dataTexture.z);
+
+            if (F0 <= EPS || alpha > REFLECTIONS_ROUGHNESS_THRESHOLD) return;
+
+            vec3 albedo = unpackAlbedo(dataTexture.z);
+
+            bool isWater = isWater(unpackId(dataTexture.x));
+
+            vec3 screenPosition = vec3(textureCoords, depth);
+            vec3 viewPosition   = screenToView(screenPosition, projectionInverse, true);
+
+            float rayLength;
+                    
+            #if REFLECTIONS == 1
+
+                reflections.rgb = computeRoughReflections(
+                    modFragment, projection, projectionInverse, viewPosition,
+                    unpackNormal(dataTexture.w), getN(albedo, F0), getK(albedo, F0), alpha, unpackLightmap(dataTexture.x).y, isWater,
+                    rayLength
+                );
+
+            #elif REFLECTIONS == 2
+
+                reflections.rgb = computeSmoothReflections(
+                    modFragment, projection, projectionInverse, viewPosition,
+                    unpackNormal(dataTexture.w), getN(albedo, F0), getK(albedo, F0), alpha, unpackLightmap(dataTexture.x).y, isWater,
+                    rayLength
+                );
+
+            #endif
+
+            vec3 velocity     = getVelocity(vec3(textureCoords, depth), projectionInverse, projectionPrevious);
+            vec3 prevPosition = vec3(vertexCoords, depth);
+
+            float reprojectionDepth;
+            bool  isReflectingSky = false;
+
+            if (rayLength < EPS) {
+                reprojectionDepth = texture(CLOUDMAP_BUFFER, textureCoords).a;
+                isReflectingSky   = true;
+
+            } else {
+                reprojectionDepth = depth + (alpha > 0.1 ? 0.0 : rayLength);
+            }
+
+            vec3 velocityReflected     = getVelocity(vec3(textureCoords, reprojectionDepth), projectionInverse, projectionPrevious);
+            vec3 prevPositionReflected = vec3(vertexCoords, reprojectionDepth) + velocityReflected;
+
+            vec4 prevReflections = texture(REFLECTIONS_BUFFER, prevPositionReflected.xy);
+
+            bool isHand = depth < handDepth;
+
+            float weight = 0.975;
+
+            float linearDepth     = linearizeDepth(prevPosition.z         , nearPlane, farPlane);
+            float linearPrevDepth = linearizeDepth(exp2(prevReflections.a), nearPlane, farPlane);
+            float depthWeight     = step(abs(linearDepth - linearPrevDepth) / max(linearDepth, linearPrevDepth), 0.01);
+
+            float velocityWeight = 1.0 - saturate(length(velocity.xy * viewSize)) * (isHand ? 1.0 : (isReflectingSky ? 0.8 : 0.5));
+
+            vec2  pixelCenterDist  = 1.0 - abs(fract(prevPosition.xy * viewSize) * 2.0 - 1.0);
+            float centerWeightHand = isHand ? sqrt(pixelCenterDist.x * pixelCenterDist.y) * 0.3 : 1.0;
+
+            weight *= depthWeight * velocityWeight * centerWeightHand;
+            weight  = saturate(weight);
+            weight *= float(insideScreenBounds(prevPositionReflected.xy, RENDER_SCALE));
+            weight *= mix(1.0, 0.5, float(isWater));
+
+            reflections.rgb = max0(mix(reflections.rgb, prevReflections.rgb, weight));
+            reflections.a   = log2(prevPosition.z);
+        }
+        
+    #endif
+    
+#endif

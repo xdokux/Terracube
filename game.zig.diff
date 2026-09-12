@@ -1,0 +1,17 @@
+--- a/src/game.zig
++++ b/src/game.zig
+@@ -272,8 +272,12 @@
+ 	pub var enabled: bool = false;
+ 	pub var pos: Vec3d = .{0, 0, 0};
+ 
+-	const flySpeed: f64 = 43.0; // Matches the creative "hyperSpeed" flying speed.
+-	const sprintMultiplier: f64 = 3.0;
++	/// Adjustable from the freecam settings window (opened via keybind).
++	pub var flySpeed: f64 = 43.0; // Matches the creative "hyperSpeed" flying speed.
++	pub var sprintMultiplier: f64 = 3.0;
++	/// When true, your own player model is drawn standing at your real (frozen) position
++	/// while freecam is active, since it's normally hidden in first person.
++	pub var showPlayerModel: bool = true;
+ 
+ 	pub fn toggle(_: main.Window.Key.Modifiers) void {
+ 		if (world == null) return;

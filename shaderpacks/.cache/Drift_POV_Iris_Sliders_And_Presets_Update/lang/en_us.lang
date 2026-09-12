@@ -1,0 +1,10 @@
+screen.DRIFT_SETTINGS=Drift POV Master
+option.BLUR_SAMPLES=Blur Quality
+option.BLUR_STRENGTH=Motion Intensity
+option.ENABLE_NOISE=Cinematic Noise
+
+# Profile Names
+profile.PVP=PVP (Max FPS, Clear Aim)
+profile.POTATO=Potato PC
+profile.NORMAL=Normal
+profile.GHOST=Ghost (Cinematic)

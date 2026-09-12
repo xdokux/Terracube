@@ -1,0 +1,8 @@
+v1.200
+- Added support for Iris 1.7 and fixed the shader not working on 1.21
+
+v1.100
+
+- Disabled DOF by default
+- Insanity-like clouds are now the default
+- Increased vibrance and exposure a bit

@@ -1,0 +1,11 @@
+# Shader options for LIGHT-Shaders-1.4.0.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+SHARPENING = true        # true or false
+VIGNETTE = false        # true or false

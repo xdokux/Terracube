@@ -1,0 +1,173 @@
+option.AA_MODE=Anti-Aliasing
+option.AA_MODE.comment=Smooths out jagged edges of the image. SMAA gives a sharper image, but some effects need TAA to look good. TA (Temporal Accumulation) is a cut-down version of TAA.
+
+option.INFO=Reverie Shader by
+
+option.USE_ADVANCED_SETTINGS=Enable §c§lAdvanced§r Mode 
+option.USE_ADVANCED_SETTINGS.comment=This option needs to be enabled for the settings marked with to work. Otherwise, they will be OVERRIDEN by the settings in the main menu.
+
+option.SCREENSHOT_MODE=Screenshot Mode
+option.SCREENSHOT_MODE.comment=Disables wind and overrides a few other settings to allow taking reproducible screenshots
+
+option.VIGNETTE=Vignette
+option.VIGNETTE.comment=Darkens the edges of the screen for a cinematic feel
+option.VIGNETTE_FALLOFF=Vignette Falloff
+
+option.BLOOM=Bloom
+option.BLOOM.comment=Gives bright objects a "glow" around them
+option.BLOOM_STRENGTH=Bloom Strength
+
+option.FILM_GRAIN=Film Grain
+option.FILM_GRAIN_STRENGTH=Film Grain Strength
+option.FILM_GRAIN_SIZE=Film Grain Size
+option.FILM_GRAIN_MAX_BRIGHTNESS=Film Grain Max Brightness
+
+option.LENS_FLARE=Lens Flare
+option.LENS_FLARE_STRENGTH=Lens Flare Strength
+
+option.CHROMATIC_ABERRATION=Chromatic Aberration
+option.CA_STRENGTH=CA Strength
+
+option.PIXELATION=Pixelation
+option.PIXELATION_AMOUNT=Pixelation Amount
+
+option.DOF=Depth of Field
+option.DOF_APERTURE_SIZE=Aperture Size
+option.DOF_APERTURE_SIZE.comment=Controls how narrow the range of focus is
+option.DOF_FOCUS_ADJUSTMENT_SPEED=Focus Adjustment Speed
+option.DOF_MANUAL_FOCUS=Manual Focus
+option.DOF_FOCUS_DISTANCE=Manual Focus Distance
+suffix.DOF_FOCUS_DISTANCE=m
+option.DOF_SHOW_FOCUS=Show Focus
+
+option.EXPOSURE_MULT=Exposure Multiplier
+option.EXPOSURE_MULT.comment=Controls how bright the scene should be
+option.EXPOSURE_SPEED=Exposure Speed
+option.EXPOSURE_SPEED.comment=Controls how quickly the "camera" adjusts to changes in brightness
+
+option.TONEMAP_OPERATOR=Tonemap
+option.TONEMAP_OPERATOR.comment=Converts colors to a range that can actually be displayed on the screen. This option drastically changes the look of the game and may require further tweaking to look good. 
+
+option.SATURATION=Saturation
+option.SATURATION.comment=Adjusts how "intense" colors are
+option.VIBRANCE=Vibrance
+option.VIBRANCE.comment=Same as saturation, but affects brigher colors more
+option.CONTRAST=Contrast
+
+option.PURKINJE_EFFECT_STRENGTH=Purkinje Effect
+option.PURKINJE_EFFECT_STRENGTH.comment=Shifts very dark colors slightly towards blue, simulating the way our eyes work.
+
+option.shadowMapResolution=Shadow Resolution
+option.shadowDistance=Shadow Distance
+option.SHADOW_FILTER=Shadow Filtering
+option.SHADOW_FILTER.comment=Makes shadows soft, just like in real life. PCF is constant, while PCSS takes distance from the object that casts shadow into account.
+option.SHADOW_FILTER_SIZE=Filter Size
+option.SCREENSPACE_SHADOWS_FALLBACK=Screenspace Shadows
+option.SCREENSPACE_SHADOWS_FALLBACK.comment=Falls back to a cheaper method of doing shadows when outside of the shadow map.
+
+option.VL_OVERWORLD_MODE=Overworld Fog
+option.VL_OVERWORLD_STRENGTH=Overworld Fog Strength
+option.VL_WATER_MODE=Water Fog
+option.VL_SAMPLES=Fog Quality
+
+option.BORDER_FOG=Border Fog
+
+option.AO_MODE=Ambient Occlusion
+option.AO_MODE.comment=Ambient Occlusion: darkens occluded spaces, where light cannot reach as easily. SSAO is a simpler, faster algorithm, while GTAO provides more accurate results.
+option.GTAO_SAMPLES=GTAO Samples
+option.RSM=RSM
+option.RSM.comment=Reflective Shadow Mapping: simulates light bouncing from surfaces in direct sunlight to another surface, before reaching the player.
+option.RSM_SAMPLE_COUNT=RSM Samples
+
+option.PBR_SPECULAR=Resourcepack Reflections
+option.ROUGH_REFLECTIONS=Rough Reflections
+option.SSR_STEPS=Reflection Quality
+option.REFLECTION_CAPTURE=Reflection Capture
+option.REFLECTION_CAPTURE.comment=Stores data about what is around the player in a sphere map, and uses it to approximate off-screen reflections.
+
+option.PBR_NORMAL=Resourcepack Normals
+option.PBR_EMISSIVENESS=Resourcepack Emissivenss
+option.PBR_SSS=Resourcepack Subsurface Scattering
+option.PBR_POM=Parallax Occlusion Mapping
+option.POM_MAX_DEPTH=Max Depth
+option.POM_STEP_COUNT=Step Count
+option.SSS_STRENGTH_WEAK=Subsurface Scattering (Hardcoded as "weak")
+option.SSS_STRENGTH_STRONG=Subsurface Scattering (Hardcoded as "strong")
+
+option.CLOUDS=Clouds
+option.VOLUMETRICS_RES=Volumetrics Resolution
+option.VOLUMETRICS_RES.comment=Resolution at which overworld fog & clouds should be rendered at, and then upscaled to full resolution.
+
+option.VOXELISATION=Voxelisation
+option.VOXELISATION.comment=Stores information about the world shader-side. §cOptions in this tab will not work if this is disabled!!!
+option.VOXEL_DISTANCE=Voxel Distance
+
+option.COLORED_LIGHTS=Colored Lights
+
+option.SEASONAL_COLORS=Seasons
+option.SEASONAL_COLORS.comment=Changes the colors of vegetation to match real life seasons. By default, each season lasts 30 minecraft days
+option.SEASONS_TEMPERATE_BIOME_CHECK=Temperate Biomes Only
+option.SEASONS_TEMPERATE_BIOME_CHECK.comment=Excludes biomes that are too cold or hot to have seasons (ex: savanna, taiga). This option will not work correctly with some resource packs.
+
+option.WAVY_PLANTS=Wavy Plants
+option.WAVE_AMPLITUDE=Wave Amplitude
+option.WAVE_SPEED=Wave Speed
+option.WAVE_SIZE=Wave Size
+option.WAVE_LEAVES=Wave Leaves
+value.AA_MODE.0=None (TA only)
+value.AA_MODE.1=SMAA T2x
+value.AA_MODE.2=TAA
+
+value.INFO.0=TheCMK
+
+screen.screen_CAMERA_EFFECTS=Camera Effects
+screen.screen_POST_PROCESSING=Post Processing
+screen.screen_COLORS=Colors
+screen.screen_LIGHTING=Lighting
+screen.screen_INDIRECT_LIGHTING=Indirect Lighting
+screen.screen_FOG=Fog
+screen.screen_MATERIALS=Materials
+screen.screen_REFLECTIONS=Reflections
+screen.screen_POM=Parallax Occlusion Mapping
+screen.screen_WEATHER=Weather
+screen.screen_SHADOWS=Shadows
+screen.screen_SKY=Sky
+screen.screen_DOF_SETTINGS=DoF Settings
+screen.ADVANCED_SETTINGS=Advanced Settings
+screen.screen_CHANNEL_MIXER=Channel Mixer
+screen.screen_COLOR_BALANCING=Color Balancing
+screen.screen_OVERWORLD=Overworld
+screen.screen_NETHER=Nether
+screen.screen_END=The End
+screen.screen_OTHER=Others
+screen.screen_VOXELISATION=Voxelisation
+screen.screen_SEASONAL_COLORS=Seasonal Colors
+screen.screen_WIND=Wind
+screen.screen_ATMOSPHERE_PARAMS=Atmosphere
+screen.screen_CAMERA_DEGRADATION=Degradation Effects
+
+profile.TOASTER=Toaster
+profile.LOW=Low
+profile.MEDIUM=Medium
+profile.HIGH=High
+profile.ULTRA=Ultra
+
+value.TONEMAP_OPERATOR.0=Reinhard-Jodie
+value.TONEMAP_OPERATOR.1=ACES filmic
+value.TONEMAP_OPERATOR.2=Uncharted 2
+value.TONEMAP_OPERATOR.3=AgX minimal
+value.TONEMAP_OPERATOR.4=None
+
+value.SHADOW_FILTER.0=Off
+value.SHADOW_FILTER.1=PCF
+value.SHADOW_FILTER.2=PCSS
+
+value.VL_OVERWORLD_MODE.0=Simple
+value.VL_OVERWORLD_MODE.1=Raytraced
+
+value.VL_WATER_MODE.0=Simple
+value.VL_WATER_MODE.1=Raytraced
+
+value.AO_MODE.0=Off
+value.AO_MODE.1=SSAO
+value.AO_MODE.2=GTAO

@@ -1,0 +1,24 @@
+option.COLORGRADING_EFFECT=颜色
+option.COLORGRADING_EFFECT.comment=（=^･ω･^=）
+value.COLORGRADING_EFFECT.0=凋零玫瑰
+value.COLORGRADING_EFFECT.1=复古
+value.COLORGRADING_EFFECT.2=黑白
+value.COLORGRADING_EFFECT.3=彩色复古
+value.COLORGRADING_EFFECT.4=TEST
+value.COLORGRADING_EFFECT.5=原色
+
+option.MOTIONBLUR=动态模糊
+value.MOTIONBLUR.0=关闭
+value.MOTIONBLUR.1=开启
+
+option.PIXEL=像素化
+value.PIXEL.0=160*120
+value.PIXEL.1=320*240
+value.PIXEL.2=640*480
+value.PIXEL.3=1280*960
+value.PIXEL.4=关闭
+
+option.CELSHADE=漫画描边
+option.CELSHADE.comment=不推荐与像素化同时启用 TuT
+value.CELSHADE.0=关闭
+value.CELSHADE.1=开启

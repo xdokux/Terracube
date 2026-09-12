@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "excludeLodsFromVanillaDepth": false,
+  "opaqueDrawBuffers": [0, 2],
+  "translucentDrawBuffers": [0, 2],
+  "blending": {
+  },
+  "uniforms": [
+    "frameTimeCounter",
+    "vxProjInv",
+    "vxModelView",
+    "vxModelViewInv",
+    "vxRenderDistance",
+    "viewWidth",
+    "viewHeight",
+    "cameraPosition",
+    "shadowLightPosition",
+    "isEyeInWater",
+    "fogColor",
+    "darknessFactor",
+    "blindness",
+    "rainStrength",
+    "gbufferProjection",
+    "near",
+    "far",
+    "fogStart",
+    "fogEnd"
+    ],
+    "samplers": {
+        "lightmap":"sampler2D",
+        "noisetex":"sampler2D",
+        "depthtex1":"sampler2D",
+        "vxDepthTexTrans":"sampler2D"
+    },
+    "opaquePatchData":"
+        #include "voxy.glsl"
+    ",
+    "translucentPatchData":"
+        #include "voxy.glsl"
+    "
+}

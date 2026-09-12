@@ -1,0 +1,29 @@
+
+
+
+ By downloading Cyanide Shaders, you agree to the following statement.
+
+
+
+ (1) Redistribution
+
+ You are allowed to use Cyanide Shaders as a base for your own shaderpack, as long as you:
+
+ - Credit the original developer.
+ - Edit the shaderpack enough, own code contribution must be noticeable.
+ - Don't claim parts of my shader as your own work.
+ - Don't modify the agreement.
+
+ If you want to monetize your edit, then you must have the permission from the original developer.
+
+ You are allowed to use parts of code from Cyanide as long as you credit me.
+ Redistribution of Cyanide copies is allowed only if the original link is used.
+
+
+
+ (2) Private Use
+
+ You can do whatever you want to Cyanide as long as it's private.
+ You can make videos/streams with Cyanide as long as you:
+
+ - Don't claim the shaderpack as your own work.

@@ -1,0 +1,15 @@
+# Shader options for YoFPS+High+(Chocapic13+Edit).
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# WAVING_GRASS = true        # true or false
+# WAVING_VINES = true        # true or false
+# WAVING_FIRE = true        # true or false
+# WAVING_WHEAT = true        # true or false
+# WAVING_FLOWERS = true        # true or false
+RAIN_DROPS = false        # true or false

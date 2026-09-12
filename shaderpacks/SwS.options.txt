@@ -1,0 +1,34 @@
+# Shader options for SwS.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+SHADOW_ENABLED = 0        # one of: 0 1
+# SHADOW_RESOLUTION = 4608        # range: 512 1024 1536 2048 2560 3072 3584 4096 4608 8128
+# SHADOW_QUALITY = 2        # range: 1 2 3 4 5 6 7 8
+# SHADOW_SOFTNESS = 2        # range: 2 3 4 5 6 7 8
+SHADOW_NOISERESOLUTION = 3584        # range: 8 216 512 1024 1536 2048 2560 3072 3584 4096 4608 8128
+# SUN_PATHROTATION = 40        # range: -50 -45 -40 -35 -30 -25 -20 -15 -10 -5 0 5 10 15 20 25 30 35 40 45 50
+# WATER_WAVE_HEIGHT = 0.25        # range: 0.1 0.25 0.5 1.0
+# WATER_WAVE_SPEED = 0.05        # range: 0.01 0.05 0.1 0.2
+GODRAYS_ENABLED = 0        # one of: 0 1
+# GODRAYS_SAMPLES = 36        # range: 12 24 36
+# GODRAYS_EXPOSURE = 0.41        # range: 0.25 0.35 0.41 0.5 0.75 1.0
+GODRAYS_DECAY = 0.88        # range: 0.80 0.85 0.88 0.91 0.95 1.0
+# GODRAYS_DENSITY = 1.25        # range: 0.5 0.75 1.0 1.25 1.5 2.0
+# GODRAYS_WEIGHT = 1.15        # range: 0.5 0.75 1.0 1.15 1.25 1.5
+TONEMAP_ENABLED = 1        # one of: 0 1
+TONEMAPPING = 0        # one of: 0 1
+# MOTION_BLUR_ENABLED = 1        # one of: 0 1
+# MB_MAX_BLUR_AMOUNT = 1.0        # range: 0.5 1.0 1.5
+# MB_BLUR_SAMPLES = 64        # range: 4 8 16 24 32 48 64
+# MB_EDGE_THRESHOLD = 1.0        # range: 0.25 0.5 0.75 1.0
+# MB_COLOR_INTENSITY = 1.0        # range: 0.5 0.75 1.0 1.25 1.5
+# MB_DEPTH_THRESHOLD = 0.66
+BLOOM_ENABLED = 0        # one of: 0 1
+# BLOOM_RADIUS = 5.0        # range: 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
+# BLOOM_THRESHOLD = 0.87        # range: 0.25 0.5 0.75 0.87 1

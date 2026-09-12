@@ -1,0 +1,175 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#include "/settings.glsl"
+
+#if CLOUDS_LAYER0_ENABLED == 0 && CLOUDS_LAYER1_ENABLED == 0 || !defined WORLD_OVERWORLD
+
+    #include "/programs/discard.glsl"
+
+#else
+
+    #include "/include/taau_scale.glsl"
+
+    #if defined STAGE_VERTEX
+    
+        #include "/programs/vertex_simple.glsl"
+
+    #elif defined STAGE_FRAGMENT
+
+        #if CLOUDMAP == 1
+
+            /* RENDERTARGETS: 7,14 */
+
+            layout (location = 0) out vec4 cloudsOut;
+            layout (location = 1) out vec3 cloudmapOut;
+
+        #else
+
+            /* RENDERTARGETS: 7 */
+
+            layout (location = 0) out vec4 cloudsOut;
+
+        #endif
+
+        in vec2 textureCoords;
+
+        #include "/include/common.glsl"
+
+        #include "/include/utility/rng.glsl"
+
+        #include "/include/utility/sampling.glsl"
+        #include "/include/utility/phase.glsl"
+        
+        #include "/include/atmospherics/constants.glsl"
+        #include "/include/atmospherics/clouds.glsl"
+
+        float find4x4MaximumDepth(sampler2D depthTexture, vec2 coords) {
+            coords *= viewSize;
+
+            return maxOf(vec4(
+                texelFetchOffset(depthTexture, ivec2(coords), 0, ivec2( 2,  2)).r,
+                texelFetchOffset(depthTexture, ivec2(coords), 0, ivec2(-2,  2)).r,
+                texelFetchOffset(depthTexture, ivec2(coords), 0, ivec2(-2, -2)).r,
+                texelFetchOffset(depthTexture, ivec2(coords), 0, ivec2( 2, -2)).r
+            ));
+        }
+
+        void main() {
+            vec2 vertexCoords = textureCoords * RENDER_SCALE;
+
+            cloudsOut = vec4(0.0, 0.0, 1.0, 0.0);
+
+            bool  modFragment = false;
+            float depth       = texture(depthtex0, vertexCoords).r;
+
+            if (depth < handDepth) return;
+
+            mat4 projectionInverse = gbufferProjectionInverse;
+
+            #if defined CHUNK_LOADER_MOD_ENABLED
+
+                if (depth >= 1.0) {
+                    modFragment       = true;
+                    projectionInverse = modProjectionInverse;
+                }
+                
+            #endif
+
+            #if CLOUDMAP == 1
+
+                if (insideScreenBounds(textureCoords, CLOUDMAP_SCALE)) {
+
+                    vec3 cloudsCoords   = normalize(unprojectSphere(textureCoords * rcp(CLOUDMAP_SCALE)));
+                    vec4 cloudmapLayer0 = estimateCloudsScattering(cloudLayer0, cloudsCoords, true, false);
+                    vec4 cloudmapLayer1 = estimateCloudsScattering(cloudLayer1, cloudsCoords, false, false);
+
+                    cloudmapOut.rg  = cloudmapLayer0.rg + cloudmapLayer1.rg * cloudmapLayer0.b;
+                    cloudmapOut.b   = cloudmapLayer0.b  * cloudmapLayer1.b;
+                    cloudmapOut.rgb = max0(cloudmapOut.rgb);
+
+                }
+
+            #endif
+
+            if (modFragment) {
+                if (find4x4MaximumDepth(modDepthTex0, vertexCoords) < 1.0) { return; }
+            } else {
+                if (find4x4MaximumDepth(depthtex0, vertexCoords) < 1.0) { return; }
+            }
+
+            /* Cloud Layers Tracing */
+            vec3 viewPosition       = screenToView(vec3(textureCoords, 1.0), projectionInverse, false);
+            vec3 cloudsRayDirection = mat3(gbufferModelViewInverse) * normalize(viewPosition);
+
+            vec4 layer0 = vec4(0.0, 0.0, 1.0, 1e9);
+            vec4 layer1 = vec4(0.0, 0.0, 1.0, 1e9);
+
+            #if CLOUDS_LAYER0_ENABLED == 1
+                layer0 = estimateCloudsScattering(cloudLayer0, cloudsRayDirection, true, true);
+            #endif
+
+            #if CLOUDS_LAYER1_ENABLED == 1
+                layer1 = estimateCloudsScattering(cloudLayer1, cloudsRayDirection, false, true);
+            #endif
+
+            // Distance to cloudsOut
+            cloudsOut.a = min(layer0.a, layer1.a);
+
+            /* Cloud Layers Blending */
+            float s = step(layer0.a, layer1.a);
+
+            vec3  C_front = mix(layer1.rgb, layer0.rgb, s);
+            float T_front = mix(layer1.b,   layer0.b,   s);
+
+            vec3  C_back  = mix(layer0.rgb, layer1.rgb, s);
+            float T_back  = mix(layer0.b,   layer1.b,   s);
+
+            cloudsOut.rgb = C_front + T_front * C_back;
+            cloudsOut.b   = T_front * T_back;
+
+            /* Reprojection */
+            vec2 prevCoords = reproject(viewPosition, cloudsOut.a, CLOUDS_WIND_SPEED * frameTime * windDirection).xy;
+
+            if (insideScreenBounds(prevCoords, 1.0)) {
+
+                vec3 history = texture(CLOUDS_BUFFER, prevCoords).rgb;
+
+                float distanceFalloff = quinticStep(0.0, 1.0, sqrt(max0(exp(-5e-4 * cloudsOut.a))));
+
+                vec2 pixelCenterDist = 1.0 - abs(fract(prevCoords * viewSize) * 2.0 - 1.0);
+
+                const float centerWeightStrength = 0.2;
+
+                float centerWeight = sqrt(pixelCenterDist.x * pixelCenterDist.y) * centerWeightStrength + (1.0 - centerWeightStrength);
+                      centerWeight = mix(0.9, centerWeight, distanceFalloff);
+                
+                float velocityWeight = saturate(exp(-0.5 * length(cameraPosition - previousCameraPosition)));
+
+                float weight = clamp(centerWeight * velocityWeight, 0.0, 0.998);
+
+                cloudsOut.rgb = max0(mix(cloudsOut.rgb, history, weight));
+
+            }
+        }
+        
+    #endif
+
+#endif

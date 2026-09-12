@@ -1,0 +1,15 @@
+--- a/src/entitySystem/modelRenderer.zig
++++ b/src/entitySystem/modelRenderer.zig
+@@ -117,7 +117,11 @@
+ 		c.glUniform1f(uniforms.contrast, 0.12);
+ 
+ 		for (entity.components.@"cubyz:model".client.components.dense.items, entity.components.@"cubyz:model".client.components.denseToSparseIndex.items) |component, id| {
+-			if (id == game.Player.id) continue; // don't render local player
++			// Normally the local player's own model is hidden (first person), but while
++			// freecam is active and detached from the real (frozen) player, showing it lets
++			// you see yourself standing where you activated freecam.
++			const isSelf = id == game.Player.id;
++			if (isSelf and !(game.Freecam.enabled and game.Freecam.showPlayerModel)) continue;
+ 
+ 			const entModel = component.entityModel.get();
+ 			const ent = main.client.entity_manager.getEntity(id) orelse continue;

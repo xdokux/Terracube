@@ -1,0 +1,247 @@
+layout(location = 0) out vec4 fragData0;
+layout(location = 1) out vec4 fragData1;
+/*
+Sildur's Enhanced Default:
+https://www.patreon.com/Sildur
+https://sildurs-shaders.github.io/
+https://twitter.com/SildurFX
+https://www.curseforge.com/minecraft/customization/sildurs-enhanced-default
+
+Permissions:
+You are not allowed to edit, copy code or share my shaderpack under a different name or claim it as yours.
+*/
+
+#define gbuffers_textured
+#include "shaders.settings"
+
+
+// vertex
+
+//Moving entities IDs
+//See block.properties for mapped ids
+#define ENTITY_SMALLGRASS   10031.0	//
+#define ENTITY_LOWERGRASS   10175.0	//lower half only in 1.13+
+#define ENTITY_UPPERGRASS	10176.0 //upper half only used in 1.13+
+#define ENTITY_SMALLENTS    10059.0	//sapplings(6), dandelion(37), rose(38), carrots(141), potatoes(142), beetroot(207)
+
+#define ENTITY_LEAVES       10018.0	//161 new leaves
+#define ENTITY_VINES        10106.0
+
+#define ENTITY_WATER		10008.0	//9
+#define ENTITY_LILYPAD      10111.0	//
+#define ENTITY_ICE			10079.0	//transparent reflections, stained glass(95, 160), slimeblock(165)
+
+#define ENTITY_FIRE         10051.0	//
+#define ENTITY_LAVA   		10010.0	//11
+#define ENTITY_EMISSIVE		10089.0 //emissive blocks defined in block.properties
+#define ENITIY_SOULFIRE		10091.0
+#define ENTITY_WAVING_LANTERN 10090.0
+#define ENTITY_INVERTED_LOWER 10177.0	//hanging_roots
+#define ENTITY_NON_DIFFUSE 20000.0
+
+
+// fragment
+
+#ifdef Reflections
+mat2 rmatrix(float rad){
+	return mat2(vec2(cos(rad), -sin(rad)), vec2(sin(rad), cos(rad)));
+}
+
+float calcWaves(vec2 coord, float water){
+	vec2 movement = abs(vec2(0.0, -frameTimeCounter * 0.31365*water));
+		 
+	coord *= 0.262144;
+	vec2 coord0 = coord * rmatrix(1.0) - movement * 4.0;
+		 coord0.y *= 3.0;
+	vec2 coord1 = coord * rmatrix(0.5) - movement * 1.5;
+		 coord1.y *= 3.0;		 
+	vec2 coord2 = coord + movement * 0.5;
+		 coord2.y *= 3.0;
+	
+	float wave = 1.0 - texture2D(noisetex,coord0 * 0.005).x * 10.0;		//big waves
+		  wave += texture2D(noisetex,coord1 * 0.010416).x * 7.0;		//small waves
+		  wave += sqrt(texture2D(noisetex,coord2 * 0.045).x * 6.5) * 1.33;//noise texture
+		  wave *= 0.0157;
+	
+	return wave;
+}
+
+vec3 calcBump(vec2 coord, float water){
+	const vec2 deltaPos = vec2(0.25, 0.0);
+
+	float h0 = calcWaves(coord, water);
+	float h1 = calcWaves(coord + deltaPos.xy, water);
+	float h2 = calcWaves(coord - deltaPos.xy, water);
+	float h3 = calcWaves(coord + deltaPos.yx, water);
+	float h4 = calcWaves(coord - deltaPos.yx, water);
+
+	float xDelta = ((h1-h0)+(h0-h2));
+	float yDelta = ((h3-h0)+(h0-h4));
+
+	return vec3(vec2(xDelta,yDelta)*0.45, 0.55); //z = 1.0-0.5
+}
+#endif
+
+vec3 toScreenSpace(vec3 pos) {
+	vec4 iProjDiag = vec4(vxProjInv[0].x, vxProjInv[1].y, vxProjInv[2].zw);
+	vec3 p3 = pos * 2.0 - 1.0;
+    vec4 fragposition = iProjDiag * p3.xyzz + vxProjInv[3];
+    return fragposition.xyz / fragposition.w;
+}
+
+vec4 encode (vec3 n, float material){
+    return vec4(n.xy*inversesqrt(n.z*8.0+8.0) + 0.5, material/2.0, 1.0);
+}
+
+#ifdef Shadows
+float ld(float depth) {
+	float newFar = far + vxRenderDistance;
+    return (2.0 * near) / (newFar + near - depth * (newFar - near));
+}
+
+#define diagonal3(mat) vec3((mat)[0].x, (mat)[1].y, (mat)[2].z)
+
+vec3 toClipSpace(vec3 viewSpacePosition) {
+    return (diagonal3(gbufferProjection) * viewSpacePosition + gbufferProjection[3].xyz) / -viewSpacePosition.z * 0.5 + 0.5;
+}
+
+float calcRaytraceShadows(vec3 angle, vec3 pos, float dither){
+    vec2 texelSize = vec2(1.0/viewWidth, 1.0/viewHeight);	
+    float newFar = far + vxRenderDistance;
+    
+    float rayLength = (pos.z + angle.z * newFar*1.732 > -near) ? (-near - pos.z) / angle.z : newFar*1.732;
+    vec3 direction = toClipSpace(pos + angle * rayLength) - toClipSpace(pos);
+    	 direction /= max(abs(direction.x)/texelSize.x, abs(direction.y)/texelSize.y);
+
+    vec3 stepv = direction * 4.5;
+    vec3 spos = toClipSpace(pos) + stepv * dither;
+
+    for (int i = 0; i < 16; i++) {
+        spos += stepv;
+        if(spos.x < 0.0 || spos.x > 1.0 || spos.y < 0.0 || spos.y > 1.0) break;
+
+		//vxDepthTexTrans and vxProj for toClipSpace is causing flickering
+        float depth1 = texture2D(depthtex1, spos.xy).x;
+        if(depth1 < spos.z) {
+            float rayL = ld(spos.z);
+            float diff = rayL - ld(depth1);
+            float thickness = 0.05 * rayL; 
+
+            if (diff > 0.0 && diff < thickness) {
+                return exp2(pos.z / 8.0);
+            }
+        }
+    }
+    return 1.0;
+}
+#endif
+
+void voxy_emitFragment(VoxyFragmentParameters parameters) {
+
+    //vertex
+
+    float mat = 0.0;
+    #ifdef Reflections
+    #ifdef WaterReflection
+	    if(parameters.customId == ENTITY_WATER)mat = 1.0;
+    #endif
+    #ifdef TransparentReflections
+	    if(parameters.customId == ENTITY_ICE)mat = 2.0; //various ids are mapped to ice in block.properties
+    #endif
+    #endif
+
+
+    //fragment
+
+    #ifndef customLight
+        vec4 tex = parameters.sampledColour * texture2D(lightmap, parameters.lightMap) * parameters.tinting;
+    #else
+        //Mix default MC skylight with custom emissive light
+        vec4 tex = parameters.sampledColour * parameters.tinting;
+	    float torchmap = clamp(parameters.lightMap.x-0.5/16.0, 0.0, 1.0); //must be clamped to fix enchanted items
+	    tex.rgb *= mix(texture2D(lightmap, vec2(0.5 / 16.0, parameters.lightMap.y)).rgb, vec3(emissive_R,emissive_G,emissive_B)*torchmap, torchmap);
+    #endif
+
+    #ifdef Colorboost
+	    tex.rgb = pow(tex.rgb*1.20, vec3(1.20));
+    #endif
+		
+		vec2 texcoord = gl_FragCoord.xy / vec2(viewWidth, viewHeight);
+        vec3 fragPos = toScreenSpace(vec3(texcoord, gl_FragCoord.z));
+		vec3 normal = vec3(0.0);
+
+		switch (uint(parameters.face) >> 1u) {
+			case 0u:
+			normal.xyz = vxModelView[1].xyz;
+			break;
+			case 1u:
+			normal.xyz  = vxModelView[2].xyz;
+			break;
+			case 2u:
+			normal.xyz  = vxModelView[0].xyz;
+			break;
+		}
+		if ((parameters.face & 1) == 0) {
+			normal.xyz  = -normal.xyz ;
+		}
+
+    #ifdef Reflections
+		mat3 tbnMatrix = mat3(vxModelView[0].x, vxModelView[2].x, normal.x,
+							  vxModelView[0].y, vxModelView[2].y, normal.y,
+							  vxModelView[0].z, vxModelView[2].z, normal.z);
+
+		vec3 worldPos = mat3(vxModelViewInv) * fragPos + vxModelViewInv[3].xyz;
+        vec3 waterpos = worldPos + cameraPosition;
+        float water = 0.0;
+        if(parameters.customId == ENTITY_WATER) water = 0.95;
+	    if(mat > 0.9) normal = clamp(normalize(calcBump(waterpos.xz - waterpos.y, water) * tbnMatrix), vec3(-1.0), vec3(1.0)); 		//don't alter none reflective normals, mat=reflective
+    #endif
+
+    if(parameters.customId == ENTITY_WATER){
+	    if(isEyeInWater > 0.9)tex.a = 0.9;			//improve alpha underwater, default is 1 (opaque)
+			#ifdef waterTex	
+				tex.rgb *= 1.25;					//improve colors on water
+			#else
+			#if MC_VERSION < 11300 					//Add a watercolor fallback for 1.12.2 and below, for some reason color.rgb turns out grey in older versions.
+				tex = mix(tex, vec4(0.0, 0.275, 0.525, 0.75), 1.0) * texture2D(lightmap, parameters.lightMap);
+			#else
+				tex.rgb = mix(tex.rgb, parameters.tinting.rgb*0.5, 1.0) * texture2D(lightmap, parameters.lightMap).rgb;
+	    	#endif	
+    	#endif
+		tex.rgb *= 0.6;
+    }
+
+    //Lighting
+    float NdotLight = clamp(dot(normal, normalize(shadowLightPosition))*1.02-0.02,0.0,1.0);	
+    if (parameters.customId == ENTITY_SMALLGRASS
+     || parameters.customId == ENTITY_LOWERGRASS
+     || parameters.customId == ENTITY_UPPERGRASS
+     || parameters.customId == ENTITY_SMALLENTS
+     || parameters.customId == ENTITY_LEAVES
+     || parameters.customId == ENTITY_VINES
+     || parameters.customId == ENTITY_LILYPAD
+     || parameters.customId == ENTITY_FIRE
+     || parameters.customId == ENTITY_WAVING_LANTERN	
+     || parameters.customId == ENTITY_EMISSIVE	
+     || parameters.customId == ENTITY_NON_DIFFUSE) {
+    NdotLight = 0.60;
+    }
+
+	#ifdef Shadows
+		vec3 shadowPos = toScreenSpace(vec3(texcoord, texture2D(vxDepthTexTrans, texcoord).x));
+		NdotLight *= calcRaytraceShadows(shadowLightPosition, shadowPos, fract(dot(gl_FragCoord.xy, vec2(0.5, 0.25))));
+	#endif
+
+	NdotLight *= (1.0-rainStrength);
+    tex.rgb *= (1.0 + NdotLight) * 0.6;
+
+	if(mat < 0.9) normal *= 0.0; //don't need none reflective normals in buffer
+	
+	#ifdef Fog
+		float newFar = max(far, float(vxRenderDistance * 16.0));
+		tex.rgb = mix(tex.rgb, fogColor, clamp(max((length(fragPos) - fogStart) / max(fogEnd - fogStart, 0.0001), length(fragPos) / newFar * 12.5 - 11.5), 0.0, 1.0));
+	#endif
+
+    fragData0 = tex;
+    fragData1 = encode(normal, mat);
+}

@@ -1,0 +1,672 @@
+#Profiles American English # Review by tasxatzial
+############################
+profile.no_effects=§lMinimum
+profile.shadowless_low=§lShadowless §b§lLow
+profile.shadowless_medium=§lShadowless §a§lMedium
+profile.shadowless_high=§lShadowless §5§lMAX
+profile.very_low=§9§lVery Low
+profile.low=§b§lLow
+profile.medium=§a§lMedium (Default)
+profile.high=§e§lHigh
+profile.extreme=§4§lExtreme
+profile.max=§5§lMAX
+
+profile.comment=The "Shadowless" profiles are designed for low-performance machines, disregarding shadows. Traditional profiles gradually add higher-quality shadows and advanced effects. Please experiment with the available options to find the best combination for you.
+
+#About
+#############################
+option.ACERCADE=§lE-LITE§r by §lEntokito
+option.ACERCADE.comment=Thanks for using this shader! :). Set Iris or OptiFine native quality controls to normal or default values for better quality. Modified by: @Entokito, revision on this language by tasxatzial.
+value.ACERCADE.1=§f§lELT511
+value.ACERCADE.2=§9§lELT511
+value.ACERCADE.3=§b§lELT511
+value.ACERCADE.4=§a§lELT511
+value.ACERCADE.5=§e§lELT511
+value.ACERCADE.6=§5§lELT511
+
+#Style
+option.STYLE=§lStyle
+value.STYLE.1=§6§lNatural
+value.STYLE.2=§b§lVanilla
+
+option.STYLE.comment=Natural: Focuses on the visual, enhancing the aesthetic. Vanilla: Preserves the original Minecraft aesthetic.
+
+#Options
+#############################
+option.SHADOW_CASTING=§6▶§r Shadows
+
+option.SHADOW_ENTITIES=§6▶§r Entity shadows
+option.SHADOW_ENTITIES.comment=Enables shadow casting from entities and players. Turning off this option improves performance by up to 30%.
+
+option.OMNI_MUL=Light multiplier
+suffix.OMNI_MUL=x
+option.OMNI_MUL.comment=Adjusts the brightness of shadows and the color of light. Lower values result in darker shadows.
+
+option.SHARP_FORCE=Sharpness
+option.SATURATION=Saturation
+option.CONTRAST=Contrast
+option.BRIGHTNESS=Brightness
+option.GAMMA=Gamma
+option.VIBRANCE=Vibrance
+option.VIBRANCE.comment=Similar to saturation, but does not alter the saturation of very bright elements.
+
+suffix.SHARP_FORCE=x
+suffix.SATURATION=x
+suffix.CONTRAST=x
+suffix.BRIGHTNESS=x
+suffix.VIBRANCE=x
+suffix.GAMMA=x
+
+option.PS1_LIKE=PS1 Like
+option.PS1_LIKE.comment=Applies a pixel filter to the screen.
+option.RED=Red
+option.GREEN=Green
+option.BLUE=Blue
+option.EXPOSURE=Exposure
+
+suffix.RED=x
+suffix.GREEN=x
+suffix.BLUE=x
+suffix.EXPOSURE=x
+
+option.RAYMARCH_STEPS=§a▶§r Raymarch ray amount
+value.RAYMARCH_STEPS.10=§5§lMAX
+option.RAYMARCH_STEPS.comment=Adjusts the amount of rays in §a§lRaymarching§r. More rays = higher quality. Lowering this setting can improve performance.
+
+option.TONEMAPPING=Tonemap operator
+option.TONEMAPPING.comment=Choose the tonemap operator, which adjusts colors for a better look (except for Psychedelic).
+value.TONEMAPPING.0=Legacy
+value.TONEMAPPING.1=Lottes
+value.TONEMAPPING.2=ACES Filmic
+value.TONEMAPPING.3=Psychedelic
+value.TONEMAPPING.4=Uchimura
+
+screen.HDR_SCREEN= Colors/Tonemapping
+
+option.HDR=§b▶§r Greater color range
+option.HDR.comment=Preserves better quality in highlights. Disabling this can improve performance, but the image will lose details in bright areas.
+
+option.DOF_HDR=§b▶§r Greater color range in DoF
+option.DOF_HDR.comment=Enhances colors in Depth of Field. Disabling this can improve performance while using DoF, but can cause color banding.
+
+option.COLOR_BITS=§b▶§r Color bits
+option.COLOR_BITS.comment=Adjusts how many bits of color can be displayed on the screen. More bits: More colors. Reducing this option can improve performance but may cause color banding. Only works with "Greater color range" off.
+
+option.FOLIAGE_V=§9▶§r Realistic foliage
+option.FOLIAGE_V.comment=Activates light transparency and wind effect for leaves and plants.
+
+option.SHADOW_DISTANCE_SLIDER=§a▶§r Shadow dist.
+option.SHADOW_DISTANCE_SLIDER.comment=Recommended config is to use more than 80% of your render distance for best performance / quality ratio.
+value.SHADOW_DISTANCE_SLIDER.1=§9§lVery low §0§9(4 cks)
+value.SHADOW_DISTANCE_SLIDER.2=§9§lVery low §0§9(5 cks)
+value.SHADOW_DISTANCE_SLIDER.3=§b§lLow §0§b(6 cks)
+value.SHADOW_DISTANCE_SLIDER.4=§a§lMedium §0§a(8 cks)
+value.SHADOW_DISTANCE_SLIDER.5=§a§lMedium §0§a(10 cks)
+value.SHADOW_DISTANCE_SLIDER.6=§e§lHigh §0§e(12 cks)
+value.SHADOW_DISTANCE_SLIDER.7=§4§lExtreme §0§4(14 cks)
+value.SHADOW_DISTANCE_SLIDER.8=§5§lMAX §0§5(16 cks)
+
+option.SHADOW_QTY_SLIDER=§c▶§r Shadow qty.
+option.SHADOW_QTY_SLIDER.comment=Choose carefully, as this option has a high performance impact. Medium is the balance between quality and performance.
+value.SHADOW_QTY_SLIDER.0=None
+value.SHADOW_QTY_SLIDER.1=§9§lVery low
+value.SHADOW_QTY_SLIDER.2=§b§lLow
+value.SHADOW_QTY_SLIDER.3=§a§lMedium
+value.SHADOW_QTY_SLIDER.4=§e§lHigh
+value.SHADOW_QTY_SLIDER.5=§4§lExtreme
+value.SHADOW_QTY_SLIDER.6=§5§lMAX
+
+option.SHADOW_LOCK=Pixel-Locked shadows
+value.SHADOW_LOCK.0=Off
+value.SHADOW_LOCK.8=8x
+value.SHADOW_LOCK.16=16x
+value.SHADOW_LOCK.32=32x
+value.SHADOW_LOCK.64=64x
+value.SHADOW_LOCK.128=128x
+
+option.REFLECTION_SLIDER=§a▶§r Screen-Space Reflection
+option.REFLECTION_SLIDER.comment=§b§lLow§r: Uses a simpler method that flips the image to simulate reflections. §e§lHigh§r: Uses §a§lRaymarching§r, more accurate, but slower.
+value.REFLECTION_SLIDER.0=Off
+value.REFLECTION_SLIDER.1=§b§lLow
+value.REFLECTION_SLIDER.2=§e§lHigh
+
+option.SHADOW_TYPE=§9▶§r Shadow type
+option.SHADOW_TYPE.comment=Simple: No filtering. Filtered: Adds blur to shadows for a better look. Upscaled: Makes shadows edges sharper §l(May introduce artifacts).
+value.SHADOW_TYPE.0=Simple
+value.SHADOW_TYPE.1=Filtered
+value.SHADOW_TYPE.2=Upscaled
+
+option.SHADOW_BLUR=Shadow blur intensity
+
+option.COLORED_SHADOW=§b▶§r Colored shadows
+option.COLORED_SHADOW.comment=Enables colored shadows for tinted glass and ice. (Required for caustics).
+option.VOL_LIGHT=§e▶§r Godrays
+option.VOL_LIGHT.comment=Depth based: Uses depth-based godrays; works better at very short shadow distances. Volumetric: Accurate and faster, but requires shadows enabled to work.
+value.VOL_LIGHT.0=Disabled
+value.VOL_LIGHT.1=Depth based
+value.VOL_LIGHT.2=Volumetric
+
+option.CAUSTICS=§9▶§r Caustics
+option.CAUSTICS_INTENSITY=Caustics strength
+suffix.CAUSTICS_INTENSITY=x
+option.CAUSTICS.comment=Makes water cast shadows in real time based on its waves. §l(Requires Colored shadows enabled).
+
+option.GODRAY_STEPS=§b▶§r Godrays qty.
+value.GODRAY_STEPS.2=§9§lVery low
+value.GODRAY_STEPS.3=§b§lLow
+value.GODRAY_STEPS.4=§a§lMedium
+value.GODRAY_STEPS.5=§e§lHigh
+value.GODRAY_STEPS.6=§4§lExtreme
+value.GODRAY_STEPS.7=§5§lMAX
+
+option.DOF=§a▶§r Depth of field
+option.DOF.comment=Enables Depth of Field based blur. Medium performance impact.
+
+option.DOF_STRENGTH=DoF strength
+value.DOF_STRENGTH.1.0=§5§lMAX
+
+option.DOF_SAMPLES_FACTOR=DoF samples factor
+
+option.VANILLA_AO=§1▶§r Vanilla AO
+option.VANILLA_AO.comment=Uses Minecraft's ambient occlusion; much faster than standard.
+value.VANILLA_AO.0=Off
+value.VANILLA_AO.1=On
+
+option.AO=§a▶§r Ambient occlusion
+value.AO.0=Off
+value.AO.1=On
+
+option.AOSTEPS=AO sample pairs
+value.AOSTEPS.2.0=§lMinimum
+value.AOSTEPS.3.0=§9§lVery low
+value.AOSTEPS.4.0=§b§lLow
+value.AOSTEPS.5.0=§a§lMedium
+value.AOSTEPS.6.0=§e§lHigh
+value.AOSTEPS.7.0=§c§lVery high
+value.AOSTEPS.8.0=§4§lExtreme
+value.AOSTEPS.10.0=§5§lMAX
+
+option.AO_STRENGTH=AO strength
+suffix.AO_STRENGTH=x
+
+option.AA_TYPE=§b▶§r Antialiasing
+option.AA_TYPE.comment=Turns on Antialiasing. Denoise has no antialiasing but features anti-dithering. §b§lSmart TAA§r uses adaptive contrast for sharpness. Normal TAA is not recommended as it may look too blurry.
+value.AA_TYPE.0=Off
+value.AA_TYPE.1=Denoise
+value.AA_TYPE.2=TAA §c(!)
+value.AA_TYPE.3=§b§lSmart TAA
+
+option.RENDER_SCALE_INT=§c§lFSR§r mode
+suffix.RENDER_SCALE_INT=%
+option.RENDER_SCALE_INT.comment=Adjusts the rendering resolution. 50% scale is recommended for 4K. §c§l§oFSR 1§r will upscale the image on low resolutions.
+
+value.RENDER_SCALE_INT.100=§5§l§oNative
+value.RENDER_SCALE_INT.85=§4§lUltra quality
+value.RENDER_SCALE_INT.76=§e§lQuality
+value.RENDER_SCALE_INT.67=§a§lBalanced
+value.RENDER_SCALE_INT.58=§b§lPerformance
+value.RENDER_SCALE_INT.50=§9§lUltra Performance
+
+screen.FSR_SCREEN=§c§lAMD FidelityFX
+option.FSR=§c§lFSR 1§r
+option.FSR.comment=Enables §c§lAMD FSR 1§r; improves image quality when render scale is low. Enable this before reducing render scale.
+option.FXAA=§9▶§r FXAA
+option.FXAA.comment=Enables FXAA; helpful on low render scales.
+
+option.MOTION_BLUR=§b▶§r Motion blur
+option.MOTION_BLUR.comment=Enables motion blur.
+
+option.MOTION_BLUR_STRENGTH=Motion blur strength
+option.MOTION_BLUR_SAMPLES=Motion blur samples
+option.MOTION_BLUR_SAMPLES.comment=Adjusts the quality of motion blur.
+
+value.MOTION_BLUR_SAMPLES.2.0=§9§lVery low
+value.MOTION_BLUR_SAMPLES.3.0=§b§lLow
+value.MOTION_BLUR_SAMPLES.4.0=§a§lMedium
+value.MOTION_BLUR_SAMPLES.5.0=§e§lHigh
+value.MOTION_BLUR_SAMPLES.6.0=§c§lVery high
+value.MOTION_BLUR_SAMPLES.7.0=§4§lExtreme
+value.MOTION_BLUR_SAMPLES.8.0=§5§lMAX
+
+option.VANILLA_WATER=Vanilla-like water
+
+option.USE_WATER_TEXTURE=Water texture
+value.USE_WATER_TEXTURE.-1=Use Style
+value.USE_WATER_TEXTURE.0=No
+value.USE_WATER_TEXTURE.1=Yes
+
+option.WATER_COLOR_SOURCE=Water color
+value.WATER_COLOR_SOURCE.0=Shader scheme
+value.WATER_COLOR_SOURCE.1=Resource Pack
+
+option.REFLECTION=Reflection
+value.REFLECTION.0=Off
+value.REFLECTION.1=On
+
+option.REFRACTION=§9▶§r Refraction
+option.REFRACTION.comment=Enables light distortion in water.
+value.REFRACTION.0=Off
+value.REFRACTION.1=On
+
+option.SSR_TYPE=Reflection type
+value.SSR_TYPE.0=Flipped image
+value.SSR_TYPE.1=§a§lRaymarching§r
+
+option.SUN_REFLECTION=§b▶§r Sun reflection
+option.SUN_REFLECTION.comment=Makes the sun and moon reflect on glass and water.
+value.SUN_REFLECTION.0=Off
+value.SUN_REFLECTION.1=Circular
+value.SUN_REFLECTION.2=Square
+
+option.CLOUD_REFLECTION=§b▶§r Vol. clouds reflection
+option.CLOUD_REFLECTION.comment=Makes volumetric clouds create reflections on water.
+
+option.WAVING=§9▶§r Waving plants
+option.WAVING.comment=Makes leaves or grass move in the wind.
+value.WAVING.0=No
+value.WAVING.1=Yes
+
+option.CHROMA_ABER=§1▶§r Chroma aberration
+option.CHROMA_ABER_STRENGTH=Chroma aberration strength
+suffix.CHROMA_ABER_STRENGTH=x
+
+option.WATER_ABSORPTION=Water absorption index
+option.WATER_ABSORPTION.comment=Sets how much light the water absorbs. Low levels make water transparent; high levels make it opaque.
+suffix.WATER_ABSORPTION=%
+option.WATER_FOG= Water fog
+suffix.WATER_FOG=x
+
+option.USE_WATER_TURBULENCE=Waves strength
+value.USE_WATER_TURBULENCE.-1=Use Style
+value.USE_WATER_TURBULENCE.0=Very low
+value.USE_WATER_TURBULENCE.1=Low
+value.USE_WATER_TURBULENCE.2=Medium
+value.USE_WATER_TURBULENCE.3=High
+
+option.COLOR_SCHEME=§lColor scheme
+option.COLOR_SCHEME.comment=New Shoka: Reinterpretation of a classic (MakeUp). §b§lRealistic+: Realistic sky colors. LITE Legacy: LITE 3.3 colors. Vanilla: Vanilla colors. Cursed: Dark and scary colors. Realistic (Simple): Simple colors. Custom: Choose your colors in effects -> custom colors. Realistic (Pollution): Realistic, but simulates pollution.
+value.COLOR_SCHEME.1=New Shoka
+value.COLOR_SCHEME.2=§b§lRealistic+
+value.COLOR_SCHEME.3=§6§lLegacy (LITE)
+value.COLOR_SCHEME.4=§f§lVanilla
+value.COLOR_SCHEME.5=§4§lCursed
+value.COLOR_SCHEME.6=§lRealistic (Simple)
+value.COLOR_SCHEME.7=§lRealistic (Pol)
+value.COLOR_SCHEME.99=Custom
+
+option.LIGHT_SUNSET_COLOR_R=Sunset light R
+option.LIGHT_SUNSET_COLOR_G=Sunset light G
+option.LIGHT_SUNSET_COLOR_B=Sunset light B
+
+option.LIGHT_DAY_COLOR_R=Day light R
+option.LIGHT_DAY_COLOR_G=Day light G
+option.LIGHT_DAY_COLOR_B=Day light B
+
+option.LIGHT_NIGHT_COLOR_R=Night light R
+option.LIGHT_NIGHT_COLOR_G=Night light G
+option.LIGHT_NIGHT_COLOR_B=Night light B
+
+option.ZENITH_SUNSET_COLOR_R=Zenith sunset R
+option.ZENITH_SUNSET_COLOR_G=Zenith sunset G
+option.ZENITH_SUNSET_COLOR_B=Zenith sunset B
+
+option.ZENITH_DAY_COLOR_R=Zenith day R
+option.ZENITH_DAY_COLOR_G=Zenith day G
+option.ZENITH_DAY_COLOR_B=Zenith day B
+
+option.ZENITH_NIGHT_COLOR_R=Zenith night R
+option.ZENITH_NIGHT_COLOR_G=Zenith night G
+option.ZENITH_NIGHT_COLOR_B=Zenith night B
+
+option.HORIZON_SUNSET_COLOR_R=Horizon sunset R
+option.HORIZON_SUNSET_COLOR_G=Horizon sunset G
+option.HORIZON_SUNSET_COLOR_B=Horizon sunset B
+
+option.HORIZON_DAY_COLOR_R=Horizon day R
+option.HORIZON_DAY_COLOR_G=Horizon day G
+option.HORIZON_DAY_COLOR_B=Horizon day B
+
+option.HORIZON_NIGHT_COLOR_R=Horizon night R
+option.HORIZON_NIGHT_COLOR_G=Horizon night G
+option.HORIZON_NIGHT_COLOR_B=Horizon night B
+
+option.WATER_COLOR_R=Water R
+option.WATER_COLOR_G=Water G
+option.WATER_COLOR_B=Water B
+
+option.NV_COLOR_R=Night vision R multiplier
+option.NV_COLOR_G=Night vision G multiplier
+option.NV_COLOR_B=Night vision B multiplier
+
+option.OMNI_TINT_CUSTOM=Omni tint
+
+option.AVOID_DARK_LEVEL=Minimal light
+option.AVOID_DARK_LEVEL.comment=Minimal light intensity (Percentage).
+suffix.AVOID_DARK_LEVEL = %
+value.AVOID_DARK_LEVEL.50.0=FULLBRIGHT
+
+option.NIGHT_BRIGHT=Night brightness
+suffix.NIGHT_BRIGHT=x
+option.NIGHT_BRIGHT_RANGE=Moon Phase influence
+option.NIGHT_BRIGHT_RANGE.comment=Controls how much brightness at night changes in different moon phases.
+suffix.NIGHT_BRIGHT_RANGE=x
+
+option.V_CLOUDS=§a▶§r Clouds
+option.V_CLOUDS.comment=Volumetric static: Clouds keep their shape. Volumetric dynamic: Clouds change shape over time (medium performance hit). Vanilla: Original clouds.
+value.V_CLOUDS.-1=Off
+value.V_CLOUDS.0=Vanilla + Better Clouds
+value.V_CLOUDS.1=Vol. static
+value.V_CLOUDS.2=Vol. dynamic
+
+option.SUN_MUL=Sun brightness
+suffix.SUN_MUL=x
+
+option.MOON_MUL=Moon brightness
+suffix.MOON_MUL=x
+
+option.ASTRO_POWER=Sun/Moon power
+option.ASTRO_POWER.comment=Powers the color of the sun and the moon by the value. 1.0 = default.
+prefix.ASTRO_POWER=^
+
+option.CLOUD_DENSITY=Clouds density
+option.CLOUD_DENSITY.comment=Adjusts cloud density. Greater value = lower density.
+suffix.CLOUD_DENSITY=d
+
+option.CIRRUS=§b▶§r Cirrus clouds
+option.CIRRUS.comment=Enables a second layer of clouds in the sky.
+
+option.USE_CLOUD_VOL_STYLE=Vol. cloud style
+value.USE_CLOUD_VOL_STYLE.-1=Use style
+value.USE_CLOUD_VOL_STYLE.0=Natural
+value.USE_CLOUD_VOL_STYLE.1=Boxy
+
+option.CLOUD_SPEED=Clouds speed
+value.CLOUD_SPEED.0=Normal
+value.CLOUD_SPEED.1=Time-lapse 1
+value.CLOUD_SPEED.2=Time-lapse 2
+
+option.END_CLOUDS=Clouds in The End
+
+option.CLOUD_STEPS_AVG=§e▶§r Cloud quality
+value.CLOUD_STEPS_AVG.3=§b§lLow
+value.CLOUD_STEPS_AVG.4=§a§lMedium
+value.CLOUD_STEPS_AVG.5=§e§lHigh
+value.CLOUD_STEPS_AVG.10=§c▶§r §5§lMAX
+
+option.CIRRUS_STEPS_AVG=§e▶§r Cirrus quality
+value.CIRRUS_STEPS_AVG.3=§b§lLow
+value.CIRRUS_STEPS_AVG.4=§a§lMedium
+value.CIRRUS_STEPS_AVG.5=§e§lHigh
+value.CIRRUS_STEPS_AVG.10=§c▶§r §5§lMAX
+
+option.SIMPLE_SKY=§b▶§r Sky type
+option.SIMPLE_SKY.comment=Use only with Realistic+ color scheme, for the old LITE sky or to improve performance.
+value.SIMPLE_SKY.0=§5§lE-LITE 5
+value.SIMPLE_SKY.1=LITE 4.1
+
+option.BLOOM=§b▶§r Bloom
+option.BLOOM.comment=Enables a blur around bright blocks.
+
+option.COLOR_BLINDNESS=Color blindness
+
+option.COLOR_BLIND_MODE=CB type
+value.COLOR_BLIND_MODE.0=Protanopia
+value.COLOR_BLIND_MODE.1=Deuteranopia
+value.COLOR_BLIND_MODE.2=Tritanopia
+
+option.CB_STRENGTH=Color blindness strength
+
+option.DEBUG_MODE=Debug mode
+
+option.BLOOM_SAMPLES=§a▶§r Bloom quality
+value.BLOOM_SAMPLES.2.0=§lMinimum
+value.BLOOM_SAMPLES.3.0=§9§lVery low
+value.BLOOM_SAMPLES.4.0=§b§lLow
+value.BLOOM_SAMPLES.5.0=§a§lMedium
+value.BLOOM_SAMPLES.6.0=§e§lHigh
+value.BLOOM_SAMPLES.7.0=§4§lExtreme
+value.BLOOM_SAMPLES.8.0=§5§lMAX
+
+option.BLOOM_STRENGTH=Bloom strength
+value.BLOOM_STRENGTH.2.0=§5§lMAX
+
+option.BLACK_ENTITY_FIX=Black entity BUGFIX
+value.BLACK_ENTITY_FIX.0=Off
+value.BLACK_ENTITY_FIX.1=On
+
+option.FOG_ACTIVE=§9▶§r Fog enabled
+option.FOG_ACTIVE.comment=Enables fog.
+
+option.FOG_ADJUST=Fog intensity
+value.FOG_ADJUST.20.0=No fog
+value.FOG_ADJUST.10.0=Minimum
+value.FOG_ADJUST.8.0=Very low
+value.FOG_ADJUST.4.0=Low
+value.FOG_ADJUST.2.0=Medium
+value.FOG_ADJUST.1.5=High
+value.FOG_ADJUST.1.0=§5§lMAX
+
+option.NETHER_FOG_DISTANCE=Nether fog distance
+value.NETHER_FOG_DISTANCE.0=Render Distance
+value.NETHER_FOG_DISTANCE.1=Vanilla
+
+option.BLOCKLIGHT_TEMP=Blocklight temp
+value.BLOCKLIGHT_TEMP.-1=Warmest
+value.BLOCKLIGHT_TEMP.0=Warmer
+value.BLOCKLIGHT_TEMP.1=Warm
+value.BLOCKLIGHT_TEMP.2=Yellow
+value.BLOCKLIGHT_TEMP.3=Pale yellow
+value.BLOCKLIGHT_TEMP.4=White light
+value.BLOCKLIGHT_TEMP.5=Blue
+
+option.sunPathRotation=Sun angle
+suffix.sunPathRotation= °
+
+option.USE_BASIC_SH=Custom dimension shader
+option.USE_BASIC_SH.comment=Enables the shader in custom dimensions from mods.
+
+option.MATERIAL_GLOSS=§a▶§r Block reflection
+value.MATERIAL_GLOSS.0=Off
+value.MATERIAL_GLOSS.1=Specular
+value.MATERIAL_GLOSS.2=SSR
+value.MATERIAL_GLOSS.3=§5§lMAX
+option.MATERIAL_GLOSS.comment=Adds reflections on some blocks like metals. SSR mode uses a very fast but inaccurate method. §5§lMAX§r merges Specular and SSR and uses §a§lRaymarching§r for more accurate results.
+
+option.SIMPLE_AUTOEXP=§1▶§r Simpler exposure
+option.SIMPLE_AUTOEXP.comment=Turns off automatic exposure.
+
+option.EMISSIVE_ORE=§b▶§r Glowing ores
+option.EMISSIVE_ORE.comment=Enables glow for diamond, gold, iron, etc.
+
+option.EMISSIVE_MATERIAL=§b▶§r Glowing materials
+option.EMISSIVE_MATERIAL.comment=Enables glowing enchanting tables, repeaters, etc.
+
+option.DYN_HAND_LIGHT=§1▶§r Fake dynamic light
+
+option.FAKE_BLOOM=§1▶§r Fake bloom
+option.FAKE_BLOOM.comment=Adds more brightness to luminous blocks.
+option.VIGNETTE=§1▶§r Vignette
+option.VIGNETTE.comment=Adds a vignette to the screen.
+option.FILM_GRAIN=§1▶§r Film grain
+option.FILM_GRAIN.comment=Adds film grain to the screen.
+option.VIGNETTE_FACTOR=Vignette force
+option.GRAIN_FACTOR=Grain force
+
+suffix.GRAIN_FACTOR=x
+suffix.VIGNETTE_FACTOR=x
+
+option.WIND_FORCE= Wind intensity
+
+option.BIOME_SKY=§b▶§r Biome Sky
+option.BIOME_SKY.comment=Changes sky colors in certain biomes. (Only works on Realistic+ and Cursed schemes).
+
+option.BIOME_FOG=§b▶§r Biome Fog
+option.BIOME_FOG.comment=Makes fog denser in certain biomes.
+
+option.STAR_SLIDER=§a▶§r Stars
+option.STAR_SLIDER.comment=Adjusts star quality. §5§lMAX§r may affect performance based on resolution.
+value.STAR_SLIDER.0=Off
+value.STAR_SLIDER.1=§b§lVanilla
+value.STAR_SLIDER.2=§5§lMAX
+
+option.END_STARS=§9▶§r End stars
+option.END_STARS.comment=Enables stars in The End.
+
+option.STARS_BRIGHTNESS=Stars brightness
+option.STARS_BRIGHTNESS.comment=Brightness multiplier of stars.
+suffix.STARS_BRIGHTNESS=x
+
+option.STARS_COVERAGE=Stars coverage
+option.STARS_COVERAGE.comment=Coverage multiplier of stars. Only affects §5§lMAX§r stars.
+suffix.STARS_COVERAGE=x
+
+option.CUSTOM_SKYFIX=Custom skies fix
+option.CUSTOM_SKYFIX.comment=Fixes the colors of custom skies.
+
+option.SANDSTORM=§9▶§r Sandstorm
+option.SANDSTORM.comment=Enables sandstorms in arid biomes. (Requires Biome Fog).
+
+option.NEAR_FOG=§9▶§r Near fog
+option.NEAR_FOG.comment=Adds fog near the player to increase depth and immersion.
+
+option.FOG_TINT=Fog tint
+option.FOG_TINT.comment=Adjusts fog tint color.
+value.FOG_TINT.0=Neutral
+value.FOG_TINT.1=Cool
+value.FOG_TINT.2=Warm
+
+option.AURORA=§b▶§r Aurora Borealis
+option.AURORA.comment=Adds an Aurora Borealis during nights.
+value.AURORA.0=Off
+value.AURORA.1=Snowy biomes only
+value.AURORA.2=Everywhere
+
+option.ROUND_SUN=§9▶§r Sun type
+option.ROUND_SUN.comment=Set sun type.
+value.ROUND_SUN.0=§b§lVanilla
+value.ROUND_SUN.1=§6§lRound
+value.ROUND_SUN.2=§lLegacy
+
+option.SELECTION_LINE=Selection outline
+value.SELECTION_LINE.0=Off
+value.SELECTION_LINE.1=Default
+value.SELECTION_LINE.2=White
+value.SELECTION_LINE.3=RGB
+
+option.SELECTION_LINE.comment=Sets color of selection lines. "Off" Disables it. RGB makes lines glow like RGB LEDs.
+
+
+option.SEASONS=§b▶§r Seasons
+option.SEASONS.comment=Adds dynamic seasons affecting grass and foliage.
+
+option.SEASON_LENGTH=Seasons length
+option.SEASON_LENGTH.comment=Sets season length in game days.
+
+option.TITLE=Title
+option.TITLE.comment=Shows the title and profile when the shader starts.
+
+option.END_PORTAL=§9▶§r Custom end portal
+option.END_PORTAL.comment=Enables the shader's customized end portal.
+
+option.LabPBR=§6▶§r LabPBR
+option.LabPBR.comment=Enables LabPBR support and applies it to block reflections and general lighting. Enable this option to use POM. (Requires a resource pack that supports LabPBR).
+option.POM=§e▶§r POM
+option.POM.comment=Also known as Parallax Occlusion Mapping, this option enables surface relief from LabPBR.
+option.POM_DEPTH=POM Depth
+option.POM_DEPTH.comment=Adjusts POM depth. High values may cause visual artifacts.
+option.POM_SHADOW=§b▶§r POM Shadow
+option.POM_SHADOW.comment=Enables self-shadowing from POM pixels.
+option.LabEMISSIVE=§1▶§r LabPBR Emissives
+option.LabEMISSIVE.comment=Enables LabPBR emissive textures. This option may cause conflicts or overexposure if Glowing Ores/Materials are enabled.
+option.POM_STEPS=§c▶§r POM quality
+option.SS_SAMPLES=§9▶§r POM shadow qty.
+
+suffix.POM_DEPTH=x
+suffix.POM_STEPS=x
+suffix.SS_SAMPLES=x
+
+#Screens
+screen.BASIC_SCREEN=§lBasic ●
+screen.EFFECTS_SCREEN=§lEffects ✦
+screen.LIGHTING_SCREEN=§lLighting ☀
+screen.MISC_SCREEN=§lMisc ✚
+screen.LabPBR=§lMaterials 💎
+
+# Info
+screen.INFO_SCREEN=§lInfo ?
+screen.INFO_SCREEN.comment=Potentially helpful info.
+
+option.HOVER=Hover below
+option.HOVER.comment=Hi! Here you can find information about E-LITE shaders!
+value.HOVER.0=
+
+option.VERSION=Version info
+option.VERSION.comment=Name: §lE-LITE §rshaders §5§l5.1.1§r. Build: RELEASE. Code: §5§lELT511§r. Date: June 24th, 2026. Based on MakeUp Ultrafast 9.5b.
+value.VERSION.0=
+
+option.PROFILES=Graphic profiles
+option.PROFILES.comment=No effects: Pure shader. Shadowless: Normal profiles with shadows off. Very Low - MAX: Progressively increase quality at the cost of performance.
+value.PROFILES.0=
+
+option.STYLES=Styles
+option.STYLES.comment=Switch between Natural (realism) and Vanilla (original aesthetic).
+value.STYLES.0=
+
+option.PERF_IMPACT=Performance impact
+option.PERF_IMPACT.comment=§6▶ Variable. §1▶ Zero. §9▶ Very low. §b▶ Low. §a▶ Medium. §e▶ High. §c▶ Very high.
+value.PERF_IMPACT.0=
+
+option.CREDITS=Credits
+option.CREDITS.comment=Entokito: Modifier and translator. Javier Garduño: Creator of MakeUp Ultrafast.
+value.CREDITS.0=
+
+# End of info
+screen.RENDER_SCREEN=Rendering
+screen.RENDER_SCREEN.comment=Set render options.
+
+screen.CAMERA_SCREEN=Camera
+screen.CAMERA_SCREEN.comment=Set camera options.
+
+screen.COMPATIBILITY_SCREEN=Compatibility
+screen.COMPATIBILITY_SCREEN.comment=Set compatibility options.
+
+screen.SHADOWS_SCREEN=Shadows
+screen.SHADOWS_SCREEN.comment=Set shadows options.
+
+screen.BLOOM_SCREEN=Bloom
+screen.BLOOM_SCREEN.comment=Set Bloom options.
+
+screen.AO_SCREEN=Ambient occlusion
+screen.AO_SCREEN.comment=Set ambient occlusion options.
+
+screen.WATER_SCREEN=Water
+screen.WATER_SCREEN.comment=Set water options.
+
+screen.POST_SCREEN= Post effects
+screen.POST_SCREEN.comment=Set post-processing options.
+
+screen.LIGHT_SCREEN=Light
+screen.LIGHT_SCREEN.comment=Set light options.
+
+screen.CLOUDS_SCREEN=Sun & clouds
+screen.CLOUDS_SCREEN.comment=Set sun and clouds options.
+
+screen.SKY_SCREEN=Sky
+screen.SKY_SCREEN.comment=Set sky options.
+
+screen.MOTION_BLUR_SCREEN=Motion blur
+screen.MOTION_BLUR_SCREEN.comment=Set motion blur options.
+
+screen.ACCESIBILITY_SCREEN=Accessibility
+screen.ACCESIBILITY_SCREEN.comment=Set accessibility options.
+
+screen.TEXT_RENDER_SCREEN=Text render
+screen.TEXT_RENDER_SCREEN.comment=Set text rendering options.
+
+screen.CUSTOM_COLORS_SCREEN=Custom colors
+screen.CUSTOM_COLORS_SCREEN.comment=Set custom colors (requires "Custom" color scheme).
+screen.CUSTOM_COLORS_DAY=Day custom colors
+screen.CUSTOM_COLORS_SUNSET=Sunset/dawn custom colors
+screen.CUSTOM_COLORS_NIGHT=Night custom colors
+screen.CUSTOM_COLORS_WATER=Water custom colors
+screen.CUSTOM_COLORS_NV=Night vision custom colors

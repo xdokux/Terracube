@@ -1,0 +1,37 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#define RENDER_SCALE_OPTION 100 // [25 50 75 100]
+
+const float RENDER_SCALE = RENDER_SCALE_OPTION * 0.01;
+
+#if RENDER_SCALE_OPTION == 100
+    #define RENDER_SCALE_VOXY 1.0
+#elif RENDER_SCALE_OPTION == 75
+    #define RENDER_SCALE_VOXY 0.75
+#elif RENDER_SCALE_OPTION == 50
+    #define RENDER_SCALE_VOXY 0.50
+#elif RENDER_SCALE_OPTION == 25
+    #define RENDER_SCALE_VOXY 0.25
+#endif
+
+#if RENDER_SCALE_OPTION != 100 
+    #define DOWNSCALED_RENDERING
+#endif

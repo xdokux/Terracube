@@ -1,0 +1,18 @@
+# Shader options for ToonCelShader.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+LIGHT_BANDS = 5        # one of: 2 3 4 5
+SHADOW_RES = 2048        # one of: 512 1024 2048
+OUTLINES = 0        # one of: 0 1
+OUTLINE_THICKNESS = 1.0        # one of: 1.0 1.4 1.8 2.4
+OUTLINE_DEPTH_SENSITIVITY = 1.6        # one of: 0.6 1.0 1.2 1.6
+# OUTLINE_NORMAL_SENSITIVITY = 0.4        # one of: 0.2 0.3 0.4 0.6
+SATURATION = 1.35        # one of: 1.1 1.2 1.35 1.5
+POSTERIZE_LEVELS = 0        # one of: 0 6 8 12
+RIM_LIGHT_STRENGTH = 0.0        # one of: 0.0 0.3 0.5 0.7

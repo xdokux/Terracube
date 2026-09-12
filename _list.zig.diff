@@ -1,0 +1,10 @@
+--- a/src/gui/windows/_list.zig
++++ b/src/gui/windows/_list.zig
+@@ -14,6 +14,7 @@
+ pub const download_controller_mappings = @import("download_controller_mappings.zig");
+ pub const energybar = @import("energybar.zig");
+ pub const error_prompt = @import("error_prompt.zig");
++pub const freecam_settings = @import("freecam_settings.zig");
+ pub const gpu_performance_measuring = @import("gpu_performance_measuring.zig");
+ pub const graphics = @import("graphics.zig");
+ pub const healthbar = @import("healthbar.zig");

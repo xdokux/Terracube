@@ -1,0 +1,212 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#include "/settings.glsl"
+#include "/include/taau_scale.glsl"
+
+#include "/include/common.glsl"
+
+#if defined STAGE_VERTEX
+
+    out vec2 textureCoords;
+    out vec2 vertexCoords;
+    
+    flat out vec3 directIlluminance;
+    flat out vec3 skyIlluminance;
+
+    void main() {
+        gl_Position    = vec4(gl_Vertex.xy * 2.0 - 1.0, 1.0, 1.0);
+        gl_Position.xy = gl_Position.xy * RENDER_SCALE + (RENDER_SCALE - 1.0) * gl_Position.w; + (RENDER_SCALE - 1.0);
+        textureCoords  = gl_Vertex.xy;
+        vertexCoords   = gl_Vertex.xy * RENDER_SCALE;
+
+        #if defined WORLD_OVERWORLD || defined WORLD_END
+
+            directIlluminance = decodeLog(texelFetch(IRRADIANCE_BUFFER, ivec2(0, 0), 0).rgb);
+            skyIlluminance    = texelFetch(IRRADIANCE_BUFFER, ivec2(0, 1), 0).rgb;
+            
+        #endif
+    }
+
+#elif defined STAGE_FRAGMENT
+
+    /* RENDERTARGETS: 11 */
+
+    layout (location = 0) out uvec2 fog;
+
+    in vec2 textureCoords;
+    in vec2 vertexCoords;
+
+    flat in vec3 directIlluminance;
+    flat in vec3 skyIlluminance;
+
+    #include "/include/utility/rng.glsl"
+
+    #include "/include/atmospherics/atmosphere_header.glsl"
+
+    #include "/include/fragment/shadows.glsl"
+    
+    #include "/include/atmospherics/fog.glsl"
+
+    void main() {
+        fog = uvec2(0);
+
+        #if DOWNSCALED_RENDERING == 1
+            vec2 fragCoords = gl_FragCoord.xy * texelSize;
+            if (!insideScreenBounds(fragCoords, RENDER_SCALE)) { return; }
+        #endif
+
+        float depth0 = texture(depthtex0, vertexCoords).r;
+        float depth1 = texture(depthtex1, vertexCoords).r;
+
+        float farPlane = far;
+
+        mat4 projectionInverse = gbufferProjectionInverse;
+
+        #if defined CHUNK_LOADER_MOD_ENABLED
+
+            farPlane = modFarPlane;
+
+            #if defined VOXY
+                float modDepth1 = texture(modDepthTex1, textureCoords).r;
+            #else
+                float modDepth1 = texture(modDepthTex1, vertexCoords).r;
+            #endif
+
+            if (depth1 >= 1.0 && depth0 >= 1.0) {
+        
+                #if defined VOXY
+                    depth0 = texture(modDepthTex0, textureCoords).r;
+                    depth1 = modDepth1;
+                #else
+                    depth0 = texture(modDepthTex0, vertexCoords).r;
+                    depth1 = modDepth1;
+                #endif
+                
+                projectionInverse = modProjectionInverse;
+            }
+            
+        #endif
+
+        vec3 viewPosition0  = screenToView(vec3(textureCoords, depth0), projectionInverse, true);
+        vec3 viewPosition1  = screenToView(vec3(textureCoords, depth1), projectionInverse, true);
+        vec3 scenePosition0 = viewToWorld(viewPosition0);
+
+        vec3 directIlluminanceFinal = directIlluminance;
+        
+        #if defined WORLD_OVERWORLD || defined WORLD_END
+
+            vec3 tmp = normalize(scenePosition0 - gbufferModelViewInverse[3].xyz);
+
+            #if defined WORLD_OVERWORLD
+                float VdotL = dot(tmp, shadowLightVectorWorld);
+            #elif defined WORLD_END
+                float VdotL = dot(tmp, starVector);
+            #endif
+
+        #else
+
+            directIlluminanceFinal = getBlockLightColor();
+            float VdotL = 0.0;
+            
+        #endif
+
+        bool  sky             = depth0 == 1.0;
+        bool  skyTranslucents = depth1 == 1.0;
+
+        float skylight = 0.0;
+
+        vec3 scatteringLayer0    = vec3(0.0);
+        vec3 transmittanceLayer0 = vec3(1.0);
+
+        vec3 scatteringLayer1    = vec3(0.0);
+        vec3 transmittanceLayer1 = vec3(1.0);
+
+        if (!sky) {
+            uvec4 dataTexture = texelFetch(GBUFFERS_DATA, ivec2(vertexCoords * viewSize), 0);
+
+            skylight = getSkylightFalloff(unpackLightmap(dataTexture.x).y);
+
+            if (viewPosition0.z != viewPosition1.z) {
+
+                //////////////////////////////////////////////////////////
+                /*---------------- FRONT TO BACK FOG -------------------*/
+                //////////////////////////////////////////////////////////
+
+                vec3 scenePosition1 = viewToWorld(viewPosition1);
+
+                if (isEyeInWater != 1 && isWater(unpackId(dataTexture.x))) {
+
+                    #if defined WORLD_OVERWORLD || defined WORLD_END
+
+                        #if WATER_FOG == 0
+                            computeWaterFogApproximation(scatteringLayer0, transmittanceLayer0, scenePosition0, scenePosition1, VdotL, directIlluminanceFinal, skyIlluminance, skylight);
+                        #else
+                            computeVolumetricWaterFog(scatteringLayer0, transmittanceLayer0, scenePosition0, scenePosition1, VdotL, directIlluminanceFinal, skyIlluminance, skylight, skyTranslucents);
+                        #endif
+
+                    #endif
+
+                } else {
+
+                    #if AIR_FOG == 1
+                        computeVolumetricAirFog(scatteringLayer0, transmittanceLayer0, scenePosition0, scenePosition1, viewPosition0, farPlane, VdotL, directIlluminanceFinal, skyIlluminance, skyTranslucents);
+                    #elif AIR_FOG == 2
+                        computeAirFogApproximation(scatteringLayer0, transmittanceLayer0, viewPosition0, farPlane, VdotL, directIlluminanceFinal, skyIlluminance, skylight);
+                    #endif
+
+                }
+
+            }
+        } else {
+            skylight = 1.0;
+        }
+
+        //////////////////////////////////////////////////////////
+        /*------------------ EYE TO FRONT FOG ------------------*/
+        //////////////////////////////////////////////////////////
+
+        if (isEyeInWater == 1) {
+
+            #if defined WORLD_OVERWORLD || defined WORLD_END
+
+                #if WATER_FOG == 0
+                    computeWaterFogApproximation(scatteringLayer1, transmittanceLayer1, gbufferModelViewInverse[3].xyz, scenePosition0, VdotL, directIlluminanceFinal, skyIlluminance, skylight);
+                #else
+                    computeVolumetricWaterFog(scatteringLayer1, transmittanceLayer1, gbufferModelViewInverse[3].xyz, scenePosition0, VdotL, directIlluminanceFinal, skyIlluminance, skylight, sky);
+                #endif
+
+            #endif
+
+        } else {
+
+            #if AIR_FOG == 1
+                computeVolumetricAirFog(scatteringLayer1, transmittanceLayer1, gbufferModelViewInverse[3].xyz, scenePosition0, viewPosition0, farPlane, VdotL, directIlluminanceFinal, skyIlluminance, sky);
+            #elif AIR_FOG == 2
+                computeAirFogApproximation(scatteringLayer1, transmittanceLayer1, viewPosition0, farPlane, VdotL, directIlluminanceFinal, skyIlluminance, skylight);
+            #endif
+
+        }
+
+        fog.x = encodeRGBE(scatteringLayer0    * transmittanceLayer1 + scatteringLayer1);
+        fog.y = encodeRGBE(transmittanceLayer0 * transmittanceLayer1);
+    }
+
+#endif

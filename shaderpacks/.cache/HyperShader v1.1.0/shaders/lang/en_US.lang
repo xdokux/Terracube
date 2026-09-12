@@ -1,0 +1,79 @@
+# Etiquetas del menú de shaders (Iris usa en_US por defecto)
+
+profile.FAST=Rápido
+profile.BALANCED=Equilibrado (defecto)
+profile.FANCY=Bonito
+
+screen.LUZ=Luz y Sol
+screen.CIELO=Cielo y Nubes
+screen.CLIMA=Clima (lluvia)
+screen.VIENTO=Viento (vegetación)
+screen.COLOR=Color
+screen.AGUA=Agua
+screen.LAVA=Lava
+screen.SOMBRAS=Sombras
+screen.PBR=PBR / Parallax
+
+option.SUN_BRIGHTNESS=Intensidad del sol
+option.NIGHT_BRIGHTNESS=Brillo de la noche
+option.INTERIOR_DARKEN=Oscurecer interiores
+option.GODRAY_STRENGTH=Intensidad de los rayos de luz
+option.GODRAY_SAMPLES=Calidad de los rayos de luz
+option.FOG_DENSITY=Niebla atmosférica
+option.NETHER_FOG=Niebla del Nether
+option.GALAXY=Galaxia (vía láctea)
+option.GALAXY_STRENGTH=Brillo de la galaxia
+option.STAR_AMOUNT=Densidad de estrellas
+option.STAR_BRIGHTNESS=Brillo de estrellas
+option.SHOOTING_STARS=Estrellas fugaces
+option.CLOUDS=Nubes
+option.CLOUD_COVERAGE=Cobertura de nubes
+option.CLOUD_SPEED=Velocidad de las nubes
+option.WAVING=Vegetación al viento
+option.WAVE_SPEED=Velocidad del viento
+option.WAVE_STRENGTH=Fuerza del viento
+option.EXPOSURE=Exposición (brillo global)
+option.SATURATION=Saturación
+option.CONTRAST=Contraste
+option.WATER_WAVE_HEIGHT=Altura de las olas
+option.WATER_WAVE_SPEED=Velocidad del oleaje
+option.WATER_FOG_DENSITY=Densidad del agua (desde fuera)
+option.UNDERWATER_DENSITY=Niebla bajo el agua
+option.SSR_STEPS=Pasos de reflejo (SSR)
+option.LAVA_FLOW_SPEED=Velocidad de la lava
+option.LAVA_NOISE_SCALE=Escala del patrón de lava
+option.LAVA_EMISSION_STRENGTH=Brillo de la lava
+option.BLOOM=Bloom (resplandor)
+option.BLOOM_STRENGTH=Intensidad del bloom
+option.BLOOM_SPREAD=Amplitud del bloom
+option.BLOOM_THRESHOLD=Umbral del bloom
+option.SHADOW_SAMPLES=Muestras de sombra (PCF)
+option.SHADOW_SOFTNESS=Suavidad de la penumbra
+option.shadowMapResolution=Resolución de sombras
+option.shadowDistance=Distancia de sombras
+option.POM_LAYERS=Capas POM
+option.POM_DEPTH=Profundidad POM
+
+# --- v1.1: Clima ---
+option.WET_EFFECTS=Superficies mojadas (lluvia)
+option.PUDDLES=Charcos
+option.PUDDLE_AMOUNT=Cantidad de charcos
+option.RAIN_RIPPLES=Gotas en el agua
+option.CLOUD_SHADOWS=Sombras de nubes
+option.CLOUD_SHADOW_STRENGTH=Oscuridad de sombra de nubes
+option.RAINBOW=Arcoíris al escampar
+option.RAINBOW_STRENGTH=Brillo del arcoíris
+option.LIGHTNING_FLASH=Destello de relámpagos
+
+# --- v1.1: Agua 2.0 ---
+option.CAUSTICS=Cáusticas (luz bajo el agua)
+option.CAUSTICS_STRENGTH=Intensidad de cáusticas
+option.REFRACTION=Refracción del agua
+option.REFRACTION_STRENGTH=Fuerza de refracción
+option.FOAM=Espuma en orillas
+
+# --- v1.1: Confort ---
+option.FXAA=FXAA (suavizar bordes)
+option.HANDLIGHT=Luz en la mano (antorcha)
+option.HANDLIGHT_STRENGTH=Fuerza de la luz en mano
+option.STAR_TWINKLE=Titileo de estrellas

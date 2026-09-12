@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "opaqueDrawBuffers": [1, 2],
+  "translucentDrawBuffers": [16, 17, 18, 5],
+  "excludeLodsFromVanillaDepth": true,
+  "blending": {-1: "off"  },//Is relative to the index inside the translucent draw buffers, you can do "off" to turn off blending, index -1 specifies the default blending op
+  "uniforms": [
+    "viewWidth",
+    "viewHeight",
+    "aspectRatio",
+    "isEyeInWater",
+    "frameTime",
+    "frameTimeCounter",
+    "fogColor",
+    "cameraPosition",
+    "entityColor",
+    "worldTime",
+    "rainStrength",
+    "thunderStrength",
+    "temperature",
+    "sunPosition",
+    "moonPosition",
+    "worldDay",
+    "heldBlockLightValue",
+    "heldBlockLightValue2",
+    "darknessFactor",
+    "darknessLightFactor",
+    "blindness",
+    "eyeBrightnessSmooth",
+    "upPosition",
+    "previousCameraPosition",
+    "frameCounter",
+    "shadowLightPosition",
+    "sunAngle",
+    "renderStage",
+    "entityId",
+    "gbufferProjectionInverse",
+    "gbufferProjection",
+    "gbufferModelView",
+    "gbufferModelViewInverse",
+    "gbufferPreviousModelView",
+    "gbufferPreviousProjection",
+    "shadowModelView",
+    "shadowModelViewInverse",
+    "shadowProjection",
+    "shadowProjectionInverse",
+    "resolution",
+    "resolutionInv",
+    "taaJitter",
+    "sunPosN",
+    "sLightPosN",
+    "isOutdoorsSmooth",
+    "precipitationSmooth",
+    "near",
+    "far",
+    "cloudStartOffset",
+    "cloudCoverageVl",
+    "cloudCoverageFlat",
+    "anisotropy",
+    "fogAmount",
+    "betaRfact",
+    "vxProjInv",
+    "vxProj",
+    "vxProjPrev",
+    "vxModelView",
+    "vxModelViewInv",
+    "vxModelViewPrev",
+    "vxRenderDistance",
+    "cameraPositionFract",
+    "lightningBoltPosition",
+    "windDirection",
+    "wetness"
+  ],
+
+  "samplers": {
+    "cloudNoise": "sampler2D",
+    "blueNoiseTexture": "sampler2D",
+    "image0Sampler": "sampler2D",
+    "image1Sampler": "sampler2D",
+    "image2Sampler": "sampler2D",
+    "atm_transmittance_sampler": "sampler2D",
+    "atm_skyview_sampler": "sampler2D",
+    "atm_multi_scattering_sampler": "sampler2D",
+    "worleyNoiseTexture": "sampler3D",
+    "smaaAreaTexture": "sampler2D",
+    "smaaSearchTexture": "sampler2D",
+    "windTexture": "sampler2D",
+    "shadowtex0": "sampler2D",
+    "shadowtex1": "sampler2D",
+    "shadowcolor0": "sampler2D",
+    "shadowcolor1": "sampler2D",
+    "shadowcolor2": "sampler2D",
+    "gtexture": "sampler2D",
+    "depthtex0": "sampler2D",
+    "depthtex1": "sampler2D",
+    "vxDepthTexOpaque": "sampler2D",
+    "vxDepthTexTrans": "sampler2D",
+    "noisetex": "sampler2D",
+    "specular": "sampler2D",
+    "normals": "sampler2D",
+    "shadowtex0HW": "sampler2DShadow",
+    "shadowtex1HW": "sampler2DShadow",
+    "waterNoise": "sampler2D"
+    #ifdef VOXELISATION
+    ,
+    "voxelImgSampler_a": "sampler3D",
+    "voxelImgSampler_b": "sampler3D"
+    #endif
+  },
+  "ssbos": {
+    -1: "
+      struct dataBuffer {
+        vec3 SunColor;
+        float DofFocus;
+        vec3 MoonColor;
+        float AvgLum;
+        vec3 AmbientColor;
+        float SunVisibility;
+      };
+      struct histogramBuffer {
+        uint data[256];
+      };
+    ",
+    0: "{dataBuffer dataBuf;}",
+    1: "{histogramBuffer histogramBuf;}"
+  },
+  "taaOffset": "{
+    return taaJitter;
+  }",
+  "opaquePatchData":"
+  #include "/program/voxy_terrain.glsl"
+",
+  "translucentPatchData":"
+  #include "/program/voxy_water.glsl"
+"
+}

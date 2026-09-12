@@ -1,0 +1,131 @@
+/* MakeUp - E-LITE shaders 5 - day_blend.glsl
+Day blend functions.
+
+Javier Garduño - GNU Lesser General Public License v3.0
+*/
+
+float absSunRotation = abs(sunPathRotation); // Absolute value of Sun path rotation.
+
+vec3 dayBlgcy(vec3 sunset, vec3 day, vec3 night) {
+    // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+    // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+    vec3 day_color = mix(sunset, day, day_mixer);
+    vec3 night_color = mix(sunset, night, night_mixer);
+
+    return mix(day_color, night_color, smoothstep(0.45, 0.52 + (absSunRotation / 900), day_moment));
+}
+
+float dayBFlgcy(float sunset, float day, float night) {
+    // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+    // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+    float day_value = mix(sunset, day, day_mixer);
+    float night_value = mix(sunset, night, night_mixer + 0.1);
+
+    return mix(day_value, night_value, smoothstep(0.45, 0.52 + (absSunRotation / 600), day_moment));
+}
+
+#if COLOR_SCHEME == 2
+    vec3 dayBlend(vec3 sunset, vec3 day, vec3 night) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        vec3 day_color = mix(sunset, day, day_mixer);
+        vec3 night_color = mix(sunset, night, clamp(night_mixer - dayBFlgcy(1.0, 0.0, 0.1), 0.0, 1.0));
+
+        return mix(day_color, night_color, smoothstep(0.45, 0.52 + (absSunRotation / 900), day_moment));
+    }
+
+    float dayBF(float sunset, float day, float night) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        float day_value = mix(sunset, day, day_mixer);
+        float night_value = mix(day_value, night, clamp(night_mixer - dayBFlgcy(1.0, 0.0, 0.1), 0.0, 1.0));
+
+        return mix(day_value, night_value, smoothstep(0.45, 0.52 + (absSunRotation / 900), day_moment));
+    }
+#else
+    vec3 dayBlend(vec3 sunset, vec3 day, vec3 night) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        vec3 day_color = mix(sunset, day, day_mixer);
+        vec3 night_color = mix(sunset, night, night_mixer);
+
+        return mix(day_color, night_color, smoothstep(0.45, 0.52 + (absSunRotation / 900), day_moment));
+    }
+
+    float dayBF(float sunset, float day, float night) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        float day_value = mix(sunset, day, day_mixer);
+        float night_value = mix(sunset, night, night_mixer);
+
+        return mix(day_value, night_value, smoothstep(0.45, 0.52 + (absSunRotation / 900), day_moment));
+    }
+#endif
+
+vec3 dayBlendVoxy(vec3 sunset, vec3 day, vec3 night, float dayMixerV, float nightMixerV, float dayMomentV) {
+    // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+    // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+    vec3 dayColor = mix(sunset, day, dayMixerV);
+    vec3 nightColor = mix(sunset, night, nightMixerV);
+
+    return mix(dayColor, nightColor, smoothstep(0.45, 0.52 + (absSunRotation / 900), dayMomentV));
+}
+
+float dayBlendFloatVoxy(float sunset, float day, float night, float dayMixerV, float nightMixerV, float dayMomentV) {
+    // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+    // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+    float dayValue = mix(sunset, day, dayMixerV);
+    float nightValue = mix(sunset, night, nightMixerV);
+
+    return mix(dayValue, nightValue, smoothstep(0.45, 0.52 + (absSunRotation / 600), dayMomentV));
+}
+
+#if COLOR_SCHEME == 2
+    vec3 dayBlendVoxyN(vec3 sunset, vec3 day, vec3 night, float dayMixerV, float nightMixerV, float dayMomentV) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        vec3 dayColor = mix(sunset, day, dayMixerV);
+        vec3 nightColor = mix(sunset, night, clamp(nightMixerV - dayBlendFloatVoxy(0.975, 0.0, 0.0, dayMixerV, nightMixerV, dayMomentV), 0.0, 1.0));
+
+        return mix(dayColor, nightColor, smoothstep(0.45, 0.52 + (absSunRotation / 900.0), dayMomentV));
+    }
+
+    float dayBlendFloatVoxyN(float sunset, float day, float night, float dayMixerV, float nightMixerV, float dayMomentV) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        float dayValue = mix(sunset, day, dayMixerV);
+        float nightValue = mix(dayValue, night, clamp(nightMixerV - dayBlendFloatVoxy(0.975, 0.0, 0.0, dayMixerV, nightMixerV, dayMomentV), 0.0, 1.0));
+
+        return mix(dayValue, nightValue, smoothstep(0.45, 0.52 + (absSunRotation / 900.0), dayMomentV));
+    }
+#else
+    vec3 dayBlendVoxyN(vec3 sunset, vec3 day, vec3 night, float dayMixerV, float nightMixerV, float dayMomentV) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        vec3 dayColor = mix(sunset, day, dayMixerV);
+        vec3 nightColor = mix(sunset, night, nightMixerV);
+
+        return mix(dayColor, nightColor, smoothstep(0.45, 0.52 + (absSunRotation / 900.0), dayMomentV));
+    }
+
+    float dayBlendFloatVoxyN(float sunset, float day, float night, float dayMixerV, float nightMixerV, float dayMomentV) {
+        // f(x) = min(-((x-.25)^2)∙20 + 1.25, 1)
+        // g(x) = min(-((x-.75)^2)∙50 + 3.125, 1)
+
+        float dayValue = mix(sunset, day, dayMixerV);
+        float nightValue = mix(dayValue, night, nightMixerV);
+
+        return mix(dayValue, nightValue, smoothstep(0.45, 0.52 + (absSunRotation / 900.0), dayMomentV));
+    }
+#endif

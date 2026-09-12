@@ -1,0 +1,45 @@
+#version 130
+
+uniform float viewHeight;
+uniform float viewWidth;
+uniform mat4 gbufferModelView;
+uniform mat4 gbufferProjectionInverse;
+uniform vec3 fogColor;
+uniform vec3 skyColor;
+
+in vec2 TexCoords;
+in vec4 Color;
+
+uniform int isEyeInWater;
+uniform sampler2D texture;
+
+in vec4 starData; //rgb = star color, a = flag for weather or not this pixel is a star.
+
+float fogify(float x, float w) {
+	return w / (x * x + w);
+}
+
+vec3 calcSkyColor(vec3 pos) {
+	float upDot = dot(pos, gbufferModelView[1].xyz);
+	return mix(skyColor, fogColor, fogify(max(upDot, 0.0), 0.05));
+}
+
+void main()
+{
+	vec3 color;
+	if (starData.a > 0.5) {
+		color = starData.rgb * 0.65;
+	}
+	else {
+		vec4 pos = vec4(gl_FragCoord.xy / vec2(viewWidth, viewHeight) * 2.0 - 1.0, 1.0, 1.0);
+		pos = gbufferProjectionInverse * pos;
+		color = calcSkyColor(normalize(pos.xyz));
+	}
+	
+	if(isEyeInWater == 1) {
+		color = fogColor;
+	}
+	
+	/* DRAWBUFFERS:0 */
+    gl_FragData[0] = vec4(color, 1.0);
+}

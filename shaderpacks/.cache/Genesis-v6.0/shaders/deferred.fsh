@@ -1,0 +1,39 @@
+#version 330 compatibility
+#include "/lib/common.glsl"
+
+uniform sampler2D depthtex0;
+uniform sampler2D colortex0;
+uniform sampler2D colortex1;
+uniform sampler2D colortex2;
+uniform sampler2D colortex3;
+uniform sampler2D colortex11;
+
+in vec2 texcoord;
+
+/* RENDERTARGETS: 0 */
+layout(location = 0) out vec4 color;
+
+void main() {
+	color = texture(colortex0, texcoord);
+
+	vec3 encodedNormal = texture(colortex2, texcoord).rgb;
+	vec3 normal = normalize((encodedNormal - 0.5) * 2.0);
+
+	vec3 lightVector = normalize(shadowLightPosition);
+	vec3 worldLightVector = mat3(gbufferModelViewInverse) * lightVector;
+
+	float depth = texture(depthtex0, texcoord).r;
+
+	if ((depth < 1)&&(texture(colortex3, texcoord) == vec4(0))){
+		if (texture(colortex11, texcoord).rgb != vec3(1)){
+			float mult = 1.0;
+			mult *= encodedNormal.r;
+			mult *= 1-encodedNormal.r;
+			mult *= dot(encodedNormal.rgb, vec3(0,1,0));
+
+			mult = clamp(mult*4+0.25, 0.55, 1.0);
+			color.rgb *= mult;
+		}
+	}
+	color.rgb *= BSC(texture(colortex1, texcoord).rgb, 1.0, 0.0, 1.0);
+}

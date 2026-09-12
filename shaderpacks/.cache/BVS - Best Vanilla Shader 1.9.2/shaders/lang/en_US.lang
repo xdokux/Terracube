@@ -1,0 +1,162 @@
+#Profiles
+profile.QUALITY=§aQuality
+profile.PRESERVE_QUALITY=§2Preserve Quality
+profile.MIMIMALISM=§bMinimalism
+
+#Screens
+screen.Cam=Camera
+screen.BLM=Bloom
+screen.CC=Color correction
+screen.LT=Lighting
+screen.OTHER=Other
+screen.AO=Ambient Occlusion
+
+#Settings
+option.BY=§6Hover over me
+option.BY.comment=§9Discord: §fhttps://discord.com/invite/65CkSpxrmm. §4YouTube: §fhttps://www.youtube.com/@lolip_p.
+value.BY.0=§fBy LoLip_p
+value.BY.1=§fBy LoLip_p
+
+#AO
+option.AO=§6Ambient Occlusion (AO)
+value.AO.0=Off
+value.AO.1=On
+option.SAMPLES=Samples
+option.INTENSITY=Intensity
+option.SCALE=Scale
+option.SAMPLE_RAD=Radius
+option.MAX_DISTANCE=Max Distance
+option.ambientOcclusionLevel=Vanilla (AO)
+
+#Exposure
+option.EXPOSURE=Exposure
+option.AUTO_EXPOSURE=§6Auto exposure
+value.AUTO_EXPOSURE.0=Off
+value.AUTO_EXPOSURE.1=On
+option.AUTO_EXPOSURE_SPEED=Exposure speed
+option.AUTO_EXPOSURE_RADIUS=Exposure radius
+option.TONEMAP_WHITE=Tonemap white
+
+#FXAA
+option.ANTI_ALIASING=Anti-Aliasing
+option.ANTI_ALIASING.comment=Makes the boundaries of objects smoother, removing any “jags” that appear.
+value.ANTI_ALIASING.0=Off
+value.ANTI_ALIASING.1=On
+
+option.BIT=16 BIT
+value.BIT.0=Off
+value.BIT.1=On
+
+option.CHUNK_ANIMATION=§6Chunk Animation
+value.CHUNK_ANIMATION.0=Off
+value.CHUNK_ANIMATION.1=On
+
+option.SSR=§6Screen reflection
+value.SSR.0=Off
+value.SSR.1=On
+
+option.PBR=§6PBR
+value.PBR.0=Off
+value.PBR.1=On
+
+option.WAVES=Waves
+value.WAVES.0=Off
+value.WAVES.1=On
+
+option.SWAYING_FOLIAGE=Swaying foliage
+value.SWAYING_FOLIAGE.0=Off
+value.SWAYING_FOLIAGE.1=On
+
+#Motion Blur
+option.MOTION_BLUR=§6Motion Blur
+option.MOTION_BLUR.comment=Blur the image when rotating the camera (makes the gameplay more enjoyable and smooth). The higher the value, the greater the smoothness effect. It is recommended to leave it on and change only the §2Motion Blur Strength §f parameter, depending on your preferences.
+value.MOTION_BLUR.0=Off
+value.MOTION_BLUR.1=On
+option.MOTION_BLURRING_STRENGTH=Motion Blur Strength
+option.MOTION_BLURRING_STRENGTH.comment=Adjusts the blur strength. §4A high value may cause dizziness and motion sickness in some people.
+
+#DoF
+option.DOF=§6Depth of Field (DOF)
+value.DOF.0=Off
+value.DOF.1=On
+option.DOF_STRENGTH=Blur Strength
+
+#Bloom
+option.BLOOM=§6Bloom
+option.BLOOM.comment=Enables a blurry glow from bright objects.
+value.BLOOM.0=Off
+value.BLOOM.1=On
+
+option.BLOOM_THRESHOLD=Bloom Threshold
+option.BLOOM_INTENSITY=Bloom intensity
+option.BLUR_RADIUS=Bloom Blur Radius
+
+#Color Correction
+option.SATURATION=Saturation
+option.BRIGHTNESS=Brightness
+option.CONTRAST=Contrast
+
+#Lighting
+option.PIXEL_SHADOW=§6Pixel shadows
+value.PIXEL_SHADOW.0=Off
+
+option.FOG=§6Fog
+value.FOG.0=Off
+value.FOG.1=On
+option.FOG_DISTANCE=Fog distance
+
+option.SOFT=§6Soft shadows
+value.SOFT.1=Off
+value.SOFT.2=On
+
+option.SHADING=§6Shading
+option.SHADING.comment=Shades a plane that does not fall under the sun's ray.
+value.SHADING.0=Off
+value.SHADING.1=On
+option.NEW_LIGHTING="New" lighting
+option.NEW_LIGHTING.comment="New" MINECRAFT lighting mode.
+value.NEW_LIGHTING.0=Off
+value.NEW_LIGHTING.1=On
+option.CLASSIC_NIGHT=Classic night
+option.CLASSIC_NIGHT.comment=This shader provides updated lighting at night.
+value.CLASSIC_NIGHT.0=Off
+value.CLASSIC_NIGHT.1=On
+option.SHADOW_TRANSPARENCY=Shadow transparency
+option.SUN_ANGLE=Sun angle
+option.LIGHT_ABSORPTION=Light absorption
+option.LIGHT_ABSORPTION.comment=Regulates the absorption of light during the day from lighting sources located under the sun.
+
+// Shadow
+option.ENABLE_SHADOW=§6Shadow
+value.ENABLE_SHADOW.0=Off
+value.ENABLE_SHADOW.1=On
+option.sunPathRotation=Sun Path Rotation
+option.sunPathRotation.comment=Adjusts sun angle.
+option.shadowDistance=Shadow Distance
+option.shadowDistance.comment=Adjusts shadow distance.
+
+value.shadowDistance.64.0=§a4 Chunks
+value.shadowDistance.80.0=§a5 Chunks
+value.shadowDistance.96.0=§a6 Chunks
+value.shadowDistance.112.0=§a7 Chunks
+value.shadowDistance.128.0=§a8 Chunks
+value.shadowDistance.160.0=§e10 Chunks
+value.shadowDistance.192.0=§e12 Chunks
+value.shadowDistance.224.0=§e14 Chunks
+value.shadowDistance.256.0=§c16 Chunks
+value.shadowDistance.320.0=§c20 Chunks
+value.shadowDistance.384.0=§4§l24 Chunks
+value.shadowDistance.512.0=§4§l32 Chunks
+value.shadowDistance.768.0=§4§k-§r§4§l§n§o48 Chunks§r§4§k-
+value.shadowDistance.1024.0=§4§k-§r§4§l§n§o64 Chunks§r§4§k-
+
+option.shadowMapResolution=Quality
+option.shadowMapResolution.comment=Adjusts shadowmap size. §e[*]§r Higher resolution gives sharper shadows, but reduces performance.
+value.shadowMapResolution.512=Very Low (512)
+value.shadowMapResolution.768=Low (768)
+value.shadowMapResolution.1024=Low Medium (1024)
+value.shadowMapResolution.1536=Medium (1536)
+value.shadowMapResolution.2048=Medium High (2048)
+value.shadowMapResolution.3072=High (3072)
+value.shadowMapResolution.4096=Very High (4096)
+value.shadowMapResolution.8192=Ultra High (8192)

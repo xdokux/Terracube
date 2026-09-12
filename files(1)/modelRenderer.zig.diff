@@ -1,0 +1,48 @@
+--- a/src/entitySystem/modelRenderer.zig
++++ b/src/entitySystem/modelRenderer.zig
+@@ -124,13 +124,26 @@
+ 			if (isSelf and !(game.Freecam.enabled and game.Freecam.showPlayerModel)) continue;
+ 
+ 			const entModel = component.entityModel.get();
+-			const ent = main.client.entity_manager.getEntity(id) orelse continue;
++
++			// The local player isn't tracked in entity_manager (it doesn't need network-
++			// interpolated position data for itself), so the ghost uses the position/rotation
++			// snapshot captured when freecam was activated instead of a live entity lookup.
++			var worldPos: Vec3d = undefined;
++			var rotZ: f32 = undefined;
++			if (isSelf) {
++				worldPos = game.Freecam.ghostPos;
++				rotZ = game.Freecam.ghostRot;
++			} else {
++				const ent = main.client.entity_manager.getEntity(id) orelse continue;
++				worldPos = ent.getRenderPosition();
++				rotZ = ent.rot[2];
++			}
+ 
+ 			entModel.bind();
+ 			const entTexture = entModel.defaultTexture;
+ 
+ 			entTexture.?.bindTo(0);
+-			const blockPos: vec.Vec3i = @floor(ent.pos);
++			const blockPos: vec.Vec3i = @floor(worldPos);
+ 			const lightVals: [6]u8 = main.renderer.mesh_storage.getLight(blockPos[0], blockPos[1], blockPos[2]) orelse @splat(0);
+ 			const light = (@as(u32, lightVals[0] >> 3) << 25 |
+ 				@as(u32, lightVals[1] >> 3) << 20 |
+@@ -141,14 +154,14 @@
+ 
+ 			c.glUniform1ui(uniforms.light, @bitCast(@as(u32, light)));
+ 
+-			const pos: Vec3d = ent.getRenderPosition() - playerPos;
++			const pos: Vec3d = worldPos - playerPos;
+ 			const modelMatrix = (Mat4f.identity()
+ 				.mul(Mat4f.translation(Vec3f{
+ 					@floatCast(pos[0]),
+ 					@floatCast(pos[1]),
+ 					@floatCast(pos[2] - entModel.height/2),
+ 				}))
+-				.mul(Mat4f.rotationZ(-ent.rot[2])));
++				.mul(Mat4f.rotationZ(-rotZ)));
+ 			const modelViewMatrix = game.camera.viewMatrix.mul(modelMatrix);
+ 			c.glUniformMatrix4fv(uniforms.viewMatrix, 1, c.GL_TRUE, @ptrCast(&modelViewMatrix));
+ 			c.glDrawElements(c.GL_TRIANGLES, entModel.indexCount, c.GL_UNSIGNED_INT, null);

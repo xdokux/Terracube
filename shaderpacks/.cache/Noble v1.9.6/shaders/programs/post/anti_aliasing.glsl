@@ -1,0 +1,218 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+/*
+    [Credits]:
+        Zombye - providing the off-center rejection weight (https://github.com/zombye)
+
+    [References]:
+        Pedersen, L. J. F. (2016). Temporal Reprojection Anti-Aliasing in INSIDE. http://s3.amazonaws.com/arena-attachments/655504/c5c71c5507f0f8bf344252958254fb7d.pdf?1468341463
+        Intel. (2023). TAA. https://github.com/GameTechDev/TAA/tree/39786709cf70a1e0906196c600f6079571a33ceb
+*/
+
+#include "/settings.glsl"
+#include "/include/taau_scale.glsl"
+
+#if defined STAGE_COMPUTE
+
+    #if TAA == 1
+
+        layout (rgba16f) uniform image2D colorimg0;
+
+        layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
+
+        const vec2 workGroupsRender = vec2(RENDER_SCALE, RENDER_SCALE);
+
+        #include "/include/common.glsl"
+
+        #include "/include/post/exposure.glsl"
+        #include "/include/post/grading.glsl"
+
+        void main() {
+            ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
+
+            if (coords.x > viewWidth || coords.y > viewHeight) return;
+
+            vec3 color = decodeLog(imageLoad(colorimg0, coords).rgb);
+
+            color *= computeExposure(texelFetch(HISTORY_BUFFER, ivec2(0), 0).a);
+            color  = reinhard(color);
+
+            imageStore(colorimg0, coords, vec4(encodeLog(color), 0.0));
+        }
+
+    #else
+
+        layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
+
+        const ivec3 workGroups = ivec3(1, 1, 1);
+
+        void main() {
+            return;
+        }
+
+    #endif
+
+#elif defined STAGE_VERTEX
+
+    out vec2 textureCoords;
+    out vec2 vertexCoords;
+
+    void main() {
+        gl_Position   = vec4(gl_Vertex.xy * 2.0 - 1.0, 1.0, 1.0);
+        textureCoords = gl_Vertex.xy;
+        vertexCoords  = gl_Vertex.xy * RENDER_SCALE;
+    }
+
+#elif defined STAGE_FRAGMENT
+
+    /* RENDERTARGETS: 0 */
+
+    layout (location = 0) out vec3 color;
+
+    in vec2 textureCoords;
+    in vec2 vertexCoords;
+
+    #include "/include/common.glsl"
+
+    #if TAA == 1
+
+        #include "/include/post/exposure.glsl"
+    
+        #include "/include/utility/sampling.glsl"
+
+        vec3 clipAABB(vec3 prevColor, vec3 minColor, vec3 maxColor) {
+            vec3 pClip = 0.5 * (maxColor + minColor); // Center
+            vec3 eClip = 0.5 * (maxColor - minColor); // Size
+
+            vec3  vClip = prevColor - pClip;
+            float denom = maxOf(abs(vClip / eClip));
+
+            return denom > 1.0 ? pClip + vClip / denom : prevColor;
+        }
+
+        vec3 neighbourhoodClipping(sampler2D currTex, vec3 currColor, vec3 history) {
+            ivec2 coords = ivec2(gl_FragCoord.xy * RENDER_SCALE);
+
+            // Left to right, top to bottom
+            vec3 sample_0 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2(-1,  1)).rgb));
+            vec3 sample_1 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2( 0,  1)).rgb));
+            vec3 sample_2 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2( 1,  1)).rgb));
+            vec3 sample_3 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2(-1,  0)).rgb));
+            vec3 sample_4 = toYCoCg(currColor);
+            vec3 sample_5 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2( 1,  0)).rgb));
+            vec3 sample_6 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2(-1, -1)).rgb));
+            vec3 sample_7 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2( 0, -1)).rgb));
+            vec3 sample_8 = toYCoCg(decodeLog(texelFetchOffset(currTex, coords, 0, ivec2( 1, -1)).rgb));
+
+            // Min and max nearest 5 + nearest 9
+            vec3 minColor, maxColor;
+            
+            minColor  = min(sample_1, min(sample_3, min(sample_4, min(sample_5, sample_7))));
+            minColor += min(minColor, min(sample_0, min(sample_2, min(sample_6, sample_8))));
+            minColor *= 0.5;
+
+            maxColor  = max(sample_1, max(sample_3, max(sample_4, max(sample_5, sample_7))));
+            maxColor += max(maxColor, max(sample_0, max(sample_2, max(sample_6, sample_8))));
+            maxColor *= 0.5;
+
+            history = toYCoCg(history);
+            history = clipAABB(history, minColor, maxColor);
+            history = fromYCoCg(history);
+
+            return history;
+        }
+
+    #endif
+
+    void main() {
+        color = decodeLog(texture(MAIN_BUFFER, vertexCoords).rgb);
+
+        #if TAA == 1
+        
+            bool  modFragment = false;
+            float depth       = texture(depthtex1, vertexCoords).r;
+
+            mat4 projectionInverse  = gbufferProjectionInverse;
+            mat4 projectionPrevious = gbufferPreviousProjection;
+
+            #if defined CHUNK_LOADER_MOD_ENABLED
+
+                if (depth >= 1.0) {
+                    modFragment = true;
+                    
+                    #if defined VOXY
+                        depth = texture(modDepthTex1, textureCoords).r;
+                    #else
+                        depth = texture(modDepthTex1, vertexCoords).r;
+                    #endif
+
+                    projectionInverse  = modProjectionInverse;
+                    projectionPrevious = modProjectionPrevious;
+                }
+                
+            #endif
+
+            vec3 currFragment = vec3(textureCoords, depth);
+
+            vec3 closestFragment;
+
+            if (modFragment) {
+                closestFragment = getClosestFragment(modDepthTex1, currFragment);
+            } else {
+                closestFragment = getClosestFragment(depthtex1, currFragment);
+            }
+
+            vec2 velocity   = getVelocity(closestFragment, projectionInverse, projectionPrevious).xy;
+            vec2 prevCoords = textureCoords + velocity;
+
+            if (insideScreenBounds(prevCoords, 1.0)) {
+
+                vec2 jitteredCoords = vertexCoords + taaOffsets[framemod] * texelSize;
+
+                vec3 currColor = max0(decodeLog(textureCatmullRom(MAIN_BUFFER, jitteredCoords).rgb));
+
+                vec3 history = max0(textureCatmullRom(HISTORY_BUFFER, prevCoords).rgb);
+                     history = neighbourhoodClipping(MAIN_BUFFER, currColor, history);
+
+                float velocityWeight = saturate(length(velocity * viewSize));
+
+                float velocityWeightMult = 0.2;
+
+                if (depth < handDepth) {
+                    velocityWeightMult = 1.0;
+                }
+
+                float luminanceWeight = 1.0 + pow2(distance(history, currColor) / (luminance(history) + luminance(currColor) + EPS));
+
+                float weight = saturate((1.0 - TAA_STRENGTH + velocityWeight * velocityWeightMult) / luminanceWeight);
+
+                color = mix(history, currColor, weight);
+                
+            }
+
+            color = inverseReinhard(color) / computeExposure(texelFetch(HISTORY_BUFFER, ivec2(0), 0).a);
+            
+        #endif
+
+        color = encodeLog(color);
+    }
+    
+#endif

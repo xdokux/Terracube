@@ -1,0 +1,12 @@
+# Shader options for UHD630Shader.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+GODRAY_SAMPLES = 16        # one of: 4 8 12 16
+SSR_STEPS = 30        # one of: 6 12 20 30
+SSR_MAX_DIST = 24.0        # one of: 8.0 16.0 24.0 32.0

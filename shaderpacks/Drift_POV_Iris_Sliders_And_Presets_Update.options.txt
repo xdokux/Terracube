@@ -1,0 +1,19 @@
+# Shader options for Drift_POV_Iris_Sliders_And_Presets_Update.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+profile = NORMAL
+#
+# Available: PVP, POTATO, NORMAL, GHOST
+
+# ---- options ----
+# BLUR_SAMPLES = 16        # range: 4 8 12 16 24 32
+# BLUR_STRENGTH = 1.0        # range: 0.1 0.2 0.4 0.6 1.0 1.5 2.0 2.5 3.0
+# ENABLE_NOISE = true        # range: true false

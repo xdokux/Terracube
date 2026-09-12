@@ -1,0 +1,9 @@
+const vec3 SunColor = srgb_linear(vec3(c_SUN_R, c_SUN_G, c_SUN_B) * 16);
+const vec3 DayAmbientColor = srgb_linear(vec3(c_DAY_AMBIENT_R, c_DAY_AMBIENT_G, c_DAY_AMBIENT_B) * 12);
+const vec3 MoonColor = srgb_linear(vec3(c_MOON_R, c_MOON_G, c_MOON_B) * 0.25);
+const vec3 NightAmbientColor = srgb_linear(vec3(c_NIGHT_AMBIENT_R, c_NIGHT_AMBIENT_G, c_NIGHT_AMBIENT_B) * 0.75);
+const vec3 TorchlightColor = srgb_linear(vec3(c_LIGHTMAP_R, c_LIGHTMAP_G, c_LIGHTMAP_B));
+const vec3 MinLight = srgb_linear(vec3(c_MIN_LIGHT));
+const vec3 WaterColor = vec3(c_WATER_SCATTERING_R, c_WATER_SCATTERING_G, c_WATER_SCATTERING_B) * 1e-1;
+const vec3 WaterAbsorbtion = vec3(c_WATER_ABSORBTION_R, c_WATER_ABSORBTION_G, c_WATER_ABSORBTION_B);
+const vec3 PurkinjeTint = vec3(c_PURKINJE_R, c_PURKINJE_G, c_PURKINJE_B);

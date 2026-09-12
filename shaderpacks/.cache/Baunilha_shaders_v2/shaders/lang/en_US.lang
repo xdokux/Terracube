@@ -1,0 +1,122 @@
+#Shader_test Language File
+
+#Screens
+screen.LIGHTING=Iluminação
+screen.SHADOW=Sombras
+screen.CAVE=Escuridão Caverna
+screen.FOG=Névoa
+screen.GODRAYS=Raios de Sol
+screen.COLOR=Exposição
+screen.SKY=Céu
+screen.SKY.comment=Configurações das nuvens
+
+#Lighting
+option.SUNLIGHT_I=Intensidade do Sol
+option.SUNLIGHT_I.comment=Controla o brilho da luz solar direta durante o dia.
+option.MOONLIGHT_I=Intensidade da Lua
+option.MOONLIGHT_I.comment=Controla o brilho da luz lunar direta durante a noite.
+option.AMBIENT_I=Luz Ambiente (Dia)
+option.AMBIENT_I.comment=Controla a luz de preenchimento durante o dia.
+option.AMBIENT_NIGHT_I=Luz Ambiente (Noite)
+option.AMBIENT_NIGHT_I.comment=Controla a luz de preenchimento durante a noite.
+option.SKYLIGHT_I=Luz do Céu
+option.SKYLIGHT_I.comment=Controla a intensidade da luz do céu (skylight).
+option.BLOCKLIGHT_I=Luz de Blocos
+option.BLOCKLIGHT_I.comment=Controla a intensidade da luz emitida por blocos (tochas, lava, etc).
+option.NIGHT_DIM=Escurecimento Noturno
+option.NIGHT_DIM.comment=Controla o quanto a cena escurece durante a noite. 0 = sem escurecimento, 1 = escuro total.
+
+#Shadow
+option.shadowMapResolution=Resolução da Sombra
+option.shadowMapResolution.comment=Define a qualidade do mapa de sombras. Maior resolução = sombras mais nítidas, mas pior performance.
+option.shadowDistance=Distância das Sombras
+option.shadowDistance.comment=Define a distância máxima que as sombras são renderizadas.
+value.shadowDistance.64=4 chunks
+value.shadowDistance.128=8 chunks
+value.shadowDistance.192=12 chunks
+value.shadowDistance.256=16 chunks
+value.shadowDistance.384=24 chunks
+value.shadowDistance.512=32 chunks
+value.shadowDistance.768=48 chunks
+value.shadowDistance.1024=64 chunks
+option.SHADOW_RANGE=Suavização da Sombra
+option.SHADOW_RANGE.comment=Controla quantas amostras são usadas para suavizar as bordas das sombras. Maior = mais suave, mas mais pesado.
+option.SHADOW_RADIUS=Raio da Suavização
+option.SHADOW_RADIUS.comment=Controla o raio de espalhamento da suavização das sombras.
+
+#Cave Darkness
+option.CAVE_THRESHOLD=Limiar da Escuridão
+option.CAVE_THRESHOLD.comment=Define o limiar de luz para a escuridão da caverna começar. Maior = cavernas mais claras.
+option.CAVE_POWER=Curva da Escuridão
+option.CAVE_POWER.comment=Controla a curva de transição para o escuro. Maior = transição mais abrupta.
+option.CAVE_STRENGTH=Força da Escuridão
+option.CAVE_STRENGTH.comment=Controla a intensidade do escurecimento em cavernas. 0 = desligado, 1 = máximo.
+option.NIGHT_CAVE_THRESHOLD=Limiar Noturno
+option.NIGHT_CAVE_THRESHOLD.comment=Define o limiar para o escurecimento noturno adicional em cavernas.
+option.NIGHT_CAVE_POWER=Curva Noturna
+option.NIGHT_CAVE_POWER.comment=Controla a curva de transição do escurecimento noturno.
+option.NIGHT_CAVE_STRENGTH=Força Noturna
+option.NIGHT_CAVE_STRENGTH.comment=Controla a intensidade do escurecimento noturno adicional. 0 = desligado.
+
+#Fog
+option.FOG_DENSITY=Densidade da Névoa (Dia)
+option.FOG_DENSITY.comment=Controla a densidade da névoa durante o dia.
+option.FOG_DENSITY_NIGHT=Densidade da Névoa (Noite)
+option.FOG_DENSITY_NIGHT.comment=Controla a densidade da névoa durante a noite.
+option.WATER_FOG_DENSITY=Névoa Subaquática
+option.WATER_FOG_DENSITY.comment=Controla a densidade da névoa debaixo d'água.
+
+#Specular
+option.SPECULAR_POWER=Potência Especular
+option.SPECULAR_POWER.comment=Controla o brilho especular (reflexos). Maior = mais concentrado e brilhante.
+option.SPECULAR_INTENSITY=Intensidade Especular
+option.SPECULAR_INTENSITY.comment=Controla a força dos reflexos especulares nas superfícies.
+
+#God Rays
+option.GOD_RAY_SAMPLES=Amostras dos Raios
+option.GOD_RAY_SAMPLES.comment=Quantidade de amostras para os raios de sol. Maior = mais preciso, mas mais pesado.
+option.GOD_RAY_INTENSITY=Intensidade dos Raios
+option.GOD_RAY_INTENSITY.comment=Controla a intensidade dos raios de sol (god rays).
+option.MOON_RAY_FACTOR=Fator de Raios Lunares
+option.MOON_RAY_FACTOR.comment=Controla a intensidade dos raios de luz da lua.
+
+#Color / Exposure
+option.EXPOSURE_DAY=Exposição (Dia)
+option.EXPOSURE_DAY.comment=Ajusta o brilho geral durante o dia.
+option.EXPOSURE_NIGHT=Exposição (Noite)
+option.EXPOSURE_NIGHT.comment=Ajusta o brilho geral durante a noite.
+
+#Sky / Clouds
+option.CLOUD_STEPS=Passos das Nuvens
+option.CLOUD_STEPS.comment=Quantidade de amostras para renderizar nuvens. Maior = mais detalhe, mas mais pesado.
+option.CLOUD_DENSITY=Densidade das Nuvens
+option.CLOUD_DENSITY.comment=Controla a densidade das nuvens.
+option.CLOUD_ABSORPTION=Absorção das Nuvens
+option.CLOUD_ABSORPTION.comment=Controla o quanto a luz é absorvida pelas nuvens.
+option.CLOUD_COVERAGE=Cobertura de Nuvens
+option.CLOUD_COVERAGE.comment=Controla a quantidade de cobertura de nuvens no céu.
+option.CLOUD_HEIGHT_MIN=Altura Mínima das Nuvens
+option.CLOUD_HEIGHT_MIN.comment=Altura mínima onde as nuvens começam a aparecer.
+option.CLOUD_HEIGHT_MAX=Altura Máxima das Nuvens
+option.CLOUD_HEIGHT_MAX.comment=Altura máxima onde as nuvens terminam.
+
+#Coloured Lights
+screen.COLOURED_LIGHTS=Luzes Coloridas
+screen.COLOURED_LIGHTS.comment=Configurações das luzes coloridas
+option.COLOUR_INTENSITY=Intensidade da Cor
+option.COLOUR_INTENSITY.comment=Controla a intensidade das cores das luzes coloridas.
+option.BLOCK_LIGHTS=Luzes de Blocos Coloridos
+option.BLOCK_LIGHTS.comment=Se ligado, blocos não naturais (ex: concreto) também emitem luz colorida.
+option.COLOURED_LIGHTS_RENDER_DISTANCE=Distância de Renderização
+option.COLOURED_LIGHTS_RENDER_DISTANCE.comment=Distância de renderização das luzes coloridas (diâmetro).
+option.COLOURED_LIGHTS_RENDER_DISTANCE_VERTICAL=Distância Vertical
+option.COLOURED_LIGHTS_RENDER_DISTANCE_VERTICAL.comment=Distância vertical de renderização das luzes coloridas (diâmetro).
+option.MAX_COLOURED_LIGHTS=Máx. de Luzes
+option.MAX_COLOURED_LIGHTS.comment=Quantidade máxima de luzes coloridas por chunk.
+value.COLOUR_INTENSITY.0.0=Desligado
+value.COLOUR_INTENSITY.0.33=Baixo
+value.COLOUR_INTENSITY.0.66=Médio
+value.COLOUR_INTENSITY.1.0=Normal
+value.COLOUR_INTENSITY.1.5=Alto
+value.COLOUR_INTENSITY.2.0=Muito Alto
+value.COLOUR_INTENSITY.4.0=Ultra

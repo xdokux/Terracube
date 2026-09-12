@@ -1,0 +1,343 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#include "/settings.glsl"
+#include "/include/taau_scale.glsl"
+
+#include "/include/common.glsl"
+
+#include "/include/utility/rng.glsl"
+
+#if defined STAGE_VERTEX
+
+    #define attribute in
+    attribute vec4 at_tangent;
+    attribute vec3 at_midBlock;
+    attribute vec3 mc_Entity;
+    attribute vec2 mc_midTexCoord;
+
+    flat out uint blockId;
+    out vec2 textureCoords;
+    out vec2 lightmapCoords;
+
+    #if POM > 0 && defined PROGRAM_TERRAIN
+        out vec2 texSize;
+        out vec2 botLeft;
+    #endif
+
+    out vec3 viewPosition;
+    out vec3 scenePosition;
+    out vec4 vertexColor;
+
+    out mat3 tbn;
+
+    uniform float rcp240;
+
+    #include "/include/vertex/animation.glsl"
+
+    void main() {
+        textureCoords  = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
+        lightmapCoords = gl_MultiTexCoord1.xy * rcp240;
+        vertexColor    = gl_Color;
+
+        blockId = uint((mc_Entity.x - 1000.0) + 0.25);
+
+        #if defined PROGRAM_ENTITY
+        
+            // Thanks Kneemund for the nametag fix (https://github.com/Kneemund)
+            if (vertexColor.a >= 0.24 && vertexColor.a < 0.255) {
+                gl_Position = vec4(10.0, 10.0, 10.0, 1.0);
+                return;
+            }
+
+        #endif
+
+        #if POM > 0 && defined PROGRAM_TERRAIN
+
+            vec2 halfSize = abs(textureCoords - mc_midTexCoord);
+            texSize       = halfSize * 2.0;
+            botLeft       = mc_midTexCoord - halfSize;
+
+        #endif
+
+        viewPosition = transform(gl_ModelViewMatrix, gl_Vertex.xyz);
+
+        bool isBillboardPlant = blockId == PLANTS_ID || blockId == DOUBLE_PLANTS_LOWER_ID || blockId == DOUBLE_PLANTS_UPPER_ID;
+
+        vec3 vertexNormal = isBillboardPlant ? shadowLightVectorWorld : gl_Normal;
+
+        tbn[2] = mat3(gbufferModelViewInverse) * normalize(gl_NormalMatrix * vertexNormal);
+        tbn[0] = mat3(gbufferModelViewInverse) * normalize(gl_NormalMatrix * at_tangent.xyz);
+        tbn[1] = cross(tbn[0], tbn[2]) * sign(at_tangent.w);
+    
+        scenePosition = transform(gbufferModelViewInverse, viewPosition);
+
+        #if defined PROGRAM_TERRAIN && ANIMATIONS_ENABLED
+
+            animate(scenePosition, textureCoords.y < mc_midTexCoord.y, getSkylightFalloff(lightmapCoords.y));
+
+        #endif
+
+        gl_Position    = project(gl_ProjectionMatrix, transform(gbufferModelView, scenePosition));
+        gl_Position.xy = gl_Position.xy * RENDER_SCALE + (RENDER_SCALE - 1.0) * gl_Position.w;
+
+        #if TAA == 1
+            gl_Position.xy += taaJitter(gl_Position);
+        #endif
+    }
+
+#elif defined STAGE_FRAGMENT
+
+    /* RENDERTARGETS: 1 */
+
+    layout (location = 0) out uvec4 data;
+
+    flat in uint blockId;
+    
+    in vec2 textureCoords;
+    in vec2 lightmapCoords;
+
+    #if POM > 0 && defined PROGRAM_TERRAIN
+        in vec2 texSize;
+        in vec2 botLeft;
+    #endif
+
+    in vec3 viewPosition;
+    in vec3 scenePosition;
+    in vec4 vertexColor;
+
+    in mat3 tbn;
+
+    uniform sampler2D gtexture;
+    uniform sampler2D normals;
+    uniform sampler2D specular;
+
+    #if defined PROGRAM_TERRAIN
+
+        #if POM > 0
+            #include "/include/fragment/parallax.glsl"
+        #endif
+
+        #if RAIN_PUDDLES == 1
+            #include "/include/material/puddles.glsl"
+        #endif
+        
+    #endif
+
+    #if defined PROGRAM_ENTITY
+        uniform int entityId;
+        uniform vec4 entityColor;
+    #endif
+
+    uniform int heldBlockLightValue;
+    uniform int heldBlockLightValue2;
+
+    #if DIRECTIONAL_LIGHTMAP == 1 && !defined PROGRAM_BLOCK && !defined PROGRAM_BEACONBEAM
+
+        vec2 computeLightmap(vec3 scenePosition, vec3 textureNormal) {
+            // Thanks ninjamike1211 for the help
+            vec2 lightmap = lightmapCoords;
+
+            vec2 blocklightDeriv = vec2(dFdx(lightmap.x), dFdy(lightmap.x));
+            vec2 skylightDeriv   = vec2(dFdx(lightmap.y), dFdy(lightmap.y));
+
+            if (lengthSqr(blocklightDeriv) > 1e-10) {
+                vec3 lightmapVectorX = normalize(dFdx(scenePosition) * blocklightDeriv.x + dFdy(scenePosition) * blocklightDeriv.y);
+
+                lightmap.x *= saturate(dot(lightmapVectorX, textureNormal) + 0.8) * 0.35 + 0.75;
+            } else {
+                lightmap.x *= saturate(dot(tbn[2], textureNormal) + 0.8);
+            }
+
+            lightmap.y *= saturate(dot(vec3(0.0, 1.0, 0.0), textureNormal) + 0.8) * 0.35 + 0.75;
+        
+            return any(isnan(lightmap)) || any(lessThan(lightmap, vec2(0.0))) ? lightmapCoords : lightmap;
+        }
+
+    #endif
+
+    void main() {
+        #if DOWNSCALED_RENDERING == 1
+            vec2 fragCoords = gl_FragCoord.xy * texelSize;
+            if (!insideScreenBounds(fragCoords, RENDER_SCALE)) { return; }
+        #endif
+
+        vec2 coords = textureCoords;
+
+        // POM
+
+        float parallaxSelfShadowing = 1.0;
+
+        #if POM > 0 && defined PROGRAM_TERRAIN
+
+            mat2 texDeriv = mat2(dFdx(coords), dFdy(coords));
+
+            #if POM_DEPTH_WRITE == 1
+            
+                gl_FragDepth = gl_FragCoord.z;
+
+            #endif
+
+            if (length(scenePosition) < POM_DISTANCE) {
+
+                float height = 1.0, traceDistance = 0.0;
+                vec2  shadowCoords = vec2(0.0);
+
+                if (texture(normals, textureCoords).a < EPS || texture(gtexture, textureCoords).a < alphaTestThreshold) {
+                    return;
+                }
+
+                coords = parallaxMapping(viewPosition, texDeriv, height, shadowCoords, traceDistance);
+
+                if (saturate(coords) != coords) return;
+
+                #if POM_SHADOWING == 1
+
+                    parallaxSelfShadowing = parallaxShadowing(shadowCoords, height, texDeriv);
+
+                #endif
+
+                #if POM_DEPTH_WRITE == 1
+
+                    gl_FragDepth = projectDepth(unprojectDepth(gl_FragCoord.z) + traceDistance * POM_DEPTH);
+
+                #endif
+            }
+
+        #endif
+
+        vec4 albedoTexture = texture(gtexture, coords) * vertexColor;
+
+        if (albedoTexture.a < alphaTestThreshold) { discard; return; }
+
+        vec4 normalTexture = texture(normals, coords);
+
+        #if !defined PROGRAM_TEXTURED
+            vec4 specularTexture = texture(specular, coords);
+        #else
+            vec4 specularTexture = vec4(0.0);
+        #endif
+
+        vec2 lightmap = lightmapCoords;
+
+        float F0 		 = specularTexture.y;
+        float ao 		 = normalTexture.z;
+        float roughness  = saturate(hardcodedRoughness != 0.0 ? hardcodedRoughness : 1.0 - specularTexture.x);
+        float emission   = specularTexture.w * maxFloat8 < 254.5 ? specularTexture.w : 0.0;
+        float subsurface = saturate(specularTexture.z * (maxFloat8 / 190.0) - (65.0 / 190.0));
+
+        #if WHITE_WORLD == 1
+            albedoTexture.rgb = vec3(1.0);
+        #endif
+
+        #if defined PROGRAM_ENTITY
+
+            albedoTexture.rgb = mix(albedoTexture.rgb, entityColor.rgb, entityColor.a);
+            
+            ao = all(lessThanEqual(normalTexture.rgb, vec3(EPS))) ? 1.0 : ao;
+
+        #endif
+
+        #if defined PROGRAM_BEACONBEAM
+        
+            emission   = 1.0;
+            lightmap.x = 1.0;
+
+        #endif
+
+        vec3 normal = tbn[2];
+
+        // Normal mapping | Directional lightmaps
+        
+        #if !defined PROGRAM_BLOCK && !defined PROGRAM_BEACONBEAM
+
+            if (all(greaterThan(normalTexture, vec4(EPS)))) {
+                normal.xy = normalTexture.xy * 2.0 - 1.0;
+                normal.z  = fastSqrtN1(1.0 - saturate(dot(normal.xy, normal.xy)));
+                normal    = tbn * normal;
+
+                #if DIRECTIONAL_LIGHTMAP == 1
+                    lightmap = computeLightmap(scenePosition, normalize(normal));
+                #endif
+            }
+
+        #endif
+
+        #if defined PROGRAM_TERRAIN && RAIN_PUDDLES == 1
+
+            if (wetness > 0.0 && isEyeInWater == 0) {
+                float porosity = saturate(specularTexture.z * (maxFloat8 / 64.0));
+                
+                rainPuddles(scenePosition, tbn[2], lightmapCoords, porosity, F0, roughness, normal);
+            }
+
+        #endif
+
+        #if HARDCODED_EMISSION == 1
+        
+            if (blockId >= LAVA_ID && blockId < SSS_ID && emission <= EPS) {
+                emission = HARDCODED_EMISSION_VAL;
+            }
+
+        #endif
+        
+        #if HARDCODED_SSS == 1
+
+            if (blockId > NETHER_PORTAL_ID && blockId <= PLANTS_ID && subsurface <= EPS) {
+                subsurface = HARDCODED_SSS_VAL;
+            }
+
+        #endif
+
+        float handLight  = min(float(heldBlockLightValue + heldBlockLightValue2), 15.0) / 15.0;
+              handLight *= smoothstep(1.0, 0.0, min(HANDLIGHT_DISTANCE * handLight, length(viewPosition)) / (HANDLIGHT_DISTANCE * handLight));
+
+        lightmap.x = max(handLight, lightmap.x);
+
+        // Flickering fire-powered light sources
+        if (blockId >= FIRE_ID && blockId <= HANGING_LANTERN_ID) {
+            
+            const float speed = 4.0;
+            float rng         = FBM(ceil(scenePosition + cameraPosition) + frameTimeCounter * speed * 0.1, 1, 0.5);
+            float flickering  = mix(mix(0.8, 0.95, rng), 1.0, (sin(frameTimeCounter * speed * mix(0.3, 0.5, rng)) + 1.0) * 0.5);
+
+            lightmap.x *= flickering;
+            emission   *= flickering;
+        }
+
+        // Material encoding
+
+        vec2 encodedNormal = encodeUnitVector(normalize(normal));
+
+        data = storeMaterial(
+            F0,
+            roughness,
+            ao,
+            emission,
+            subsurface,
+            albedoTexture.rgb,
+            encodedNormal,
+            lightmap,
+            parallaxSelfShadowing,
+            blockId
+        );
+    }
+
+#endif

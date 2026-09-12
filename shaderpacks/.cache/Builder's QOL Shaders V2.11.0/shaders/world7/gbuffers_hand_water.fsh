@@ -1,0 +1,139 @@
+#version 120
+
+#define ALT_GLASS //Uses alternate blending method for stained glass which looks more like real stained glass
+#define BRIGHT_WATER //Overrides light levels under water to be higher
+//#define CROSS_PROCESS //Opposite of desaturation, makes everything more vibrant and saturated.
+#define DYNAMIC_LIGHT_VIGNETTE 50 //Reduces the brightness of dynamic light around edges the of your screen [0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100]
+#define DYNAMIC_LIGHTS //Holding blocks that emit light will light up their surroundings
+#define HEAT_REFRACTION 1.00 //How much the screen jiggles around in the nether, or when in lava [0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00 4.25 4.50 4.75 5.00]
+#define THRESHOLD_ALPHA 0.6 //Anything above this opacity counts as part of the border of stained glass, and will not apply blur/reflection effects [0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95]
+//#define VANILLA_LIGHTMAP //Uses vanilla light colors instead of custom ones. Requires optifine 1.12.2 HD_U_D1 or later!
+
+uniform float blindness;
+uniform float darknessLightFactor;
+uniform float fov;
+uniform float nightVision;
+uniform float pixelSizeX;
+uniform float pixelSizeY;
+uniform float screenBrightness;
+uniform int isEyeInWater;
+uniform ivec2 eyeBrightnessSmooth;
+uniform sampler2D lightmap;
+uniform sampler2D texture;
+uniform vec3 skyColor;
+
+varying float id; //ID data of block currently being rendered.
+varying vec2 lmcoord;
+varying vec2 texcoord;
+varying vec3 normal;
+varying vec4 tint;
+#ifdef DYNAMIC_LIGHTS
+	varying vec4 heldLightColor; //Color of held light source. Alpha = brightness.
+#endif
+
+struct Position {
+	float blockDist; //always 1.0, used by calcMainLightColor()
+};
+
+const vec3 blockLightColorNear   = vec3(1.0,   0.85,  0.7); //color of block lights when the player is near a light source.
+const vec3 blockLightColorFar    = vec3(1.0,   0.5,   0.15); //color of block lights when the player is far away from a light source.
+const vec3 nightVisionLightColor = vec3(0.375, 0.375, 0.5);
+
+const vec3 blocklightVibrantColorFar  = vec3(1.4, 1.0, 0.8); //Vibrant color for block lights when standing far away from a light source.
+const vec3 blocklightVibrantColorNear = vec3(1.2, 1.1, 1.0); //Vibrant color for block lights when standing near a light source.
+
+const float lavaOverlayResolution                     = 24.0;
+
+const vec3 skylightVibrantColor = vec3(1.1, 1.4, 1.2);
+
+float square(float x)        { return x * x; } //potentially faster than pow(x, 2.0).
+
+vec3 calcMainLightColor(inout float blocklight, inout float skylight, inout float heldlight, inout Position pos) {
+	#ifdef VANILLA_LIGHTMAP
+		vec3 lightclr = texture2D(lightmap, vec2(blocklight, skylight)).rgb;
+	#endif
+
+	skylight *= skylight; // * (1.0 - rainStrength * 0.5);
+	blocklight = square(max(blocklight - skylight * 0.5, 0.0));
+	
+	#ifndef VANILLA_LIGHTMAP
+		vec3 lightclr = vec3(0.0);
+		lightclr += mix(blockLightColorFar, blockLightColorNear, eyeBrightnessSmooth.x / 240.0) * blocklight; //blocklight
+		lightclr += mix(skyColor, vec3(1.0), skylight) * skylight; //skylight
+		lightclr += clamp(nightVision, 0.0, 1.0) * nightVisionLightColor;
+		lightclr += clamp(screenBrightness, 0.0, 1.0) * 0.1;
+	#endif
+
+	#ifdef DYNAMIC_LIGHTS
+		if (heldLightColor.a > 0.0) {
+			float heldLightDist = pos.blockDist * fov / heldLightColor.a;
+			if (heldLightDist < 1.0) {
+				heldlight = (heldLightDist - log(heldLightDist) - 1.0) * heldLightColor.a / ((skylight + blocklight) * 64.0 + 32.0);
+				/*
+				#ifdef DYNAMIC_LIGHT_VIGNETTE
+				#endif
+				*/
+				#if DYNAMIC_LIGHT_VIGNETTE != 0
+					vec2 screenPos = gl_FragCoord.xy * vec2(pixelSizeX, pixelSizeY); //0 to 1 range
+					screenPos = screenPos * 2.0 - 1.0; //-1 to +1 range
+					screenPos = 1.0 - screenPos * screenPos;
+					float multiplier = screenPos.x * screenPos.y;
+					multiplier = mix(1.0, multiplier, DYNAMIC_LIGHT_VIGNETTE / 100.0);
+					heldlight *= multiplier;
+				#endif
+				lightclr += heldLightColor.rgb * heldlight;
+			}
+		}
+	#endif
+
+	return max(lightclr - square(darknessLightFactor), vec3(0.0));
+}
+
+void main() {
+	float realId = id;
+	vec4 color = texture2D(texture, texcoord) * tint;
+
+	float skylight = lmcoord.y;
+	float blocklight = lmcoord.x;
+	float heldlight = 0.0;
+
+	#ifdef BRIGHT_WATER
+		if (isEyeInWater == 1) skylight = skylight * 0.5 + 0.5;
+	#endif
+
+	bool lightable = true;
+
+	if (abs(realId - 0.2) < 0.02) { //stained glass
+		if (color.a > THRESHOLD_ALPHA) {
+			color.a = 1.0; //make borders opaque
+			realId = 0.0;
+		}
+		#ifdef ALT_GLASS
+			else {
+				lightable = false; //don't apply lighting effects to the center of glass when ALT_GLASS is enabled
+			}
+		#endif
+	}
+
+	if (lightable) {
+		Position pos;
+		pos.blockDist = 1.0;
+
+		color.rgb *= calcMainLightColor(blocklight, skylight, heldlight, pos);
+
+		#ifdef CROSS_PROCESS
+			vec3 blockCrossColor = mix(blocklightVibrantColorFar, blocklightVibrantColorNear, eyeBrightnessSmooth.x / 240.0); //cross processing color from block lights
+			vec3 finalCrossColor = mix(mix(vec3(1.0), skylightVibrantColor, lmcoord.y), blockCrossColor, lmcoord.x); //final cross-processing color (blockCrossColor takes priority over skyCrossColor)
+			//vec3(color.g + color.b, color.r + color.b, color.r + color.g)
+			color.rgb = clamp(color.rgb * finalCrossColor - (color.grr + color.bbg) * 0.1, 0.0, 1.0);
+		#endif
+
+		if (blindness > 0) color.rgb *= 0.5 * blindness + (1.0 - blindness);
+	}
+
+/* DRAWBUFFERS:3562 */
+	gl_FragData[0] = color; //gcolor
+	gl_FragData[1] = vec4(lmcoord, realId, 1.0); //gaux2
+	gl_FragData[2] = vec4(1.0, 0.0, 0.0, color.a); //gaux3
+	gl_FragData[3] = vec4(normal, 1.0); //gnormal
+}

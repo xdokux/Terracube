@@ -1,0 +1,37 @@
+# Shader options for Aerial 0.6.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# SHADOW_QUALITY = 2        # range: 1 2 3
+# GI_STRENGTH = 1.0        # range: 0.5 0.75 1.0 1.25 1.5
+# SKY_DENSITY = 1.0        # range: 0.5 0.75 1.0 1.25 1.5 2.0
+# HAZE_HUMIDITY = 0.6        # range: 0.0 0.2 0.4 0.6 0.8 1.0
+# CLOUDS_ENABLED = true        # true or false
+# CLOUD_COVERAGE = 0.45        # range: 0.2 0.3 0.45 0.6 0.75 0.9
+# CLOUD_QUALITY = 1        # one of: 0 1 2
+# FOG_STORM_BOOST = 1.0        # range: 0.5 1.0 1.5 2.0
+# SUN_INTENSITY = 1.0        # range: 0.6 0.8 1.0 1.2 1.5
+# SSGI_ENABLED = true        # true or false
+# GI_SAMPLES = 6        # range: 4 6 8 12
+# GI_DISTANCE = 48.0        # range: 32.0 48.0 96.0
+# SSAO_STRENGTH = 1.0        # range: 0.0 0.5 1.0 1.5
+# CONTACT_SHADOWS = true        # true or false
+# LIGHTNING_FLASH = true        # true or false
+# LABPBR = true        # true or false
+# POM = true        # true or false
+# POM_DEPTH = 0.10        # range: 0.05 0.10 0.15 0.25
+# POM_SAMPLES = 16        # range: 8 16 32
+# POM_DISTANCE = 24.0        # range: 12.0 24.0 48.0
+# EXPOSURE_BIAS = 0.0        # range: -1.0 -0.5 0.0 0.5 1.0
+# GLARE_STRENGTH = 0.7        # range: 0.0 0.35 0.7 1.0 1.5
+# FILM_GRAIN = 0.03        # range: 0.0 0.015 0.03 0.05 0.08
+# CHROM_ABERRATION = 0.5        # range: 0.0 0.25 0.5 0.75 1.0
+# AUTO_EXPOSURE = true        # true or false
+# WATER_ABSORPTION = 1.0        # range: 0.5 0.75 1.0 1.5 2.0
+# CAUSTICS_ENABLED = true        # true or false
+# WATER_REFLECTIONS = true        # true or false

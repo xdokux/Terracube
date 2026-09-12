@@ -1,0 +1,26 @@
+--- a/src/main.zig
++++ b/src/main.zig
+@@ -151,6 +151,15 @@
+ fn toggleDebugOverlay(_: Window.Key.Modifiers) void {
+ 	gui.toggleWindow("debug");
+ }
++fn toggleFreecamSettings(mods: Window.Key.Modifiers) void {
++	if (game.world == null) return;
++	if (gui.isWindowOpen("freecam_settings")) {
++		gui.toggleGameMenu(); // Re-grab the mouse; the window auto-closes (closeIfMouseIsGrabbed).
++	} else {
++		ungrabMouse(mods);
++		gui.openWindow("freecam_settings");
++	}
++}
+ fn togglePerformanceOverlay(_: Window.Key.Modifiers) void {
+ 	gui.toggleWindow("performance_graph");
+ }
+@@ -194,6 +203,7 @@
+ 		.{.name = "fly", .key = c.GLFW_KEY_F, .gamepadButton = c.GLFW_GAMEPAD_BUTTON_DPAD_DOWN, .pressAction = &game.flyToggle},
+ 		.{.name = "ghost", .key = c.GLFW_KEY_G, .pressAction = &game.ghostToggle},
+ 		.{.name = "freecam", .key = c.GLFW_KEY_N, .pressAction = &game.Freecam.toggle, .notifyRequirement = .inGame},
++		.{.name = "freecamSettings", .key = c.GLFW_KEY_O, .pressAction = &toggleFreecamSettings, .notifyRequirement = .inGame},
+ 		.{.name = "zoom", .key = c.GLFW_KEY_Z, .notifyRequirement = .inGame},
+ 		.{.name = "hyperSpeed", .key = c.GLFW_KEY_H, .pressAction = &game.hyperSpeedToggle},
+ 		.{.name = "fall", .key = c.GLFW_KEY_LEFT_SHIFT, .gamepadButton = c.GLFW_GAMEPAD_BUTTON_RIGHT_THUMB},

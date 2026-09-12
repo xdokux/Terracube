@@ -1,0 +1,13 @@
+
+ This file contains the names of people that contributed in the development of Cyanide Shaders
+
+ MLGImposter
+ Owner of Cyanide Shaders
+
+ Akashii
+ Created the original bloom code
+
+ XorDev
+ Did many fixes and gave some help with atmospherics
+
+ 

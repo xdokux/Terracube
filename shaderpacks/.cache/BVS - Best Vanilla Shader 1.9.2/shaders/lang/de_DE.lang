@@ -1,0 +1,144 @@
+#Profiles
+profile.QUALITY=§aQualität
+profile.PRESERVE_QUALITY=§2Qualität bewahren
+profile.MIMIMALISM=§bMinimalismus
+
+#Screens
+screen.Cam=Die Kamera
+screen.BLM=Blühen
+screen.CC=Farbkorrektur
+screen.LT=Beleuchtung
+screen.OTHER=Andere
+
+option.BY=§6Schwebe über mir
+option.BY.comment=§9Discord: §fhttps://discord.com/invite/65CkSpxrmm. §4YouTube: §fhttps://www.youtube.com/@lolip_p.
+value.BY.0=§fVon LoLip_p
+value.BY.1=§fVon LoLip_p
+
+#Exposure
+option.EXPOSURE=Exposition
+option.AUTO_EXPOSURE=§6Automatische Belichtung
+value.AUTO_EXPOSURE.0=Off
+value.AUTO_EXPOSURE.1=On
+option.AUTO_EXPOSURE_SPEED=Belichtungsgeschwindigkeit
+option.AUTO_EXPOSURE_RADIUS=Belichtungsradius
+option.TONEMAP_WHITE=Tonkarte weiß
+
+option.ANTI_ALIASING=Kantenglättung
+option.ANTI_ALIASING.comment=Macht die Grenzen von Objekten glatter und entfernt alle auftretenden „Zacken“.
+value.ANTI_ALIASING.0=Off
+value.ANTI_ALIASING.1=On
+
+option.BIT=16 BIT
+value.BIT.0=Off
+value.BIT.1=On
+
+option.CHUNK_ANIMATION=§6Chunk Animation
+value.CHUNK_ANIMATION.0=Off
+value.CHUNK_ANIMATION.1=On
+
+option.SSR=§6Bildschirmraumreflexion
+value.SSR.0=Off
+value.SSR.1=On
+
+option.PBR=§6PBR
+value.PBR.0=Off
+value.PBR.1=On
+
+option.WAVES=Waves
+value.WAVES.0=Off
+value.WAVES.1=On
+
+option.SWAYING_FOLIAGE=Schwankendes Laub
+value.SWAYING_FOLIAGE.0=Off
+value.SWAYING_FOLIAGE.1=On
+
+option.MOTION_BLUR=§6Bewegungsunschärfe
+option.MOTION_BLUR.comment=Verwischen Sie das Bild, wenn Sie die Kamera drehen (macht das Gameplay angenehmer und flüssiger). Je höher der Wert, desto größer ist der Glättungseffekt. Es wird empfohlen, die Funktion aktiviert zu lassen und je nach Ihren Vorlieben nur den Parameter §2Stärke der Bewegungsunschärfe §f zu ändern.
+value.MOTION_BLUR.0=Off
+value.MOTION_BLUR.1=On
+option.MOTION_BLURRING_STRENGTH=Stärke der Bewegungsunschärfe
+option.MOTION_BLURRING_STRENGTH.comment=Passt die Stärke der Unschärfe an. §4Ein hoher Wert kann bei manchen Menschen Schwindel und Reisekrankheit verursachen.
+
+option.DOF=§6Schärfentiefe (DoF)
+value.DOF.0=Off
+value.DOF.1=On
+option.DOF_STRENGTH=Stärke der Unschärfe
+
+option.BLOOM=§6Blühen
+option.BLOOM.comment=Ermöglicht ein verschwommenes Leuchten von hellen Objekten.
+value.BLOOM.0=Off
+value.BLOOM.1=On
+
+option.BLOOM_THRESHOLD=Blüteschwelle
+option.BLOOM_INTENSITY=Blütenintensität
+option.BLUR_RADIUS=Blütenunschärferadius
+
+option.SATURATION=Sättigung
+option.BRIGHTNESS=Helligkeit
+option.CONTRAST=Kontrast
+
+option.SHADING=§6Schattierung
+option.SHADING.comment=Beschattet ein Flugzeug, das nicht unter den Sonnenstrahl fällt.
+value.SHADING.0=Off
+value.SHADING.1=On
+option.NEW_LIGHTING=„Neue“ Beleuchtung
+option.NEW_LIGHTING.comment=„Neuer“ MINECRAFT-Beleuchtungsmodus.
+value.NEW_LIGHTING.0=Off
+value.NEW_LIGHTING.1=On
+option.CLASSIC_NIGHT=Klassischer Abend
+option.CLASSIC_NIGHT.comment=Dieser Shader sorgt für eine aktualisierte Beleuchtung bei Nacht.
+value.CLASSIC_NIGHT.0=Off
+value.CLASSIC_NIGHT.1=On
+option.SHADOW_TRANSPARENCY=Schattentransparenz
+option.SUN_ANGLE=Sonnenwinkel
+option.LIGHT_ABSORPTION=Lichtabsorption
+option.LIGHT_ABSORPTION.comment=Regelt die Lichtabsorption tagsüber von Lichtquellen, die sich unter der Sonne befinden.
+
+
+// Shadow
+option.PIXEL_SHADOW=§6Pixelschatten
+value.PIXEL_SHADOW.0=Off
+
+option.FOG=§6Nebel
+value.FOG.0=Off
+value.FOG.1=On
+option.FOG_DISTANCE=Nebelabstand
+
+option.SOFT=§6Weiche Schatten
+value.SOFT.1=Off
+value.SOFT.2=On
+
+option.ENABLE_SHADOW=§6Ombre
+value.ENABLE_SHADOW.0=Off
+value.ENABLE_SHADOW.1=On
+option.sunPathRotation=Rotation de la Trajectoire du Soleil
+option.sunPathRotation.comment=Ajuste l'angle du soleil.
+option.shadowDistance=Distance d'ombre
+option.shadowDistance.comment=Ajuste la distance de l'ombre.
+
+value.shadowDistance.64.0=§a4 Brocken
+value.shadowDistance.80.0=§a5 Brocken
+value.shadowDistance.96.0=§a6 Brocken
+value.shadowDistance.112.0=§a7 Brocken
+value.shadowDistance.128.0=§a8 Brocken
+value.shadowDistance.160.0=§e10 Brocken
+value.shadowDistance.192.0=§e12 Brocken
+value.shadowDistance.224.0=§e14 Brocken
+value.shadowDistance.256.0=§c16 Brocken
+value.shadowDistance.320.0=§c20 Brocken
+value.shadowDistance.384.0=§4§l24 Brocken
+value.shadowDistance.512.0=§4§l32 Brocken
+value.shadowDistance.768.0=§4§k-§r§4§l§n§o48 Brocken§r§4§k-
+value.shadowDistance.1024.0=§4§k-§r§4§l§n§o64 Brocken§r§4§k-
+
+option.shadowMapResolution=Qualité
+option.shadowMapResolution.comment=Ajuste la taille de la carte des ombres. §e [*]§r Une résolution plus élevée donne des ombres plus nettes, mais réduit les performances.
+value.shadowMapResolution.512=Sehr niedrig (512)
+value.shadowMapResolution.768=Niedrig (768)
+value.shadowMapResolution.1024=Niedrig Mittel (1024)
+value.shadowMapResolution.1536=Medium (1536)
+value.shadowMapResolution.2048=Mittelhoch (2048)
+value.shadowMapResolution.3072=Hoch (3072)
+value.shadowMapResolution.4096=Sehr hoch (4096)
+value.shadowMapResolution.8192=Ultra Hoch (8192)

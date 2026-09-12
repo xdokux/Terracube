@@ -1,0 +1,56 @@
+# Options
+option.ShadowMapping=ShadowMapping
+option.ShadowSamples=ShadowSamples
+option.Brightness=Brightness
+option.Saturation=Saturation
+option.Exposure=Exposure
+option.Bloom=Bloom
+option.BloomQuality=BloomQuality
+option.ChromaticAberration=ChromaticAberration
+option.ChromaticAberrationQuality=ChromaticAberrationQuality
+option.Lensflare=Lensflare
+option.CinematicBars=CinematicBars
+option.Red=Red
+option.Green=Green
+option.Blue=Blue
+option.WavingPlants=WavingPlants
+option.WavingPlantsSpeed=WavingPlantsSpeed
+option.WavingLeaves=WavingLeaves
+option.WavingLeavesSpeed=WavingLeavesSpeed
+option.WaterWave=WaterWave
+option.UnderWaterCaustics=UnderWaterCaustics
+option.CloudToggle=CloudToggle
+option.FoliageWave=FoliageWave
+option.VignetteIntensity=Vignette Intensity
+option.ToneMapPreset=Tone Mapping
+option.RainPuddles=Rain Puddles
+
+# Screen Layout
+screen=[INFO] [WavingSettings] [ShadowSettings] [PostProcessing] [EffectsSettings]
+
+# INFO Section
+screen.INFO=ShaderTra
+
+# Waving Settings
+screen.WavingSettings=[WavingPlants] [WavingLeaves] [WavingWater]
+screen.WavingSettings.columns=1
+
+screen.WavingPlants=WavingPlants WavingPlantsSpeed
+screen.WavingLeaves=WavingLeaves WavingLeavesSpeed
+screen.WavingWater=WaterWave UnderWaterCaustics
+
+# Shadow Settings
+screen.ShadowSettings=ShadowMapping ShadowSamples
+
+# Post-Processing Settings
+screen.PostProcessing=[WorldColor] Brightness Saturation Exposure Bloom BloomQuality ChromaticAberration ChromaticAberrationQuality Lensflare CinematicBars
+screen.WorldColor=Red Green Blue
+
+# Effects Settings
+screen.EffectsSettings=VignetteIntensity ToneMapPreset RainPuddles
+
+# Sliders
+sliders=WavingLeavesSpeed WavingPlantsSpeed ShadowSamples ChromaticAberrationQuality Red Green Blue Brightness Saturation Exposure BloomQuality VignetteIntensity
+
+# Columns
+screen.columns=1

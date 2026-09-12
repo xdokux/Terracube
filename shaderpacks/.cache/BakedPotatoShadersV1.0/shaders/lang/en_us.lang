@@ -1,0 +1,53 @@
+profile.PERFORMANCE=Performance
+profile.BALANCED=Balanced
+profile.QUALITY=Quality
+profile.comment=Performance prioritizes frame rate. Balanced targets Apple M1. Quality increases shadow and post-processing quality.
+
+screen.LIGHTING=Lighting & Shadows
+screen.ATMOSPHERE=Atmosphere & Color
+screen.WATER=Water
+screen.POST=Post Processing
+
+option.shadowMapResolution=Shadow Resolution
+option.shadowMapResolution.comment=Resolution of the single stabilized shadow map. Higher values cost GPU time and memory.
+option.shadowDistance=Shadow Distance
+option.shadowDistance.comment=Maximum distance for real-time shadows in blocks.
+option.SHADOW_QUALITY=Shadow Filter
+option.SHADOW_QUALITY.comment=Off, five-tap PCF, or nine-tap PCF.
+value.SHADOW_QUALITY.0=Off
+value.SHADOW_QUALITY.1=Soft
+value.SHADOW_QUALITY.2=Softer
+option.CAVE_BRIGHTNESS=Cave Visibility
+option.CAVE_BRIGHTNESS.comment=Controls the minimum readable ambient light in dark interiors without making caves fully bright.
+
+option.FOG_DENSITY=Fog Density
+option.FOG_DENSITY.comment=Controls distance and low-altitude atmospheric blending.
+option.COLOR_WARMTH=Color Warmth
+option.COLOR_WARMTH.comment=Adjusts the final warm/cool balance.
+option.SATURATION=Saturation
+option.SATURATION.comment=Adjusts final color intensity while preserving luminance.
+option.WAVING_PLANTS=Waving Plants
+option.WAVING_PLANTS.comment=Animates grass, flowers, crops, and similar foliage.
+option.WAVING_LEAVES=Waving Leaves
+option.WAVING_LEAVES.comment=Adds low-amplitude wind motion to leaves.
+
+option.AURORA_DEBUG_MODE=Aurora Debug Mode
+option.AURORA_DEBUG_MODE.comment=Forces the Aurora Borealis to appear every night for screenshots and exploration. Natural rare-event behaviour is preserved when disabled.
+value.AURORA_DEBUG_MODE.0=OFF
+value.AURORA_DEBUG_MODE.1=ON
+
+option.WATER_QUALITY=Water Quality
+option.WATER_QUALITY.comment=Controls analytic wave detail and reflection strength.
+value.WATER_QUALITY.0=Fast
+value.WATER_QUALITY.1=Balanced
+value.WATER_QUALITY.2=Detailed
+
+option.BLOOM_QUALITY=Bloom Quality
+option.BLOOM_QUALITY.comment=Controls the number of bright-pass samples.
+value.BLOOM_QUALITY.0=Off
+value.BLOOM_QUALITY.1=Fast
+value.BLOOM_QUALITY.2=Smooth
+option.BLOOM_STRENGTH=Bloom Strength
+option.BLOOM_STRENGTH.comment=Intensity of glow from only the brightest scene regions.
+option.EXPOSURE=Exposure
+option.EXPOSURE.comment=Final scene exposure before filmic tone mapping.

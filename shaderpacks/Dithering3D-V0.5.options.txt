@@ -1,0 +1,52 @@
+# Shader options for Dithering3D-V0.5.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+profile = LOW
+#
+# Available: POTATO, LOW, MEDIUM, HIGH, ULTRA, GAMEBOY, CGA
+
+# ---- options ----
+# RENDER_STYLE = 1        # one of: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+# DITHER_DOT_SCALE = 5.0        # range: 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0
+# DITHER_SIZE_VARIABILITY = 0.0        # range: 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+# DITHER_DOT_CONTRAST = 1.0        # range: 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0 3.0 5.0
+# DITHER_STRETCH_SMOOTH = 1.0        # range: 0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0
+# DITHER_EXPOSURE = 1.0        # range: 0.2 0.4 0.6 0.8 1.0 1.5 2.0 2.5 3.0 4.0 5.0
+# DITHER_OFFSET = 0.0        # range: -1.0 -0.8 -0.6 -0.4 -0.2 0.0 0.2 0.4 0.6 0.8 1.0
+# DITHER_INVERSE_DOTS = false        # true or false
+# DITHER_RADIAL_COMP = false        # true or false
+# DITHER_QUANTIZE_LAYERS = false        # true or false
+# PALETTE_COLOR_MATCH = 1        # one of: 0 1
+# PALETTE_CUSTOM_1_R = 0.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_1_G = 0.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_1_B = 0.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_2_R = 1.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_2_G = 1.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_2_B = 1.0        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_3_R = 0.33        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_3_G = 0.33        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_3_B = 0.33        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_4_R = 0.66        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_4_G = 0.66        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_4_B = 0.66        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_5_R = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_5_G = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_5_B = 0.5        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_6_R = 0.5        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_6_G = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_6_B = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_7_R = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_7_G = 0.5        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_7_B = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_8_R = 0.8        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_8_G = 0.8        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# PALETTE_CUSTOM_8_B = 0.2        # range: 0.0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0
+# DITHER_DEBUG_FRACTAL = false        # true or false

@@ -1,0 +1,28 @@
+# Shader options for CinematicRealism.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# SHADOW_RES = 2048        # one of: 1024 2048 4096
+# SHADOW_DISTANCE = 140.0        # one of: 80.0 110.0 140.0 180.0
+# PCF_TAPS = 4        # one of: 1 2 4 8
+# SHADOW_DISTORTION = 0.85        # one of: 0.6 0.75 0.85 0.95
+# COLORED_LIGHT_HINTS = 1        # one of: 0 1
+# MIN_AMBIENT = 0.045        # one of: 0.02 0.03 0.045 0.06
+# GOLDEN_HOUR_STRENGTH = 1.0        # one of: 0.5 0.75 1.0 1.25
+# SUN_GLOW_SIZE = 0.06        # one of: 0.04 0.06 0.08 0.1
+# CLOUDS = 1        # one of: 0 1
+# CLOUD_COVERAGE = 0.55        # one of: 0.35 0.45 0.55 0.65
+# HEIGHT_FOG = 1        # one of: 0 1
+# HEIGHT_FOG_DENSITY = 0.018        # one of: 0.008 0.013 0.018 0.026
+# BLOOM = 1        # one of: 0 1
+# BLOOM_THRESHOLD = 0.85        # one of: 0.6 0.75 0.85 1.0
+# BLOOM_INTENSITY = 0.30        # one of: 0.15 0.22 0.30 0.4
+# RAIN_RIPPLES = 1        # one of: 0 1
+# PUDDLES = 1        # one of: 0 1
+# PUDDLE_COVERAGE = 0.6        # one of: 0.3 0.45 0.6 0.8
+# EXPOSURE = 1.05        # one of: 0.85 0.95 1.05 1.2

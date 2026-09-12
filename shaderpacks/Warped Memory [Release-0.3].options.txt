@@ -1,0 +1,17 @@
+# Shader options for Warped Memory [Release-0.3].
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+profile = Broke
+#
+# Available: no_glich, Broke
+
+# ---- options ----
+# (this pack declares no options)

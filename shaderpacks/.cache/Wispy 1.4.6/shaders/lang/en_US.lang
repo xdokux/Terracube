@@ -1,0 +1,173 @@
+# Wispy Shaders - Language File
+
+# Main Screens
+screen.COLORS_AND_LIGHTING=Colors & Lighting
+screen.ATMOSPHERE=Atmosphere
+screen.EFFECTS=Effects
+screen.POST_PROCESSING=Post Processing
+screen.ADVANCED=Advanced
+
+# ===== COLORS & LIGHTING =====
+option.EXPOSURE=Brightness
+option.SATURATION=Saturation
+option.VIBRANCE=Vibrance
+option.CONTRAST=Contrast
+option.COLOR_TEMPERATURE=Color Temperature
+option.COLOR_TEMPERATURE.comment=Warm (orange) or cool (blue) tint. §bImpact: None.
+value.COLOR_TEMPERATURE.-0.5=Very Cool
+value.COLOR_TEMPERATURE.0.0=Neutral
+value.COLOR_TEMPERATURE.0.5=Very Warm
+option.COLOR_TINT=Color Tint
+option.COLOR_TINT.comment=Magenta or green color cast. §bImpact: None.
+value.COLOR_TINT.-0.5=Magenta
+value.COLOR_TINT.0.0=Neutral
+value.COLOR_TINT.0.5=Green
+option.TONEMAP_OPERATOR=Tone Mapping
+option.MIN_LIGHT_AMOUNT=Minimum Light
+option.MIN_LIGHT_AMOUNT.comment=Prevents pitch darkness. §bImpact: None.
+option.LM_FALLOFF_CURVE=Light Falloff
+
+screen.LIGHTING_ENHANCEMENTS=Lighting Tweaks
+option.DIRECTIONAL_LIGHTMAP=Directional Light
+option.DIRECTIONAL_LIGHTMAP.comment=Smoother torch light falloff. §bImpact: None.
+option.DYNAMIC_HANDLIGHT=Smooth Handheld Light
+option.DYNAMIC_HANDLIGHT.comment=Better falloff for held torches. §bImpact: None.
+option.SOFTEN_SHADOWS=Soft Shadow Transition
+option.SOFTEN_SHADOWS.comment=Smoother shadow edges. §bImpact: None.
+option.SHADOW_SOFTNESS=Shadow Softness Amount
+
+screen.AMBIENT_STRENGTH=Time-of-Day Lighting
+option.SUNRISE_AMBIENT=Sunrise Light
+option.NOON_AMBIENT=Noon Light
+option.SUNSET_AMBIENT=Sunset Light
+option.NIGHT_AMBIENT=Night Light
+
+# ===== ATMOSPHERE =====
+screen.ATMOSPHERE=Atmosphere
+option.ATMOSPHERIC_FOG=Atmospheric Fog
+option.ATMOSPHERIC_FOG.comment=Adds depth haze to distant terrain. §eImpact: Low.
+option.ATM_FOG_STRENGTH=Fog Density
+option.BORDER_FOG=World Edge Fog
+option.HORIZON_FOG_COLOR=Horizon Fog Blend
+option.HORIZON_FOG_STRENGTH=Horizon Blend Strength
+option.WATER_FOG_STRENGTH=Underwater Fog
+option.WATER_FOG_STRENGTH.comment=Controls fog density when underwater. §bImpact: None.
+
+screen.SKY=Sky
+option.STAR_SIZE=Star Size
+option.STAR_STRENGTH=Star Brightness
+option.SUNSET_HORIZON_BOOST=Sunset Horizon Glow
+option.SUNSET_BOOST_STRENGTH=Sunset Glow Intensity
+
+screen.WEATHER_EFFECTS=Weather
+option.RAIN_SKY_DESATURATION=Rain Desaturation
+option.RAIN_SKY_DARKENING=Rain Darkening
+
+screen.CELESTIAL=Sun & Moon
+option.ROUND_SUN=Round Sun/Moon
+option.sunPathRotation=Sun Angle
+option.MOON_PHASE_INFLUENCE=Moon Phase Effect
+
+# ===== EFFECTS =====
+screen.PLANT_ANIMATION=Plant Animation
+option.WAVY_PLANTS=Waving Plants
+option.WAVY_PLANTS.comment=Makes grass and flowers sway in wind. §eImpact: Low.
+option.WAVE_LEAVES=Waving Leaves
+option.WAVE_LEAVES.comment=Makes tree leaves move. §eImpact: Low.
+option.WAVE_AMPLITUDE=Wave Strength
+option.WAVE_SPEED=Wave Speed
+option.WAVE_SIZE=Wave Scale
+
+screen.DISTORTION_FX=Screen Distortion
+option.UNDERWATER_DISTORTION=Underwater Warp
+option.UNDERWATER_DISTORTION.comment=Subtle screen distortion when underwater. §bImpact: None.
+option.DISTORTION_STRENGTH=Distortion Amount
+option.LAVA_DISTORTION=Lava Heat Warp
+option.LAVA_DISTORTION_STRENGTH=Lava Warp Amount
+option.NETHER_HEAT_DISTORTION=Nether Heat Haze
+option.NETHER_DISTORTION_STRENGTH=Heat Haze Strength
+
+screen.GAMEPLAY_FX=Gameplay Effects
+option.FROST_EFFECT=Frost Overlay
+option.FROST_STRENGTH=Frost Intensity
+
+screen.DIMENSION_FX=Dimension Effects
+option.NETHER_AMBIENT_PULSE=Nether Pulse
+option.NETHER_PULSE_SPEED=Pulse Speed
+option.NETHER_PULSE_STRENGTH=Pulse Intensity
+option.END_VOID_FOG=End Void Fog
+option.END_FOG_DENSITY=Void Fog Density
+
+screen.CEL_SHADING_SETTINGS=Cel Shading
+option.CEL_SHADING= Cel Shading
+option.CEL_OUTLINE_THICKNESS= Thickness
+option.CEL_OUTLINE_DEPTH_THRESHOLD= Depth Threshold
+option.CEL_OUTLINE_NORMAL_THRESHOLD= Normal Threshold
+option.CEL_OUTLINE_R= Shade Red
+option.CEL_OUTLINE_G= Shade Green
+option.CEL_OUTLINE_B= Shade Blue
+option.CEL_OUTLINE_TRANSPARENCY= Transparency
+option.CEL_OUTLINE_PLANTS= Shaded Plants
+
+# ===== POST PROCESSING =====
+option.BLOOM=Bloom
+option.BLOOM.comment=Makes bright areas glow. §6Impact: Medium.
+screen.BLOOM_SETTINGS=Bloom Settings
+option.BLOOM_STRENGTH=Bloom Strength
+option.BLOOM_CURVE=Bloom Curve
+
+option.SSAO=Ambient Occlusion
+option.SSAO.comment=Adds realistic shadows to corners. §cImpact: High.
+screen.SSAO_SETTINGS=SSAO Settings
+option.SSAO_STRENGTH=SSAO Strength
+option.SSAO_SCALE=SSAO Scale
+
+option.FSR_UPSCALING=WSR 1.0 Upscaling
+option.FSR_UPSCALING.comment=Wispy shaders own upcaling to increase performance. §6Impact: +5-30% FPS.
+
+screen.FSR_SETTINGS=WSR Settings
+option.FSR_QUALITY=WSR Quality Mode
+option.FSR_QUALITY.comment=Lower quality = higher FPS. §6Impact: Significant.
+value.FSR_QUALITY.0=Ultra Quality (82%)
+value.FSR_QUALITY.1=Quality (77%)
+value.FSR_QUALITY.2=Balanced (67%)
+value.FSR_QUALITY.3=Performance (59%)
+value.FSR_QUALITY.4=Ultra Performance (50%)
+option.FSR_SHARPNESS=WSR Sharpness
+option.FSR_SHARPNESS.comment=Controls edge sharpening intensity. §bImpact: None.
+
+screen.ANTI_ALIASING=Anti-Aliasing
+option.TAA_MODE=AA Mode
+option.TAA_MODE.comment=Smooths jagged edges. §6Impact: Medium.
+value.TAA_MODE.0=Off
+value.TAA_MODE.1=TAA Low
+value.TAA_MODE.2=TAA Medium
+option.TAA_BLEND_FACTOR=TAA Blend
+option.TAA_OFFCENTER_REJECTION=TAA Sharpness
+
+screen.CAMERA_EFFECTS=Camera Effects
+option.MOTION_BLUR=Motion Blur
+option.MOTION_BLUR_STRENGTH=Motion Blur Amount
+option.FILM_GRAIN=Film Grain
+option.FILM_GRAIN_STRENGTH=Grain Amount
+option.VIGNETTE=Vignette
+option.VIGNETTE_STRENGTH=Vignette Strength
+
+screen.SHARPENING=Sharpening
+option.IMAGE_SHARPENING=Enable Sharpening
+option.SHARPENING=Sharpen Strength
+
+# ===== ADVANCED =====
+screen.DISTANT_HORIZONS=Distant Horizons
+option.DH_NOISE=DH Noise
+option.DH_CUTOFF=DH Transition Distance
+option.DH_NOISE_SIZE=DH Noise Scale
+screen.DEBUG=Debug
+option.DEBUG_SHOW_BUFFER=Show Buffer
+
+# Performance Profiles
+profile.ULTRA_PERFORMANCE=§bUltra Fast
+profile.PERFORMANCE=§aFast
+profile.BALANCED=§eBalanced
+profile.QUALITY=§6Quality
+profile.ULTRA_QUALITY=§cUltra Quality

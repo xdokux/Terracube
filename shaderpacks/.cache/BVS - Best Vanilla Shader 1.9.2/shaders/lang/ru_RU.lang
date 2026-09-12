@@ -1,0 +1,162 @@
+#Profiles
+profile.QUALITY=§aКачество
+profile.PRESERVE_QUALITY=§2Сохранить Качество
+profile.MIMIMALISM=§bМинимализм
+
+#Screens
+screen.Cam=Камера
+screen.BLM=Свечение
+screen.CC=Цветовая коррекция
+screen.LT=Освещение
+screen.OTHER=Прочее
+screen.AO=Окружающее затенение
+
+#Settings
+option.BY=§6Наведи на меня
+option.BY.comment=§9Discord: §fhttps://discord.com/invite/65CkSpxrmm. §4YouTube: §fhttps://www.youtube.com/@lolip_p.
+value.BY.0=§fСделал LoLip_p
+value.BY.1=§fСделал LoLip_p
+
+#AO
+option.AO=§6Окружающее затенение (AO)
+value.AO.0=Выкл
+value.AO.1=Вкл
+option.SAMPLES=Сэмплы
+option.INTENSITY=Интенсивность
+option.SCALE=Размер
+option.SAMPLE_RAD=Радиус
+option.MAX_DISTANCE=Максимальная дистанция
+option.ambientOcclusionLevel=Ванильное AO
+
+#Exposure
+option.EXPOSURE=Экспозиция
+option.AUTO_EXPOSURE=§6Авто экспозиция
+value.AUTO_EXPOSURE.0=Выкл
+value.AUTO_EXPOSURE.1=Вкл
+option.AUTO_EXPOSURE_SPEED=Скорость смены экспозиции
+option.AUTO_EXPOSURE_RADIUS=Радиус экспозиции
+option.TONEMAP_WHITE=Степень белого
+
+#FXAA
+option.ANTI_ALIASING=Сглаживание
+option.ANTI_ALIASING.comment=Делает границы объектов более гладкими, убирая возникающие «зубцы».
+value.ANTI_ALIASING.0=Выкл
+value.ANTI_ALIASING.1=Вкл
+
+option.BIT=16 BIT
+value.BIT.0=Выкл
+value.BIT.1=Вкл
+
+option.CHUNK_ANIMATION=§6Анимация чанков
+value.CHUNK_ANIMATION.0=Выкл
+value.CHUNK_ANIMATION.1=Вкл
+
+option.SSR=§6Экранное отражение
+value.SSR.0=Выкл
+value.SSR.1=Вкл
+
+option.PBR=§6PBR
+value.PBR.0=Выкл
+value.PBR.1=Вкл
+
+option.WAVES=Волны
+value.WAVES.0=Выкл
+value.WAVES.1=Вкл
+
+option.SWAYING_FOLIAGE=Колышущаяся листва
+value.SWAYING_FOLIAGE.0=Выкл
+value.SWAYING_FOLIAGE.1=Вкл
+
+#Motion Blur
+option.MOTION_BLUR=§6Размытие в движении
+option.MOTION_BLUR.comment=Размытие изображения при повороте камеры (делает геймплей более приятным и гладким). Чем больше значение тем больше эффект плавности. Советуется оставлять включённым и менять только параметр §2Сила размытия §fв зависимости от ваших предпочтений.
+value.MOTION_BLUR.0=Выкл
+value.MOTION_BLUR.1=Вкл
+option.MOTION_BLURRING_STRENGTH=Сила размытия
+option.MOTION_BLURRING_STRENGTH.comment=Регулирует силу размытия. §4Высокое значение может вызвать у некоторых людей головокружение и укачивание.
+
+#DoF
+option.DOF=§6Глубина Резкости (ГР)
+value.DOF.0=Выкл
+value.DOF.1=Вкл
+option.DOF_STRENGTH=Сила Размытия
+
+#Bloom
+option.BLOOM=§6Свечение
+option.BLOOM.comment=Включает размытое свечение от ярких предметов.
+value.BLOOM.0=Выкл
+value.BLOOM.1=Вкл
+
+option.BLOOM_THRESHOLD=Порог свечения
+option.BLOOM_INTENSITY=Интенсивность свечения
+option.BLUR_RADIUS=Радиус размытия свечения
+
+#Color Correction
+option.SATURATION=Насыщенность
+option.BRIGHTNESS=Яркость
+option.CONTRAST=Контраст
+
+#Lighting
+option.PIXEL_SHADOW=§6Пиксельные тени
+value.PIXEL_SHADOW.0=Выкл
+
+option.FOG=§6Туман
+value.FOG.0=Выкл
+value.FOG.1=Вкл
+option.FOG_DISTANCE=Дистанция тумана
+
+option.SOFT=§6Мягкие тени
+value.SOFT.1=Выкл
+value.SOFT.2=Вкл
+
+option.SHADING=§6Затенение
+option.SHADING.comment=Затеняет плоскость, которая не попадает под луч солнца.
+value.SHADING.0=Выкл
+value.SHADING.1=Вкл
+option.NEW_LIGHTING="Новое" освещение
+option.NEW_LIGHTING.comment=Режим "нового" MINECRAFT освещения.
+value.NEW_LIGHTING.0=Выкл
+value.NEW_LIGHTING.1=Вкл
+option.CLASSIC_NIGHT=Классическая ночь
+option.CLASSIC_NIGHT.comment=Данный шейдер предоставляет обновлённое освещение ночью.
+value.CLASSIC_NIGHT.0=Выкл
+value.CLASSIC_NIGHT.1=Вкл
+option.SHADOW_TRANSPARENCY=Прозрачность тени
+option.SUN_ANGLE=Угол Солнца
+option.LIGHT_ABSORPTION=Поглощение света
+option.LIGHT_ABSORPTION.comment=Регулирует поглощение света днём от источников освещения находящиеся под солнцем.
+
+// Shadow
+option.ENABLE_SHADOW=§6Тень
+value.ENABLE_SHADOW.0=Выкл
+value.ENABLE_SHADOW.1=Вкл
+option.sunPathRotation=Поворот солнца и луны
+option.sunPathRotation.comment=Регулирует угол наклона солнца.
+option.shadowDistance=Расстояние тени
+option.shadowDistance.comment=Регулирует расстояние тени.
+
+value.shadowDistance.64.0=§a4 Чанка
+value.shadowDistance.80.0=§a5 Чанков
+value.shadowDistance.96.0=§a6 Чанков
+value.shadowDistance.112.0=§a7 Чанков
+value.shadowDistance.128.0=§a8 Чанков
+value.shadowDistance.160.0=§e10 Чанков
+value.shadowDistance.192.0=§e12 Чанков
+value.shadowDistance.224.0=§e14 Чанков
+value.shadowDistance.256.0=§c16 Чанков
+value.shadowDistance.320.0=§c20 Чанков
+value.shadowDistance.384.0=§4§l24 Чанка
+value.shadowDistance.512.0=§4§l32 Чанка
+value.shadowDistance.768.0=§4§k-§r§4§l§n§o48 Чанков§r§4§k-
+value.shadowDistance.1024.0=§4§k-§r§4§l§n§o64 Чанка§r§4§k-
+
+option.shadowMapResolution=Качество
+option.shadowMapResolution.comment=Настраивает размер теневой карты. §e[*]§r Более высокое разрешение дает более четкие тени, но снижает производительность.
+value.shadowMapResolution.512=Очень низкое (512)
+value.shadowMapResolution.768=Низкое (768)
+value.shadowMapResolution.1024=Низко Среднее (1024)
+value.shadowMapResolution.1536=Среднее (1536)
+value.shadowMapResolution.2048=Средне Высокое (2048)
+value.shadowMapResolution.3072=Высокое (3072)
+value.shadowMapResolution.4096=Очень Высокое (4096)
+value.shadowMapResolution.8192=Сверхвысокое (8192)

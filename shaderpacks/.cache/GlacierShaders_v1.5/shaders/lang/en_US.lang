@@ -1,0 +1,49 @@
+# Options
+option.ShadowMapping=ShadowMapping
+option.ShadowSamples=ShadowSamples
+option.Brightness=Brightness
+option.Bloom=Bloom
+option.BloomQuality=BloomQuality
+option.ChromaticAberration=ChromaticAberration
+option.ChromaticAberrationQuality=ChromaticAberrationQuality
+option.Saturation=Saturation
+option.Exposure=Exposure
+option.CinematicBars=CinematicBars
+option.Lensflare=Lensflare
+option.Red=Red
+option.Green=Green
+option.Blue=Blue
+option.WavingPlants=WavingPlants
+option.WavingPlantsSpeed=WavingPlantsSpeed
+option.WavingLeaves=WavingLeaves
+option.WavingLeavesSpeed=WavingLeavesSpeed
+option.WaterWave=WaterWave
+option.UnderWaterCaustics=UnderWaterCaustics
+
+# Screen Layout
+screen=[INFO] <empty> [WavingSettings] [ShadowSettings] [PostProcessing]
+
+# INFO Section
+screen.INFO=Open4ES-Shader-Android
+screen.INFO.comment=Made by: §5@ENDERMANYK§r
+
+# Waving Settings
+screen.WavingSettings=[WavingPlants] <empty> [WavingLeaves] <empty> [WavingWater]
+screen.WavingSettings.columns=1
+
+screen.WavingPlants=WavingPlants WavingPlantsSpeed
+screen.WavingLeaves=WavingLeaves WavingLeavesSpeed
+screen.WavingWater=WaterWave UnderWaterCaustics
+
+# Shadow Settings
+screen.ShadowSettings=ShadowMapping ShadowSamples
+
+# Post-Processing Settings
+screen.PostProcessing=[WorldColor] Brightness Bloom BloomQuality ChromaticAberration ChromaticAberrationQuality Lensflare
+screen.WorldColor=Red Green Blue
+
+# Sliders
+sliders=WavingLeavesSpeed WavingPlantsSpeed ShadowSamples ChromaticAberrationQuality Red Green Blue Brightness BloomQuality
+
+# Columns
+screen.columns=1

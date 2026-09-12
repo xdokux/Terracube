@@ -1,0 +1,11 @@
+# Shader options for UHD630-PerfShader.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# SHADOW_DARKNESS = 0.35        # one of: 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6
+# GODRAY_STRENGTH = 1.0        # one of: 0.0 0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0

@@ -1,0 +1,47 @@
+# Shader options for Baunilha_shaders_v2.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# SUNLIGHT_I = 1.0        # range: 0.0 3.0
+# MOONLIGHT_I = 1.0        # range: 0.0 3.0
+# AMBIENT_I = 1.0        # range: 0.0 3.0
+# AMBIENT_NIGHT_I = 1.0        # range: 0.0 3.0
+# SKYLIGHT_I = 1.0        # range: 0.0 3.0
+# BLOCKLIGHT_I = 1.0        # range: 0.0 5.0
+# NIGHT_DIM = 0.15        # range: 0.0 1.0
+# SPECULAR_POWER = 4.0        # range: 1.0 64.0
+# SPECULAR_INTENSITY = 0.12        # range: 0.0 1.0
+# shadowMapResolution = 4096        # range: 512 1024 2048 4096
+# shadowDistance = 400.0        # range: 64 128 192 256 384 512 768 1024
+# SHADOW_RANGE = 4        # range: 1 8
+# SHADOW_RADIUS = 2.0        # range: 0.25 4.0
+# CAVE_THRESHOLD = 0.18        # range: 0.0 0.5
+# CAVE_POWER = 2.2        # range: 0.5 5.0
+# CAVE_STRENGTH = 1.0        # range: 0.0 1.0
+# NIGHT_CAVE_THRESHOLD = 0.3        # range: 0.0 0.5
+# NIGHT_CAVE_POWER = 1.5        # range: 0.5 5.0
+# NIGHT_CAVE_STRENGTH = 0.5        # range: 0.0 1.0
+# FOG_DENSITY = 8.0        # range: 0.0 50.0
+# FOG_DENSITY_NIGHT = 0.5        # range: 0.0 50.0
+# WATER_FOG_DENSITY = 8.0        # range: 0.0 30.0
+# GOD_RAY_SAMPLES = 32        # range: 4 128
+# GOD_RAY_INTENSITY = 0.22        # range: 0.0 1.0
+# MOON_RAY_FACTOR = 0.12        # range: 0.0 1.0
+# EXPOSURE_DAY = 1.0        # range: 0.1 3.0
+# EXPOSURE_NIGHT = 1.0        # range: 0.1 3.0
+# CLOUD_STEPS = 12        # range: 0 128
+# CLOUD_DENSITY = 0.06        # range: 0.0 2.0
+# CLOUD_ABSORPTION = 0.15        # range: 0.0 1.0
+# CLOUD_COVERAGE = 0.05        # range: 0.0 1.0
+# CLOUD_HEIGHT_MIN = 96.0        # range: 32.0 256.0
+# CLOUD_HEIGHT_MAX = 160.0        # range: 64.0 320.0
+# COLOUR_INTENSITY = 1.5
+# BLOCK_LIGHTS = true        # true or false
+# COLOURED_LIGHTS_RENDER_DISTANCE = 16
+# COLOURED_LIGHTS_RENDER_DISTANCE_VERTICAL = 16
+# MAX_COLOURED_LIGHTS = 128

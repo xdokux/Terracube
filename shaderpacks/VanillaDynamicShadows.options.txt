@@ -1,0 +1,16 @@
+# Shader options for VanillaDynamicShadows.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# ---- options ----
+# SHADOW_RES = 1024        # one of: 512 1024 1536 2048
+# SHADOW_DISTANCE = 72.0        # one of: 48.0 64.0 72.0 96.0
+# NORMAL_OFFSET_TEXELS = 1.4        # one of: 0.8 1.1 1.4 1.8
+# GODRAYS = 1        # one of: 0 1
+# GODRAY_STEPS = 8        # one of: 4 6 8 12
+# GODRAY_DISTANCE = 40.0        # one of: 24.0 32.0 40.0 56.0
+# GODRAY_INTENSITY = 0.28        # one of: 0.15 0.22 0.28 0.38

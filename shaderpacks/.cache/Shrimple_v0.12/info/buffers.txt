@@ -1,0 +1,47 @@
+SSBO-0		Scene Data
+SSBO-1		Shadow Data
+SSBO-2		Static Block Data
+SSBO-3		Static Light Data
+SSBO-4		Global Light Data
+SSBO-5		Water Mask
+SSBO-6		Local Light Data
+SSBO-7		Water Depth Layers
+
+
+
+CU			imgSceneLPV_1
+CU			imgSceneLPV_2
+CU			imgLocalLightMask
+CU			imgLocalBlockMask
+CU			imgDepthNear
+CU			imgSky
+CU			imgSkyIrradiance
+CU			imgSSAO
+CU 			imgShadowSSS
+CU			imgDiffuseRT
+
+
+
+colortex0		RGB16F		1.0		final
+
+colortex1		RGBA8		1.0		deferred color
+colortex2		RGBA8		1.0		deferred shadow, sss?  (was water mask)
+colortex3		RGBA32UI	1.0		deferred data
+									 - R: geometry normal.xyzw (normal, sss)
+									 - G: lighting.xyzw (block, sky, ao, emission)
+									 - B: material, parallax shadow?, ?, ?  (was fog.rgba)
+									 - A: roughness, metal-f0, porosity
+colortex9		RGB16F		1.0		texture normal.xyz
+
+colortex4		RGB16F		 *	 	block-light diffuse
+colortex11		RGBA16F		 *	 	block-light specular
+colortex5		RGBA16F		1.0		final previous [taa]
+colortex7		RGBA16F		1.0	 	velocity buffer [taa]
+colortex6		R16F		1.0 	SSAO
+colortex8		RGB16F		 *		volumetric scattering
+colortex10		RGB16F		 *		volumetric transmission
+colortex15		RGBA16F		1.0		bloom | deferred weather particles + clouds
+
+
+
+colortex13			lightmap | ripples

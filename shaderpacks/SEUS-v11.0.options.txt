@@ -1,0 +1,47 @@
+# Shader options for SEUS-v11.0.
+#
+# Uncomment a line and change its value to override what the pack's own source declares.
+# Everything here is commented out, so this file has no effect until you edit it.
+#
+# Values are written back into the pack's declaring line when it loads, which is how a
+# shader settings screen would apply them.
+
+# Presets the pack ships. Selecting one sets many options at once; anything you
+# set explicitly below still wins over it.
+#
+# profile = LOW
+#
+# Available: LOW, MEDIUM, HIGH, ULTRA, EXTREME
+
+# ---- options ----
+# ATMOSPHERIC_SCATTERING = true        # true or false
+# RAYLEIGH_AMOUNT = 1.0        # one of: 0.5 1.0 1.5 2.0
+# ATMOSPHERIC_HAZE = 1.0        # one of: 0.0 0.5 1.0 1.5 2.0
+# CREPUSCULAR_RAYS = true        # true or false
+# VOLUMETRIC_CLOUDS = true        # true or false
+# HQ_VOLUMETRIC_CLOUDS = true        # true or false
+# SMOOTH_CLOUDS = false        # true or false
+# shadowMapResolution = 2048        # one of: 1024 2048 4096
+# shadowDistance = 120.0        # one of: 80.0 120.0 180.0 240.0
+# ENABLE_SOFT_SHADOWS = false        # true or false
+# VARIABLE_PENUMBRA_SHADOWS = true        # true or false
+# COLORED_SHADOWS = true        # true or false
+# PIXEL_SHADOWS = false        # true or false
+# GI = true        # true or false
+# ENABLE_SSAO = true        # true or false
+# AVERAGE_EXPOSURE = false        # true or false
+# TORCHLIGHT_BRIGHTNESS = 0.5        # one of: 0.25 0.5 0.75 1.0 1.5 2.0
+# MOTION_BLUR = false        # true or false
+# TONEMAP_STRENGTH = 3.0        # one of: 2.0 3.0 4.0
+# BRIGHTNESS_LEVEL = 1.0        # one of: 1.0 1.25 1.5 1.75 2.0
+# BLOOM_AMOUNT = 1.0        # one of: 0.5 0.75 1.0 1.25 1.5
+# TEXTURE_RESOLUTION = 128        # one of: 16 32 64 128 256 512
+# PARALLAX = true        # true or false
+# PARALLAX_SHADOW = true        # true or false
+# FORCE_WET_EFFECT = true        # true or false
+# WATER_PARALLAX = true        # true or false
+# WATER_CAUSTICS = true        # true or false
+# GI_QUALITY = 0.5        # one of: 0.5 1.0 2.0
+# GI_ARTIFACT_REDUCTION = true        # true or false
+# GI_RENDER_RESOLUTION = 0        # one of: 0 1
+# GI_RADIUS = 0.75        # one of: 0.5 0.75 1.0

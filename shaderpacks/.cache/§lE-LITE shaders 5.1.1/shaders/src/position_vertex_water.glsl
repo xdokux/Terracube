@@ -1,0 +1,14 @@
+vec4 sub_position = gl_ModelViewMatrix * gl_Vertex;
+fragposition = sub_position.xyz;
+vec4 position = gbufferModelViewInverse * sub_position;
+worldposition = position + vec4(cameraPosition.xyz, 0.0);
+gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+gl_FogFragCoord = length(sub_position.xyz);
+
+#if AA_TYPE > 1
+    gl_Position.xy += taa_offset * gl_Position.w;
+#endif
+
+#if defined SHADOW_CASTING && SHADOW_LOCK > 0 && !defined NETHER
+    vWorldPos = position.xyz;
+#endif

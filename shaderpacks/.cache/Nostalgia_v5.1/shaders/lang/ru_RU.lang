@@ -1,0 +1,138 @@
+option.INFO=Nostalgia Shader by RRe36
+value.INFO.0=v5.1
+
+option.sunPathRotation=Угол Наклона Солнца
+option.volumeWorldTimeAnim=Объемы Мирового Времени
+option.volumeWorldTimeAnim.comment=Позволяет анимировать объемные характеристики (туман и облака) с использованием мирового времени вместо текущего времени выполнения клиента. Таким образом, он также синхронизирует облака между игроками в одном и том же мире.
+option.sunPathRotation=Угол Наклона Солнца
+
+option.fogVolumeEnabled=Объемный Туман
+option.fogMistAdvanced=Высококачественный Туман
+option.fogMistAdvanced.comment=Обеспечивает гораздо более качественное освещение "облаков тумана". Значительное влияние на производительность
+option.fogAdaptiveSteps=Адаптивные Шаги
+option.fogClipDist=максимальное расстояние
+option.fogDensityMult=Плотность
+option.mistMieAnisotropy=Анизотропия Тумана Mie
+
+option.cloudVolumeEnabled=Объемные Облака
+option.cloudDynamicLight=Динамическое освещение
+option.cloudVolumeStoryMode=Стиль Сюжетного режима
+option.cloudVolumeRounding=Резкость Кромки
+
+option.cloudVolume0Samples=Образцы
+option.cloudVolume0Alt=Высота
+option.cloudVolume0Depth=Глубина
+option.cloudVolume0Clip=Максимальное Расстояние Рендеринга
+
+option.cloudVolume1Enabled=Secondary Layer
+option.cloudVolume1Samples=Образцы
+option.cloudVolume1Alt=Высота
+option.cloudVolume1Depth=Глубина
+option.cloudVolume1Clip=Максимальное Расстояние Рендеринга
+
+option.waterTextureBlend=Смесь Текстурных Узоров
+option.waterRed=Красный
+option.waterGreen=Зеленый
+option.waterBlue=Синий
+option.waterAlpha=Альфа
+option.waterParallaxEnabled=Параллакс Волн
+option.waterParallaxDepth=Глубина
+option.waterDensity=Плотность
+option.waterCoeffRed=Коэффициент Красного
+option.waterCoeffGreen=Коэффициент Зеленого
+option.waterCoeffBlue=Коэффициент Синего
+option.waterCoeffScatter=Коэффициент Рассеяние
+
+option.directionalLMEnabled=Карты направленного света
+
+option.shadowMapResolution=Разрешение Теневой карты
+option.contactShadowsEnabled=Контактные Тени
+option.contactShadowsEnabled.comment=Реализация на основе спектра от Zombye
+option.shadowVPSEnabled=Переменные Тени Полутени
+
+option.normalmapEnabled=Поддержка Normalmap
+option.normalmapFormat=Формат
+value.normalmapFormat.0=labPBR 1.2+
+value.normalmapFormat.1=labPBR 1.1 и старше
+option.vertexAttributeFix=Исправление атрибута Вершины
+option.vertexAttributeFix.comment=Отключает POM и Normalmaps для (блокирующих) объектов из-за отсутствия данных в Minecraft 1.15 и новее.
+option.windEffectsEnabled=Ветровые эффекты
+option.windIntensity=Интенсивность
+
+screen.PARALLAX=Отображение окклюзии Параллакса
+option.pomEnabled=Отображение окклюзии Параллакса
+option.pomSamples=Образцы
+option.pomShadowSamples=Образцы Собственной Тени
+option.pomDepth=Глубина
+
+option.bloomEnabled=Bloom
+option.camSensorWidth=Ширина Датчика
+option.camFStops=F-Stops
+
+screen.DepthOfField=глубина резкости
+option.DoFToggle=глубина резкости
+option.DoFQuality=Качество
+option.DoFChromaDispersion=Хроматическая дисперсия
+
+option.exposureSpeed=Скорость Адаптации
+option.manualExposureEnabled=Переопределение экспозиции
+option.manualExposureValue=Переопределить Значение
+
+screen.LensFlare=Блик объектива
+option.lensFlareToggle=Вспышка
+option.lensFlareHaloToggle=Ореол
+option.lensFlareIntensity=Интенсивность вспышки
+option.lensFlareThreshold=Порог
+option.lensFlareGhostCount=Количество вспышек
+option.lensFlareGhostSpace=Расстояние между вспышками
+option.lensFlareHaloRad=Радиус Ореола
+option.lensFlareHaloDepth=Глубина Ореола
+option.legacyFlareToggle=Вспышка наследия
+option.legacyFlareIntensity=Интенсивность
+
+option.motionblurToggle=Размытие движения
+option.motionblurSamples=Образцы
+option.motionblurScale=Масштаб
+
+option.vignetteEnabled=Виньетка
+option.vignetteStart=Начать
+option.vignetteEnd=Конец
+option.vignetteIntensity=Интенсивность
+option.vignetteExponent=Экспонента
+
+option.imageSharpenEnabled=Резкость изображения
+option.screenBitdepth=Выходная разрядность
+
+screen.AntiAliasing=Сглаживание
+option.taaEnabled=Временная АА
+option.taaBlendWeight=Вес истории
+option.taaMotionRejection=Отказ Движения
+option.taaAntiGhosting=Anti-Ghosting
+option.taaAntiFlicker=Защита от мерцания
+option.taaLumaRejection=Отклонение Яркости
+option.taaHueRejection=Отклонение Оттенка
+
+option.acesRRTExposureBias=Смещение Входного Воздействия
+option.acesRRTExposureBias.comment=Применяет смещение экспозиции к изображению перед отображением тона
+option.acesRRTGammaLift=Поднять Гамму
+option.acesRRTGammaLift.comment=Поднимает гамма-кривую перед отображением тона. Используйте это для настройки "воспринимаемого контраста".
+option.acesRRTGlowGainOffset=Смещение усиления Свечения
+option.acesRRTGlowGainOffset.comment=Настраивает компонент "Свечение", отрегулируйте его так, чтобы он влиял на темные области.
+option.acesRRTSatOffset=Смещение насыщенности входного сигнала
+option.acesRRTSatOffset.comment=Отрегулируйте насыщенность перед отображением тона. Обеспечивает более естественную реакцию, чем регулировка насыщенности после сопоставления тонов.
+option.acesODTSatOffset=Смещение выходного Насыщения
+option.acesODTSatOffset.comment=Отрегулируйте насыщенность после сопоставления тонов, но перед преобразованием в sRGB. Используйте это для настройки общей насыщенности изображения.
+
+
+screen.CGRADE=Цветокоррекция
+
+option.doColorgrading=Цветокоррекция
+
+option.vibranceInt=Вибрация
+option.saturationInt=Насыщение
+option.gammaCurve=Гамма-кривая
+option.brightnessInt=Яркость
+option.constrastInt=Контраст
+option.colorlumR=Красный
+option.colorlumG=Зеленый
+option.colorlumB=Синий

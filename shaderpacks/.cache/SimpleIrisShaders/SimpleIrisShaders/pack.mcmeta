@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "pack_format": 15,
+    "description": "Simple Iris Shaders - lightweight forward-shaded pack with sun/shadows/god rays/wavy water, tuned for Intel UHD 630 and up"
+  }
+}

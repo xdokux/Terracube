@@ -1,0 +1,7 @@
+Pastel Shaders is based off Insanity by ElocinDev
+Insanity based off BSL Shaders by Capt Tatsu
+
+Huge thanks to Capt for making both projects possible with their work :)
+All code made by Capt Tatsu is noticed with credits to BSL Shaders. 
+
+Capt Tatsu has given me explicit permission to redistribute this project <3

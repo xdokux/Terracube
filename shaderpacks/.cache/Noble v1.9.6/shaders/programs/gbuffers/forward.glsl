@@ -1,0 +1,350 @@
+/********************************************************************************/
+/*                                                                              */
+/*    Noble Shaders                                                             */
+/*    Copyright (C) 2026  Belmu                                                 */
+/*                                                                              */
+/*    This program is free software: you can redistribute it and/or modify      */
+/*    it under the terms of the GNU General Public License as published by      */
+/*    the Free Software Foundation, either version 3 of the License, or         */
+/*    (at your option) any later version.                                       */
+/*                                                                              */
+/*    This program is distributed in the hope that it will be useful,           */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/*    GNU General Public License for more details.                              */
+/*                                                                              */
+/*    You should have received a copy of the GNU General Public License         */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>.    */
+/*                                                                              */
+/********************************************************************************/
+
+#include "/settings.glsl"
+#include "/include/taau_scale.glsl"
+
+#include "/include/common.glsl"
+
+#include "/include/atmospherics/atmosphere_header.glsl"
+
+#if defined STAGE_VERTEX
+
+    #define attribute in
+    attribute vec4 at_tangent;
+    attribute vec3 at_midBlock;
+    attribute vec3 mc_Entity;
+
+    flat out uint blockId;
+    out vec2 textureCoords;
+    out vec2 lightmapCoords;
+    out vec3 scenePosition;
+    out vec4 vertexColor;
+
+    out mat3 tbn;
+
+    flat out vec3 directIlluminance;
+    flat out mat3[2] skyIlluminanceMat;
+
+    uniform float rcp240;
+
+    void main() {
+        textureCoords  = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
+        lightmapCoords = gl_MultiTexCoord1.xy * rcp240;
+        vertexColor    = gl_Color;
+        
+        vec3 viewPosition = (gl_ModelViewMatrix * gl_Vertex).xyz;
+
+        tbn[2] = mat3(gbufferModelViewInverse) * normalize(gl_NormalMatrix * gl_Normal);
+        tbn[0] = mat3(gbufferModelViewInverse) * normalize(gl_NormalMatrix * at_tangent.xyz);
+        tbn[1] = cross(tbn[0], tbn[2]) * sign(at_tangent.w);
+
+        blockId = uint((mc_Entity.x - 1000.0) + 0.25);
+
+        #if defined WORLD_OVERWORLD || defined WORLD_END
+
+            directIlluminance = decodeLog(texelFetch(IRRADIANCE_BUFFER, ivec2(0, 0), 0).rgb);
+            skyIlluminanceMat = evaluateDirectionalSkyIrradianceApproximation();
+            
+        #endif
+
+        scenePosition = transform(gbufferModelViewInverse, viewPosition);
+        
+        gl_Position    = project(gl_ProjectionMatrix, transform(gbufferModelView, scenePosition));
+        gl_Position.xy = gl_Position.xy * RENDER_SCALE + (RENDER_SCALE - 1.0) * gl_Position.w;
+
+        #if TAA == 1
+            gl_Position.xy += taaJitter(gl_Position);
+        #endif
+    }
+
+#elif defined STAGE_FRAGMENT
+
+    /* RENDERTARGETS: 1,0 */
+
+    layout (location = 0) out uvec4 data;
+    layout (location = 1) out vec4 translucents;
+
+    flat in uint blockId;
+    in vec2 textureCoords;
+    in vec2 lightmapCoords;
+    in vec3 scenePosition;
+    in vec4 vertexColor;
+
+    in mat3 tbn;
+
+    flat in vec3 directIlluminance;
+    flat in mat3[2] skyIlluminanceMat;
+
+    #include "/include/utility/rng.glsl"
+    
+    #include "/include/material/brdf.glsl"
+
+    #if SHADOWS > 0
+        #include "/include/fragment/shadows.glsl"
+    #endif
+
+    #include "/include/fragment/water.glsl"
+
+    uniform sampler2D gtexture;
+    uniform sampler2D normals;
+    uniform sampler2D specular;
+
+    #if defined PROGRAM_ENTITY || defined PROGRAM_LIGHTNING
+        uniform int entityId;
+        uniform vec4 entityColor;
+    #endif
+
+    void main() {
+        translucents = vec4(0.0);
+
+        #if DOWNSCALED_RENDERING == 1
+            vec2 fragCoords = gl_FragCoord.xy * texelSize;
+            if (!insideScreenBounds(fragCoords, RENDER_SCALE)) { return; }
+        #endif
+
+        vec4 albedoTexture = texture(gtexture, textureCoords);
+        
+        if (albedoTexture.a < alphaTestThreshold) { discard; return; }
+
+        vec4 normalTexture   = vec4(0.0);
+        vec4 specularTexture = vec4(0.0);
+
+        #if !defined PROGRAM_TEXTURED && !defined PROGRAM_TEXTURED_LIT
+
+            normalTexture   = texture(normals,  textureCoords);
+            specularTexture = texture(specular, textureCoords);
+            
+        #endif
+
+        albedoTexture *= vertexColor;
+
+        Material material;
+
+        material.id = blockId;
+
+        material.lightmap = lightmapCoords;
+
+        vec4 shadowmap = vec4(1.0, 1.0, 1.0, 0.0);
+
+        #if defined WORLD_OVERWORLD && SHADOWS > 0
+
+            shadowmap = calculateShadowMapping(scenePosition, tbn[2], gl_FragDepth);
+
+        #endif
+
+        // WOTAH
+        if (blockId == WATER_ID) { 
+
+            material.F0         = waterF0;
+            material.alpha      = 0.0;
+            material.ao         = 1.0;
+            material.emission   = 0.0;
+            material.subsurface = 0.0;
+            albedoTexture.rgb   = shadowmap.rgb;
+            albedoTexture.a     = 0.0;
+
+            vec3 scenePositionWater = scenePosition + cameraPosition;
+
+            #if WATER_PARALLAX == 1
+            
+                if (length(scenePosition) < WATER_PARALLAX_DISTANCE) {
+                    vec3 tangentDirection = normalize(scenePosition) * tbn;
+                    scenePositionWater.xz = parallaxMappingWater(scenePositionWater.xz, tangentDirection, WATER_OCTAVES);
+                }
+
+            #endif
+
+            material.normal = getWaterNormal(scenePositionWater, tbn[2], WATER_OCTAVES);
+        
+        } else {
+
+            #if defined PROGRAM_TEXTURED || defined PROGRAM_TEXTURED_LIT
+
+                material.F0         = 0.0;
+                material.alpha      = 1.0;
+                material.ao         = 1.0;
+                material.emission   = 0.0;
+                material.subsurface = 0.0;
+
+            #else
+
+                material.F0         = specularTexture.y;
+                material.alpha      = saturate(hardcodedRoughness != 0.0 ? hardcodedRoughness : 1.0 - specularTexture.x);
+                material.ao         = normalTexture.z;
+                material.emission   = specularTexture.w * maxFloat8 < 254.5 ? specularTexture.w : 0.0;
+                material.subsurface = saturate(specularTexture.z * (maxFloat8 / 190.0) - (65.0 / 190.0));
+
+            #endif
+
+            #if defined PROGRAM_ENTITY
+
+                albedoTexture.rgb = mix(albedoTexture.rgb, entityColor.rgb, entityColor.a);
+                
+                material.ao = all(lessThanEqual(normalTexture.rgb, vec3(EPS))) ? 1.0 : material.ao;
+    
+            #else
+
+                // Harcoded nether portal emission
+                if (blockId == NETHER_PORTAL_ID) {
+                    material.emission = 1.0;
+                }
+
+            #endif
+
+            #if defined PROGRAM_ENTITY || defined PROGRAM_LIGHTNING
+
+                // Handling lightning bolts, end crystal and end crystal beams
+                
+                if (entityId == 1000) {
+                    material.id       = LIGHTNING_BOLT_ID;
+                    material.emission = 1.0;
+                    material.lightmap = vec2(1.0);
+                }
+
+                if (entityId == 1001 || entityId == 1002) {
+                    material.emission = 1.0;
+                    material.lightmap = vec2(1.0);
+                }
+
+            #endif
+
+            #if defined PROGRAM_SPIDEREYES
+            
+                material.emission = 1.0;
+                material.lightmap = vec2(lightmapCoords.x, 0.0);
+
+            #endif
+
+            material.albedo = albedoTexture.rgb;
+
+            #if WHITE_WORLD == 1
+                material.albedo = vec3(1.0);
+            #endif
+
+            material.normal = tbn[2];
+
+            if (all(greaterThan(normalTexture, vec4(EPS)))) {
+                material.normal.xy = normalTexture.xy * 2.0 - 1.0;
+                material.normal.z  = fastSqrtN1(1.0 - saturate(dot(material.normal.xy, material.normal.xy)));
+                material.normal    = tbn * material.normal;
+            }
+
+            // Forward diffuse lighting
+
+            #if REFRACTIONS == 0
+                bool shadeTranslucents = true;
+            #else
+                bool shadeTranslucents = material.F0 <= EPS;
+            #endif
+
+            bool isMetal = material.F0 * maxFloat8 > labPBRMetals;
+
+            if (!isMetal && shadeTranslucents) {
+
+                #if TONEMAP == ACES
+                    material.albedo = srgbToAP1Albedo(material.albedo);
+                #else
+                    material.albedo = srgbToLinear(material.albedo);
+                #endif
+
+                material.N = vec3(f0ToIOR(material.F0));
+                material.K = vec3(0.0);
+
+                vec3 skyIlluminance = vec3(0.0);
+
+                #if defined WORLD_OVERWORLD || defined WORLD_END
+
+                    if (material.lightmap.y > EPS) {
+                        skyIlluminance = evaluateSkylight(material.normal, skyIlluminanceMat);
+                    }
+
+                #endif
+
+                #if !defined PROGRAM_TEXTURED && !defined PROGRAM_TEXTURED_LIT && !defined PROGRAM_SPIDEREYES
+
+                    translucents.rgb = computeDiffuse(
+                        scenePosition,
+                        shadowLightVectorWorld,
+                        material,
+                        isMetal,
+                        shadowmap,
+                        directIlluminance,
+                        skyIlluminance,
+                        1.0,
+                        1.0
+                    );
+
+                #else
+
+                    vec3 diffuse = vec3(RCP_PI);
+
+                    diffuse *= directIlluminance * shadowmap.rgb;
+
+                    vec3 skylight = skyIlluminance;
+
+                    #if defined WORLD_OVERWORLD
+                        skylight *= getSkylightFalloff(material.lightmap.y);
+                    #endif
+
+                    vec3 blocklightColor = getBlockLightColor();
+                    vec3 blocklight      = blocklightColor * getBlocklightFalloff(material.lightmap.x);
+                    vec3 emissiveness    = material.emission * blocklightColor;
+
+                    #if defined WORLD_OVERWORLD || defined WORLD_END
+                        const vec3 ambient = vec3(0.2);
+                    #else
+                        const vec3 ambient = vec3(1.0);
+                    #endif
+
+                    diffuse += blocklight + skylight + ambient;
+                    diffuse += emissiveness;
+
+                    translucents.rgb = material.albedo * diffuse;
+    
+                #endif
+
+                translucents.rgb = encodeLog(translucents.rgb);
+
+                translucents.a = albedoTexture.a;
+
+            }
+
+        }
+
+        // Material encoding
+
+        vec2 encodedNormal = encodeUnitVector(normalize(material.normal));
+
+        data = storeMaterial(
+            material.F0,
+            material.alpha,
+            material.ao,
+            material.emission,
+            material.subsurface,
+            albedoTexture.rgb,
+            encodedNormal,
+            material.lightmap,
+            1.0,
+            blockId
+        );
+    }
+    
+#endif
